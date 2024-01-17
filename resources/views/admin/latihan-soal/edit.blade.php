@@ -47,7 +47,7 @@
                                 <p>Current Image:</p>
                                 <img src="{{ asset('storage/soal/' . $latihanSoal->question_image) }}" alt="Current Image"
                                     width="20%" height="20%">
-                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $latihanSoal->id]) }}"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p>No Image Uploaded.</p>
@@ -68,7 +68,7 @@
                             <audio controls>
                                 <source src="{{ asset('storage/soal/' . $latihanSoal->question_audio) }}" type="audio/mpeg">
                             </audio>
-                            <a href="{{ route('admin.soal-ujian.delete_audio', ['id' => $latihanSoal->id]) }}"
+                            <a href="{{ route('admin.latihan-soal.delete_audio', ['id' => $latihanSoal->id]) }}"
                                 class="text-red-500">Hapus Audio</a>
                             @else
                                 <p>No Audio Uploaded.</p>
@@ -94,7 +94,7 @@
                             @if ($latihanSoal->answer_a_image)
                                 <img src="{{ asset('storage/jawaban_a/' . $latihanSoal->answer_a_image) }}" id="image-answer-a"
                                     alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $latihanSoal->id]) }}" id="delete-button-a"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}" id="delete-button-a"
                                     class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-a">No Image Uploaded.</p>
@@ -120,7 +120,7 @@
                             @if ($latihanSoal->answer_b_image)
                                 <img src="{{ asset('storage/jawaban_b/' . $latihanSoal->answer_b_image) }}" id="image-answer-b"
                                     alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $soalUjian->id]) }}"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $soalUjian->id]) }}"
                                     id="delete-button-b" class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-b">No Image Uploaded.</p>
@@ -146,7 +146,7 @@
                             @if ($latihanSoal->answer_c_image)
                                 <img src="{{ asset('storage/jawaban_c/' . $latihanSoal->answer_c_image) }}" id="image-answer-c"
                                     alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $latihanSoal->id]) }}"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-c" class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-c">No Image Uploaded.</p>
@@ -172,7 +172,7 @@
                             @if ($latihanSoal->answer_d_image)
                                 <img src="{{ asset('storage/jawaban_d/' . $latihanSoal->answer_d_image) }}" id="image-answer-d"
                                     alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $latihanSoal->id]) }}"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-d" class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-d">No Image Uploaded.</p>
@@ -236,26 +236,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row mb-5">
-                        <div class="col-xl-3">
-                            <label for="paket_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
-                        </div>
-                        <div class="col-lg">
-                            <select name="paket_soal_id" id="paket_soal_id" class="form-select" data-control="select2">
-                                @foreach ($paketSoal as $paket)
-                                    <option value="{{ $paket->id }}"
-                                        {{ $paket->id == $soalUjian->paket_soal_id ? 'selected' : '' }}>{{ $paket->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('paket_soal_id')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div> --}}
-
                     <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="reading_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Content Reading</label>
@@ -263,9 +243,9 @@
                         <div class="col-lg">
                             <select name="reading_latihan_soal_id" id="reading_latihan_soal_id" class="form-select custom-placeholder" data-control="select2" data-placeholder="Pilih Content Reading">
                                 <option value="" disabled selected>Pilih Content Reading</option>
-                                @foreach ($readingLatihanSoals as $readingLatihanSoals)
-                                    <option value="{{ $readingLatihanSoals->id }}"
-                                        {{ $readingLatihanSoals->id == $latihanSoal->reading_latihan_soal_id ? 'selected' : '' }}>{{ $latihanSoal->text_content }}
+                                @foreach ($readingLatihanSoals as $readingLatihanSoal)
+                                    <option value="{{ $readingLatihanSoal->id }}"
+                                        {{ $readingLatihanSoal->id == $latihanSoal->reading_latihan_soal_id ? 'selected' : '' }}>{{ $readingLatihanSoal->text_content }}
                                     </option>
                                 @endforeach
                                 <option value="null">Reset Default</option>

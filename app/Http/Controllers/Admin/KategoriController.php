@@ -14,8 +14,9 @@ class KategoriController extends Controller
 {
     public function index(Request $request)
     {
+        $Kategori = Kategori::get();
+        
         if ($request->ajax()) {
-            $Kategori = Kategori::get();
             return DataTables::of($Kategori)
                 ->addIndexColumn()
                 ->addColumn('actions', function ($item) {

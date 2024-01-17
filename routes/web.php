@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PaketSoalController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\SoalUjianController;
 use App\Http\Controllers\Admin\ReadingUjianController;
 use App\Http\Controllers\Admin\LatihanSoalController;
+use App\Http\Controllers\Admin\ReadingLatihanSoalController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +22,21 @@ use App\Http\Controllers\Admin\LatihanSoalController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('user.home');
+});
+Route::get('/login', [AuthController::class, 'index'])->name('user.login');
+Route::get('/register', [AuthController::class, 'register'])->name('user.register');
+
 
 Route::get('/admin/login', [LoginController::class, 'index'])->name('admin.login');
-
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified', ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/change-password', [ProfileController::class, 'change_password'])->name('changePassword');
+    Route::post('/update-password', [ProfileController::class, 'update_password'])->name('updatePassword');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
@@ -101,7 +109,22 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
             Route::put('/update/{id}', [LatihanSoalController::class, 'update'])->name('admin.latihan-soal.update');
 
             Route::delete('/destroy/{id}', [LatihanSoalController::class, 'destroy'])->name('admin.latihan-soal.destroy');
-            // Route::get('/soal/{id}/delete-image', [SoalUjianController::class, 'deleteImage'])->name('admin.soal-ujian.delete_image');
-            // Route::get('soal/{id}/delete-audio', [SoalUjianController::class, 'deleteAudio'])->name('admin.soal-ujian.delete_audio');
+
+            Route::get('/soal/{id}/delete-image', [LatihanSoalController::class, 'deleteImage'])->name('admin.latihan-soal.delete_image');
+            Route::get('soal/{id}/delete-audio', [LatihanSoalController::class, 'deleteAudio'])->name('admin.latihan-soal.delete_audio');
+        });
+
+        Route::group(['prefix' => 'ReadingLatihanSoal'], function() {
+            Route::get('/', [ReadingLatihanSoalController::class, 'index'])->name('admin.reading-latihan-soal');
+
+            Route::get('/create', [ReadingLatihanSoalController::class, 'create'])->name('admin.reading-latihan-soal.create');
+            Route::post('/store', [ReadingLatihanSoalController::class, 'store'])->name('admin.reading-latihan-soal.store');
+
+            Route::get('/show/{id}', [ReadingLatihanSoalController::class, 'show'])->name('admin.reading-latihan-soal.show');
+
+            Route::get('/edit/{id}', [ReadingLatihanSoalController::class, 'edit'])->name('admin.reading-latihan-soal.edit');
+            Route::put('/update/{id}', [ReadingLatihanSoalController::class, 'update'])->name('admin.reading-latihan-soal.update');
+
+            Route::delete('/destroy/{id}', [ReadingLatihanSoalController::class, 'destroy'])->name('admin.reading-latihan-soal.destroy');
         });
 });

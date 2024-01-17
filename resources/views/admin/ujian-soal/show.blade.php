@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Ujian Soal Detail')
+@section('title', 'Soal Detail')
 
 @section('page-title')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold flex-column justify-content-center my-0">
-            Ujian Soal Details
+            Soal Detail
         </h1>
     </div>
 @endsection
@@ -16,7 +16,7 @@
             <div class="card-title m-0">
                 <h3 class="fw-bold m-0">Ujian Soal Details</h3>
             </div>
-            <a href="{{ route('admin.ujian-soal.edit', $soalUjian) }}" class="btn btn-primary align-self-center">
+            <a href="{{ route('admin.ujian-soal.edit', $latihanSoal) }}" class="btn btn-primary align-self-center">
                 Edit
             </a>
         </div>

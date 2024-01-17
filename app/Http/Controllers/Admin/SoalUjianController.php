@@ -16,7 +16,6 @@ class SoalUjianController extends Controller
 {
     public function index(Request $request)
     {
-
         $jumlahPaketSoal = PaketSoal::count();
 
         if ($request->ajax()) {

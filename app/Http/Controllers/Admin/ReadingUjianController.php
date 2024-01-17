@@ -136,5 +136,4 @@ public function destroy($id)
             ], 500);
         }
     }
-
 }

@@ -11,8 +11,9 @@ use Yajra\DataTables\DataTables;
 class PaketSoalController extends Controller
 {
     public function index(Request $request) {
+        $PaketSoal = PaketSoal::get();
+        
         if ($request->ajax()) {
-            $PaketSoal = PaketSoal::get();
             return DataTables::of($PaketSoal)
             ->addIndexColumn()
             ->addColumn('actions', function ($item) {

@@ -14,8 +14,9 @@ use Yajra\DataTables\DataTables;
 class LatihanSoalController extends Controller
 {
     public function index(Request $request) {
+        $latihanSoal = LatihanSoal::get();
+
         if ($request->ajax()) {
-            $latihanSoal = LatihanSoal::get();
             return DataTables::of($latihanSoal)
                 ->addIndexColumn()
                 ->editColumn('question', function ($item) {
@@ -219,7 +220,7 @@ class LatihanSoalController extends Controller
     {
         $latihanSoal = LatihanSoal::find($id);
 
-        return view('admin.ujian-soal.show', compact('latihanSoal'));
+        return view('admin.latihan-soal.show', compact('latihanSoal'));
     }
 
     public function edit($id)
@@ -398,21 +399,8 @@ class LatihanSoalController extends Controller
             Storage::delete('public/jawaban_c/' . $latihanSoal->answer_c_image);
             Storage::delete('public/jawaban_d/' . $latihanSoal->answer_d_image);
 
-            // // Mengambil ID paket soal sebelum menghapus soal
-            // $paketSoalId = $soalUjian->paket_soal_id;
-
             //Menghapus soal
             $latihanSoal->delete();
-
-            // // Menghitung ulang jumlah soal dalam paket yang sesuai
-            // $paketSoalId = $soalUjian->paket_soal_id;
-            // $paketSoal = PaketSoal::find($paketSoalId);
-
-            // if ($paketSoal) {
-            //     $jumlahSoal = SoalUjian::where('paket_soal_id', $paketSoalId)->count();
-            //     $paketSoal->jumlah_soal = $jumlahSoal;
-            //     $paketSoal->save();
-            // }
 
             return response()->json([
                 'status' => 'success',
@@ -423,6 +411,80 @@ class LatihanSoalController extends Controller
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public function deleteImage($id)
+    {
+        $latihanSoal =  LatihanSoal::find($id);
+        //question image
+        if ($latihanSoal && $latihanSoal->question_image) {
+            Storage::delete('public/soal/' . $latihanSoal->question_image);
+
+            $latihanSoal->update(['question_image' => null]);
+
+            return redirect()->back()->with('success', 'Gambar soal berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        // answer a image
+        if ($latihanSoal && $latihanSoal->answer_a_image) {
+            Storage::delete('public/jawaban_a/' . $latihanSoal->answer_a_image);
+
+            $latihanSoal->update(['answer_a_image' => null]);
+
+            return redirect()->back()->with('success', 'Gambar jawaban a berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        // answer b image
+        if ($latihanSoal && $latihanSoal->answer_b_image) {
+            Storage::delete('public/jawaban_b/' . $latihanSoal->answer_b_image);
+
+            $latihanSoal->update(['answer_b_image' => null]);
+
+            return redirect()->back()->with('success', 'Gambar jawaban b berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        // answer c image
+        if ($latihanSoal && $latihanSoal->answer_c_image) {
+            Storage::delete('public/jawaban_c/' . $latihanSoal->answer_c_image);
+
+            $latihanSoal->update(['answer_c_image' => null]);
+
+            return redirect()->back()->with('success', 'Gambar jawaban c berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        // answer d image
+        if ($latihanSoal && $latihanSoal->answer_d_image) {
+            Storage::delete('public/jawaban_d/' . $latihanSoal->answer_d_image);
+
+            $latihanSoal->update(['answer_d_image' => null]);
+
+            return redirect()->back()->with('success', 'Gambar jawaban d berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+    }
+
+    public function deleteAudio($id)
+    {
+        $latihanSoal = LatihanSoal::find($id);
+
+        if ($latihanSoal && $latihanSoal->question_audio) {
+            Storage::delete('public/soal/' . $latihanSoal->question_audio);
+
+            $latihanSoal->update(['question_audio' => null]);
+
+            return redirect()->back()->with('success', 'Audio soal berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada audio yang dapat dihapus.');
         }
     }
 }
