@@ -31,6 +31,7 @@ class LatihanSoal extends Model
         'point_soal',
         'kategori_id',
         'reading_latihan_soal_id',
+        'kategori_test_id',
     ];
 
     public function Kategori() :BelongsTo
@@ -41,5 +42,10 @@ class LatihanSoal extends Model
     public function ReadingLatihanSoal() :BelongsTo
     {
         return $this->belongsTo(ReadingContentLatihanSoal::class);
+    }
+
+    public function KategoriTest() :BelongsTo
+    {
+        return $this->belongsTo(KategoriTest::class);
     }
 }

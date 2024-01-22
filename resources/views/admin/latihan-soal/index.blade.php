@@ -44,7 +44,7 @@
                         <th class="text-start min-w-100px">Soal Gambar</th>
                         <th class="text-center min-w-100px">Soal Audio</th>
                         <th class="text-start min-w-100px">Kategori Soal</th>
-                        {{-- <th class="text-start min-w-100px">Paket Soal</th> --}}
+                        <th class="text-start min-w-100px">Kategori Test</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
                 </thead>
@@ -130,6 +130,13 @@
                     searchable: true,
                     width: '30%'
                 },
+                {
+                    data: 'kategori_test',
+                    name: 'kategori_test',
+                    orderable: true,
+                    searchable: true,
+                    width: '30%'
+                },
                 // {
                 //     data: 'paket_soal',
                 //     name: 'paket_soal',
@@ -146,7 +153,7 @@
                 },
             ],
             order: [
-                [5, "asc"]
+                [0, "asc"]
             ],
 
         })

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\ReadingContentUjian;
 use App\Models\SoalUjian;
+use App\Models\KategoriTest;
 use Yajra\DataTables\DataTables;
 
 class SoalUjianController extends Controller
@@ -82,6 +83,9 @@ class SoalUjianController extends Controller
                 ->editColumn('paket_soal', function ($item) {
                     return $item->PaketSoal->name ?? "-";
                 })
+                ->editColumn('kategori_test', function ($item) {
+                    return $item->KategoriTest->name ?? "-";
+                })
                 ->rawColumns(['actions', 'question_image', 'question_audio', 'question'])
                 ->make();
         }
@@ -91,15 +95,16 @@ class SoalUjianController extends Controller
 
     public function create()
     {
-
         $paketSoal = PaketSoal::select(['id', 'name'])->get();
         $kategoris = Kategori::select(['id', 'name'])->get();
         $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
 
         return view('admin.ujian-soal.create', [
             'paketSoal' => $paketSoal,
             'kategoris' => $kategoris,
             'readingUjians' => $readingUjians,
+            'kategoriTests' => $kategoriTests,
         ]);
     }
 
@@ -119,6 +124,7 @@ class SoalUjianController extends Controller
             'paket_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_texts_id' => 'nullable',
+            'kategori_test_id' => 'nullable',
         ];
 
         //question
@@ -237,6 +243,8 @@ class SoalUjianController extends Controller
 
         $categorySoal = Kategori::select(['id', 'name'])->get();
 
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
+
         $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
 
         return view('admin.ujian-soal.edit', [
@@ -244,6 +252,7 @@ class SoalUjianController extends Controller
             'categorySoal' => $categorySoal,
             'soalUjian' => $soalUjian,
             'readingUjians' => $readingUjians,
+            'kategoriTests' => $kategoriTests,
         ]);
     }
 
@@ -263,6 +272,7 @@ class SoalUjianController extends Controller
             'paket_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_texts_id' => 'nullable',
+            'reading_latihan_soal_id' => 'nullable',
         ];
 
         $soalUjian = SoalUjian::find($id);

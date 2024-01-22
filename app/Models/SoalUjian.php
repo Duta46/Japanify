@@ -32,6 +32,7 @@ class SoalUjian extends Model
         'paket_soal_id',
         'kategori_id',
         'reading_ujian_id',
+        'kategori_test_id',
     ];
 
     public function PaketSoal() :BelongsTo
@@ -47,5 +48,10 @@ class SoalUjian extends Model
     public function ReadingUjian() :BelongsTo
     {
         return $this->belongsTo(ReadingContentUjian::class);
+    }
+
+    public function KategoriTest() :BelongsTo
+    {
+        return $this->belongsTo(KategoriTest::class);
     }
 }

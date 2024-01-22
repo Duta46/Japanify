@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('point_soal');
             $table->foreignId('paket_soal_id')->constrained('paket_soals');
             $table->foreignId('kategori_id')->constrained('kategoris');
-            // $table->foreignId('reading_content_ujian_id')->constrained('reading_content_ujians')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,8 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body class="bg-white">
@@ -24,18 +26,16 @@
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
                     href="javascript:void(0)">Informasi Tes</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Pricing</a>
-                <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Company</a>
+                    href="javascript:void(0)">Statistic</a>
             </div>
             <div class="items-center hidden gap-8 md:flex">
                 <a href="{{ route('user.login') }}"
                     class="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300">Log
                     In</a>
-                <button
+                <a href="{{ route('user.register') }}"
                     class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
-                    Sign Up
-                </button>
+                    Register
+                </a>
             </div>
             <button onclick="(() => { this.closest('.group').classList.toggle('open')})()" class="flex md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -48,21 +48,44 @@
             <div
                 class="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Product</a>
+                    href="javascript:void(0)">Home</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Features</a>
+                    href="javascript:void(0)">Informasi Tes</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Pricing</a>
-                <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Company</a>
-                <button class="flex items-center text-sm font-normal text-black">Log In</button>
-                <button
+                    href="javascript:void(0)">Statistic</a>
+                <a href="{{  url()->to('user/login') }}" class="flex items-center text-sm font-normal text-black">Log In</a>
+                <a href="{{ route('user.register') }}"
                     class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">Sign
-                    Up</button>
+                    Up</a>
             </div>
         </div>
+    </div>
+    <main class="container">
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+            <div class="col-lg-6 px-0">
+                <h1 class="display-4 fst-italic">Simulasi Test JLPT Online</h1>
+                <p class="lead my-3">Tes JLPT dibutuhkan buat macam-macam keperluan. Jadi, sangat penting
+                    bagi kamu untuk meraih skor terbaik setelah menjalaninya. Yuk, berlatih
+                    bersama lewat simulasi tes online JLPT <span class="fw-bold">GRATIS</span> dari Japanify!</p>
+                {{-- <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p> --}}
+                <a href="{{ route('user.menu') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    Test Simulasi JLPT Sekarang
+                </a>
             </div>
         </div>
-      </div>
+
+        <div class="px-2 py-5 my-2 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis fs-4">Apa itu JLPT ?</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mt-4 fs-5">JLPT adalah ujian berbahasa Jepang yang diperlukan untuk mendaftar kerja,
+                    magang, atau kuliah di Jepang.</p>
+
+                <div class="border-t-4 border-purple-500 mt-5 mx-auto w-28"></div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 </body>
 </html>

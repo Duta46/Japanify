@@ -55,6 +55,15 @@
                     </a>
                 </div>
                 <div class="menu-item">
+                    <a class="menu-link {{ Route::is('admin.kategori-test') ? 'active' : '' }}"
+                        href="{{ route('admin.kategori-test') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </span>
+                        <span class="menu-title">Kategori Test</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <a class="menu-link {{ Route::is('admin.kategori') ? 'active' : '' }}"
                         href="{{ route('admin.kategori') }}">
                         <span class="menu-icon">

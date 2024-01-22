@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('correct_answer');
             $table->string('point_soal');
             $table->foreignId('kategori_id')->constrained('kategoris');
-            // $table->foreignId('reading_content_latihan_soal_id')->constrained('reading_content_latihan_soals')->nullable()->nullable;
             $table->timestamps();
         });
     }

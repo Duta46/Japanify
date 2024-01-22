@@ -9,6 +9,7 @@ use App\Models\LatihanSoal;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Kategori;
+use App\Models\KategoriTest;
 use Yajra\DataTables\DataTables;
 
 class LatihanSoalController extends Controller
@@ -76,9 +77,9 @@ class LatihanSoalController extends Controller
                 ->editColumn('kategori', function ($item) {
                     return $item->Kategori->name ? $item->Kategori->name : "-";
                 })
-                // ->editColumn('paket_soal', function ($item) {
-                //     return $item->PaketSoal->name ?? "-";
-                // })
+                ->editColumn('kategori_test', function ($item) {
+                    return $item->KategoriTest->name ?? "-";
+                })
                 ->rawColumns(['actions', 'question_image', 'question_audio', 'question'])
                 ->make();
         }
@@ -88,12 +89,14 @@ class LatihanSoalController extends Controller
     public function create()
     {
         // $paketSoal = PaketSoal::select(['id', 'name'])->get();
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
         $kategoris = Kategori::select(['id', 'name'])->get();
         $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
         return view('admin.latihan-soal.create', [
             'kategoris' => $kategoris,
             'readingLatihanSoals' => $readingLatihanSoals,
+            'kategoriTests' => $kategoriTests,
         ]);
     }
 
@@ -113,6 +116,7 @@ class LatihanSoalController extends Controller
             // 'paket_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_latihan_soal_id' => 'nullable',
+            'kategori_test_id' => 'nullable',
         ];
 
         //question
@@ -227,14 +231,14 @@ class LatihanSoalController extends Controller
     {
         $latihanSoal = LatihanSoal::find($id);
 
-        // $paketSoal = PaketSoal::select(['id', 'name'])->get();
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
 
         $categorySoal = Kategori::select(['id', 'name'])->get();
 
         $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
         return view('admin.latihan-soal.edit', [
-            // 'paketSoal' => $paketSoal,
+            'kategoriTests' => $kategoriTests,
             'categorySoal' => $categorySoal,
             'latihanSoal' => $latihanSoal,
             'readingLatihanSoals' => $readingLatihanSoals,

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\User\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PaketSoalController;
@@ -10,6 +9,12 @@ use App\Http\Controllers\Admin\ReadingUjianController;
 use App\Http\Controllers\Admin\LatihanSoalController;
 use App\Http\Controllers\Admin\ReadingLatihanSoalController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\KategoriTestController;
+
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\MenuController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +27,21 @@ use App\Http\Controllers\Admin\ProfileController;
 |
 */
 
+//Route User
 Route::get('/', function () {
     return view('user.home');
-});
-Route::get('/login', [AuthController::class, 'index'])->name('user.login');
-Route::get('/register', [AuthController::class, 'register'])->name('user.register');
+})->name('user.home');
+
+Route::get('user/login', [AuthController::class, 'index'])->name('user.login');
+Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
+
+Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
+Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
+
+Route::get('/menu', [MenuController::class, 'index'])->name('user.menu');
 
 
+//Route Admin
 Route::get('/admin/login', [LoginController::class, 'index'])->name('admin.login');
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified', ])->group(function () {
     Route::get('/dashboard', function () {
@@ -126,5 +139,17 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
             Route::put('/update/{id}', [ReadingLatihanSoalController::class, 'update'])->name('admin.reading-latihan-soal.update');
 
             Route::delete('/destroy/{id}', [ReadingLatihanSoalController::class, 'destroy'])->name('admin.reading-latihan-soal.destroy');
+        });
+
+        Route::group(['prefix' => 'KategoriTest'], function() {
+            Route::get('/', [KategoriTestController::class, 'index'])->name('admin.kategori-test');
+
+            Route::get('/create', [KategoriTestController::class, 'create'])->name('admin.kategori-test.create');
+            Route::post('/store', [KategoriTestController::class, 'store'])->name('admin.kategori-test.store');
+
+            Route::get('/edit/{id}', [KategoriTestController::class, 'edit'])->name('admin.kategori-test.edit');
+            Route::put('/update/{id}', [KategoriTestController::class, 'update'])->name('admin.kategori-test.update');
+
+            Route::delete('/destroy/{id}', [KategoriTestController::class, 'destroy'])->name('admin.kategori-test.destroy');
         });
 });

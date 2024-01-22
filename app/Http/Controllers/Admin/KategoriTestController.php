@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ReadingContentLatihanSoal;
+use App\Models\KategoriTest;
+use App\Models\SoalUjian;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
-class ReadingLatihanSoalController extends Controller
+use App\Models\LatihanSoal;
+
+class KategoriTestController extends Controller
 {
     public function index(Request $request)
     {
-        $soalReadingUjian = ReadingContentLatihanSoal::get();
+        $KategoriTest = KategoriTest::all();
 
         if ($request->ajax()) {
-            return DataTables::of($soalReadingUjian)
+            return DataTables::of($KategoriTest)
                 ->addIndexColumn()
                 ->addColumn('actions', function ($item) {
                     return
@@ -29,12 +33,7 @@ class ReadingLatihanSoalController extends Controller
                     </button>
                     <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-100px py-4" data-kt-menu="true">
                         <div class="menu-item px-3">
-                            <a href="' . route('admin.reading-latihan-soal.show', $item->id) . '" class="menu-link px-3">
-                                Reading Content Detail
-                            </a>
-                        </div>
-                        <div class="menu-item px-3">
-                            <a href="' . route('admin.reading-latihan-soal.edit', $item->id) . '" class="menu-link px-3">
+                            <a href="' . route('admin.kategori-test.edit', $item->id) . '" class="menu-link px-3">
                                 Edit Data
                             </a>
                         </div>
@@ -44,18 +43,15 @@ class ReadingLatihanSoalController extends Controller
                     </div>
                 </div>';
                 })
-                // ->editColumn('paket_soal', function ($item) {
-                //     return $item->PaketSoal->name ?? "-";
-                // })
                 ->rawColumns(['actions'])
                 ->make();
         }
-        return view('admin.reading-content-latihan-soal.index');
+        return view('admin.kategori-test.index');
     }
 
     public function create()
     {
-        return view('admin.reading-content-latihan-soal.create');
+        return view('admin.kategori-test.create');
     }
 
     public function store(Request $request)
@@ -63,32 +59,19 @@ class ReadingLatihanSoalController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'text_content' => 'required|string',
+            'name' => 'required|string',
         ]);
 
-        $data['text_content'] = strip_tags($data['text_content']);
+        KategoriTest::create($data);
 
-        $data['text_content'] = preg_replace('/&hellip;|&nbsp;/', '', $data['text_content']);
-
-        ReadingContentLatihanSoal::create($data);
-
-        return redirect()->route('admin.reading-latihan-soal')->with('success', 'Berhasil Tambah Reading Content');
-    }
-
-    public function show($id)
-    {
-        $Reading = ReadingContentLatihanSoal::find($id);
-
-        return view('admin.reading-content-ujian-soal.show', compact('Reading'));
+        return redirect()->route('admin.kategori-test')->with('success', 'Berhasil Tambah Kategori Test');
     }
 
     public function edit($id)
     {
-        // $paketSoal = PaketSoal::select(['id', 'name'])->get();
+        $Kategori = KategoriTest::find($id);
 
-        $Reading = ReadingContentLatihanSoal::find($id);
-
-        return view('admin.reading-content-latihan-soal.edit', ['Reading' => $Reading]);
+        return view('admin.kategori-test.edit', ['Kategori' => $Kategori]);
     }
 
     public function update(Request $request, $id)
@@ -96,37 +79,37 @@ class ReadingLatihanSoalController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'text_content' => 'required|string',
+            'name' => 'required|string',
         ]);
 
-        $data['text_content'] = strip_tags($data['text_content']);
+        $Kategori = KategoriTest::find($id);
 
-        $data['text_content'] = preg_replace('/&hellip;|&nbsp;/', '', $data['text_content']);
+        $Kategori->update($data);
 
-        $Reading = ReadingContentLatihanSoal::find($id);
-
-        $Reading->update($data);
-
-        return redirect()->route('admin.reading-latihan-soal')->with('success', 'Berhasil Ubah Reading Content');
+        return redirect()->route('admin.kategori-test')->with('success', 'Berhasil Ubah Kategori Test');
     }
 
     public function destroy($id)
     {
         try {
-            $Reading = ReadingContentLatihanSoal::find($id);
+            $KategoriTest = KategoriTest::find($id);
 
-            if (!$Reading) {
+            if (!$KategoriTest) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Reading Content not found',
+                    'message' => 'Test Kategori not found',
                 ], 404);
             }
 
-            $Reading->delete();
+            SoalUjian::where('kategori_test_id', $id)->delete();
+
+            LatihanSoal::where('kategori_test_id', $id)->delete();
+
+            $KategoriTest->delete();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Reading Content deleted',
+                'message' => 'Test Kategori deleted',
             ]);
         } catch (\Exception $e) {
             return response()->json([

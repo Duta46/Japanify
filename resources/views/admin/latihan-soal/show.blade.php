@@ -120,6 +120,12 @@
                     <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->Kategori->name }}</span>
                 </div>
             </div>
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Kategori Test</label>
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->KategoriTest->name }}</span>
+                </div>
+            </div>
             {{-- <div class="row mb-7">
                 <label class="col-lg-4 fw-semibold text-muted">Paket Soal</label>
                 <div class="col-lg-8">

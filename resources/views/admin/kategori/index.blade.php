@@ -28,7 +28,7 @@
             </div>
             <div class="d-flex flex-stack">
                 <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.kategori.create') }}">
-                    Tambah Category Soal
+                    Tambah Kategori Soal
                 </a>
             </div>
         </div>
