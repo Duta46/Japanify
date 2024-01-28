@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PaketSoal;
 use App\Models\SoalUjian;
+use App\Models\KategoriTest;
 use Yajra\DataTables\DataTables;
 
 class PaketSoalController extends Controller
 {
     public function index(Request $request) {
         $PaketSoal = PaketSoal::get();
-        
+
         if ($request->ajax()) {
             return DataTables::of($PaketSoal)
             ->addIndexColumn()
@@ -44,6 +45,9 @@ class PaketSoalController extends Controller
                     </div>
                 </div>';
             })
+            ->editColumn('kategori_test', function ($item) {
+                return $item->KategoriTest->name ?? "-";
+            })
             ->rawColumns(['actions'])
             ->make();
 
@@ -53,7 +57,8 @@ class PaketSoalController extends Controller
 
     public function create()
     {
-        return view('admin.paket-soal.create');
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
+        return view('admin.paket-soal.create', compact('kategoriTests'));
     }
 
     public function store(Request $request)
@@ -62,6 +67,7 @@ class PaketSoalController extends Controller
 
         $request->validate([
             'name' => 'required|string',
+            'kategori_test_id' => 'nullable',
         ]);
 
         PaketSoal::create($data);
@@ -144,8 +150,9 @@ class PaketSoalController extends Controller
 public function edit($id)
     {
         $PaketSoal = PaketSoal::find($id);
+        $kategoriTests = KategoriTest::select(['id', 'name'])->get();
 
-        return view('admin.paket-soal.edit', ['PaketSoal' => $PaketSoal]);
+        return view('admin.paket-soal.edit', ['PaketSoal' => $PaketSoal,  'kategoriTests' => $kategoriTests ]);
     }
 
     public function update(Request $request, $id){

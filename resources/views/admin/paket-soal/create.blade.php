@@ -31,6 +31,27 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="kategori_test_id" class="fs-6 fw-bold mt-2 mb-3">Kategori Tes</label>
+                        </div>
+                        <div class="col-lg">
+                            <select name="kategori_test_id" id="kategori_test_id" class="form-select custom-placeholder"
+                                data-control="select2" data-placeholder="Pilih Kategori Tes">
+                                <option value="" disabled selected>Pilih Kategori Tes</option>
+                                @foreach ($kategoriTests as $kategoriTest)
+                                    <option value="{{ $kategoriTest->id }}">{{ $kategoriTest->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('kategori_test_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <a href="{{ route('admin.paket-soal') }}" type="reset"

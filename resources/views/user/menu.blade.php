@@ -14,7 +14,6 @@
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/starter.css" />
     <style type="text/css">
-        /* ===== Buttons Css ===== */
         .features-style-one .primary-btn-outline {
             border-color: var(--primary);
             color: var(--primary);
@@ -33,9 +32,6 @@
             pointer-events: none;
         }
 
-        /*===========================
-        Features One CSS
-        ===========================*/
         .features-one {
             background-color: var(--light-2);
             padding-top: 120px;
@@ -166,7 +162,7 @@
                                 Awesome!
                             </p> --}}
                                 <div class="features-btn rounded-buttons">
-                                    <a class="btn primary-btn-outline rounded-full" href="javascript:void(0)">
+                                    <a class="btn primary-btn-outline rounded-full" href="{{ route('user.menu.show', ['menu_id' => $menuTest->id])  }}">
                                         Continue
                                     </a>
                                 </div>

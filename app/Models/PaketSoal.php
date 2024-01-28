@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaketSoal extends Model
 {
@@ -20,6 +21,7 @@ class PaketSoal extends Model
     protected $fillable = [
         'name',
         'jumlah_soal',
+        'kategori_test_id',
     ];
 
     public function SoalUjian(): HasMany
@@ -30,5 +32,10 @@ class PaketSoal extends Model
     public function ReadingUjian(): HasMany
     {
         return $this->hasMany(ReadingContentUjian::class);
+    }
+
+    public function KategoriTest() :BelongsTo
+    {
+        return $this->belongsTo(KategoriTest::class);
     }
 }

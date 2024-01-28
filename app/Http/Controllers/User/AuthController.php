@@ -22,12 +22,24 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('user.home');
-        }
 
+            $user = Auth::user();
+
+            return view('user.home', ['username' => $user->username]);
+        }
 
         return redirect()->route('user.login')
         ->withInput($request->only('email'))
         ->withErrors(['credentials' => 'Invalid credentials']);
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

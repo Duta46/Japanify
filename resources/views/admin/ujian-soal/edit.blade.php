@@ -90,10 +90,10 @@
                             <textarea name="answer_a" id="answer_a" class="form-control z-depth-1 mt-2" rows="3"
                                 value="{{ $soalUjian->answer_a }}" placeholder="Input Jawaban A">
                                 @if (old('answer_a'))
-                                {{ old('answer_a') }}
-                                @elseif(isset($soalUjian))
-                                {{ $soalUjian->answer_a }}
-                                @endif
+{{ old('answer_a') }}
+@elseif(isset($soalUjian))
+{{ $soalUjian->answer_a }}
+@endif
                                 </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
@@ -123,10 +123,10 @@
                             <textarea name="answer_b" id="answer_b" class="form-control z-depth-1 mt-2" rows="3"
                                 value="{{ $soalUjian->answer_b }}" placeholder="Input Jawaban B">
                                 @if (old('answer_b'))
-                                {{ old('answer_b') }}
-                                @elseif(isset($soalUjian))
-                                {{ $soalUjian->answer_b }}
-                                @endif
+{{ old('answer_b') }}
+@elseif(isset($soalUjian))
+{{ $soalUjian->answer_b }}
+@endif
                             </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
@@ -155,10 +155,10 @@
                             <label for="imageAnswerRadioC">Gambar</label>
                             <textarea name="answer_c" id="answer_c" class="form-control z-depth-1 mt-2" rows="3"
                                 value="{{ $soalUjian->answer_c }}" placeholder="Input Jawaban C"> @if (old('answer_c'))
-                                    {{ old('answer_c') }}
-                                    @elseif(isset($soalUjian))
-                                    {{ $soalUjian->answer_c }}
-                                    @endif </textarea>
+{{ old('answer_c') }}
+@elseif(isset($soalUjian))
+{{ $soalUjian->answer_c }}
+@endif </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_c_image" id="imageAnswerC" type="file" style="display: none;" />
@@ -186,10 +186,10 @@
                             <label for="imageAnswerRadioD">Gambar</label>
                             <textarea name="answer_d" id="answer_d" class="form-control z-depth-1 mt-2" rows="3"
                                 value="{{ $soalUjian->answer_d }}" placeholder="Input Jawaban D"> @if (old('answer_d'))
-                                    {{ old('answer_d') }}
-                                    @elseif(isset($soalUjian))
-                                    {{ $soalUjian->answer_d }}
-                                    @endif </textarea>
+{{ old('answer_d') }}
+@elseif(isset($soalUjian))
+{{ $soalUjian->answer_d }}
+@endif </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_d_image" id="imageAnswerD" type="file" style="display: none;" />
@@ -307,7 +307,6 @@
                             </select>
                         </div>
                     </div>
-
 
                     <div class="row mb-5">
                         <div class="col-xl-3">

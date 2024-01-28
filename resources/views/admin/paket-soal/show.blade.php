@@ -35,12 +35,6 @@
                         <th class="text-start min-w-100px">Soal</th>
                         <th class="text-start min-w-100px">Soal Gambar</th>
                         <th class="text-center min-w-100px">Soal Audio</th>
-                        {{-- <th class="text-start min-w-100px">Jawaban A</th>
-                        <th class="text-start min-w-100px">Jawaban B</th>
-                        <th class="text-start min-w-100px">Jawaban C</th>
-                        <th class="text-start min-w-100px">Jawaban D</th>
-                        <th class="text-start min-w-100px">Kunci Jawaban</th>
-                        <th class="text-start min-w-100px">Point Soal</th> --}}
                         <th class="text-start min-w-100px">Kategori Soal</th>
                         <th class="text-start min-w-100px">Actions</th>
                     </tr>

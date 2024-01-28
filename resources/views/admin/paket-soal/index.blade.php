@@ -39,6 +39,7 @@
                         <th class="text-start min-w-100px">No</th>
                         <th class="text-start min-w-70px">Paket Soal</th>
                         <th class="text-start min-w-70px">Jumlah Soal</th>
+                        <th class="text-start min-w-100px">Kategori test</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
                 </thead>
@@ -73,6 +74,13 @@
                 {
                     data: 'jumlah_soal',
                     name: 'jumlah_soal',
+                    orderable: true,
+                    searchable: true,
+                    width: '30%'
+                },
+                {
+                    data: 'kategori_test',
+                    name: 'kategori_test',
                     orderable: true,
                     searchable: true,
                     width: '30%'

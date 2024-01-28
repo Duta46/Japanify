@@ -20,10 +20,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UserSeeder::class,
+            KategoriSeeder::class,
+            KategoriTestSeeder::class,
             RoleSeeder::class,
+            UserSeeder::class,
+            AssignPermissionToSuperAdminSeeder::class,
             AssignRoleToUserSeeder::class,
-            KategoriSeeder::class
         ]);
     }
 }

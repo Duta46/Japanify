@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\KategoriTestController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\MenuController;
+use App\Http\Controllers\User\LatihanSoalController as UserLatihanSoalController;
+use App\Http\Controllers\User\UjianController;
+
 
 
 /*
@@ -34,11 +37,20 @@ Route::get('/', function () {
 
 Route::get('user/login', [AuthController::class, 'index'])->name('user.login');
 Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
+Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('user.menu');
+Route::get('/menu/{menu_id}', [MenuController::class, 'show'])->name('user.menu.show');
+
+Route::get('/menu/{menu_id}/latihan-soal', [UserLatihanSoalController::class, 'index'])->name('user.latihan-soal');
+Route::get('/latihan_soal/{kategori_id}/{soal_id}', [LatihanSoalController::class, 'soal'])->name('exercise');
+
+
+Route::get('/menu/{menu_id}/ujian', [UjianController::class, 'index'])->name('user.ujian');
+Route::get('/introduction/{id}', [UjianController::class, 'introduction'])->name('user.introduction');
 
 
 //Route Admin

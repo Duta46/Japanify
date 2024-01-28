@@ -33,9 +33,9 @@
                 <label class="col-lg-4 fw-semibold text-muted">Soal</label>
                 <div class="col-lg-8">
                     @if ($soalUjian->question)
-                    <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($soalUjian->question)) !!}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($soalUjian->question)) !!}</span>
                     @else
-                    <p>-</p>
+                        <p>-</p>
                     @endif
 
                 </div>
@@ -44,7 +44,8 @@
                 <label class="col-lg-4 fw-semibold text-muted">Soal Gambar</label>
                 <div class="col-lg-8">
                     @if ($soalUjian->question_image)
-                        <img src="{{ asset('storage/soal/' .$soalUjian->question_image) }}" alt="image" width="100px" height="100px" />
+                        <img src="{{ asset('storage/soal/' . $soalUjian->question_image) }}" alt="image" width="100px"
+                            height="100px" />
                     @else
                         <p>-</p>
                     @endif
@@ -68,7 +69,8 @@
                     @if ($soalUjian->answer_a)
                         <span class="fw-bold fs-6 text-gray-800">{{ $soalUjian->answer_a }}</span>
                     @elseif ($soalUjian->answer_a_image)
-                        <img src="{{ asset('storage/jawaban_a/' . $soalUjian->answer_a_image) }}" width="20%" height="20%" >
+                        <img src="{{ asset('storage/jawaban_a/' . $soalUjian->answer_a_image) }}" width="20%"
+                            height="20%">
                     @endif
                 </div>
             </div>
@@ -78,7 +80,8 @@
                     @if ($soalUjian->answer_b)
                         <span class="fw-bold fs-6 text-gray-800">{{ $soalUjian->answer_b }}</span>
                     @elseif ($soalUjian->answer_b_image)
-                        <img src="{{ asset('storage/jawaban_b/' . $soalUjian->answer_b_image) }}" width="100px" height="100px" >
+                        <img src="{{ asset('storage/jawaban_b/' . $soalUjian->answer_b_image) }}" width="100px"
+                            height="100px">
                     @endif
                 </div>
             </div>
@@ -88,7 +91,8 @@
                     @if ($soalUjian->answer_c)
                         <span class="fw-bold fs-6 text-gray-800">{{ $soalUjian->answer_c }}</span>
                     @elseif ($soalUjian->answer_c_image)
-                        <img src="{{ asset('storage/jawaban_c/' . $soalUjian->answer_c_image) }}" width="100px" height="100px" >
+                        <img src="{{ asset('storage/jawaban_c/' . $soalUjian->answer_c_image) }}" width="100px"
+                            height="100px">
                     @endif
                 </div>
             </div>
@@ -98,7 +102,8 @@
                     @if ($soalUjian->answer_d)
                         <span class="fw-bold fs-6 text-gray-800">{{ $soalUjian->answer_d }}</span>
                     @elseif ($soalUjian->answer_d_image)
-                        <img src="{{ asset('storage/jawaban_d/' . $soalUjian->answer_d_image) }}" width="100px" height="100px">
+                        <img src="{{ asset('storage/jawaban_d/' . $soalUjian->answer_d_image) }}" width="100px"
+                            height="100px">
                     @endif
                 </div>
             </div>
