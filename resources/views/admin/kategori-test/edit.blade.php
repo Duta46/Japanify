@@ -20,10 +20,20 @@
                 <div class="card-body p-9">
                     <div class="row mb-5">
                         <div class="col-xl-3">
-                            <label for="name" class="fs-6 fw-bold mt-2 mb-3">Nama Kategori Soal</label>
+                            <label for="name" class="fs-6 fw-bold mt-2 mb-3">Kategori Test</label>
                         </div>
                         <div class="col-lg">
                             <input type="text" name="name" class="form-control" value="{{ $Kategori->name }}"
+                                placeholder="Input nama kategori soal " />
+
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_ujian" class="fs-6 fw-bold mt-2 mb-3">Point Ujian</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_ujian" class="form-control" value="{{ $Kategori->point_ujian }}"
                                 placeholder="Input nama kategori soal " />
 
                         </div>

@@ -37,7 +37,10 @@ class RegisterController extends Controller
 
         $data['password'] = Hash::make($request->password);
 
-        User::create($data);
+        $user = User::create($data);
+        
+         // Menetapkan peran "User" ke pengguna yang baru didaftarkan
+        $user->assignRole('User');
 
         return redirect()->route('user.login');
     }

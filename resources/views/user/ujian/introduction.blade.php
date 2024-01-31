@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Paket Soal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+@extends('layouts.index')
+
+@section('title', 'Detail Paket Soal')
+
+@section('content')
     <div class="container mx-auto py-6 sm:py-20 animate-fade-down">
         <div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-8">
             <div class="flex items-center justify-center">
@@ -20,7 +15,7 @@
                             d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                     </svg>
                     <h1 class="text-lg font-medium">
-                        {{ $paket->jumlah_soal }} Question
+                        {{ $paket->jumlah_soal }} Soal
                     </h1>
                 </div>
             </div>
@@ -30,20 +25,20 @@
                     {{-- <form method="get"
                         action="{{ route('mulaiTest', ['paketSoalId' => $paket->id, 'soalId' => $firstSoalId]) }}">
                         @csrf --}}
-                        <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                            <div class="relative">
-                                <p id="waktu" class="text-base">This test will take around 1 hour</p>
-                                @foreach ($kategoris as $kategori)
-                                    <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal</p>
-                                @endforeach
-                            </div>
-                            <div class="relative mt-4 flex justify-center">
-                                <button type="submit" onclick="mulaiTes()"
-                                    class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold">
-                                    Mulai
-                                </button>
-                            </div>
+                    <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                        <div class="relative">
+                            <p id="waktu" class="text-base">This test will take around 1 hour</p>
+                            @foreach ($kategoris as $kategori)
+                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal</p>
+                            @endforeach
                         </div>
+                        <div class="relative mt-4 flex justify-center">
+                            <button type="submit" onclick="mulaiTes()"
+                                class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold">
+                                Mulai
+                            </button>
+                        </div>
+                    </div>
                     {{-- </form> --}}
                 </div>
             @else
@@ -53,5 +48,30 @@
             @endif
         </div>
     </div>
-</body>
-</html>
+@endsection
+
+@push('scripts')
+    <script>
+        let waktuAwal = sessionStorage.getItem("waktuAwal");
+
+        if (!waktuAwal) {
+            waktuAwal = new Date().getTime();
+            sessionStorage.setItem("waktuAwal", waktuAwal);
+        }
+
+        function updateWaktuAwal() {
+            waktuAwal = new Date().getTime();
+            sessionStorage.setItem("waktuAwal", waktuAwal);
+        }
+
+        function mulaiTes() {
+            sessionStorage.clear();
+
+            // Update waktu awal
+            updateWaktuAwal();
+
+            // Redirect ke halaman tes
+            window.location.href = "{{ route('mulaiTest', ['paketSoalId' => $paket->id, 'soalId' => $firstSoalId]) }}";
+        }
+    </script>
+@endpush

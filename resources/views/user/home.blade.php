@@ -24,9 +24,9 @@
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
                     href="{{ route('user.home') }}">Home</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Informasi Tes</a>
+                    href="{{ route('user.informasi-test') }}">Informasi Tes</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Statistic</a>
+                    href="{{ route('user.statistic') }}">Statistic</a>
             </div>
             <div class="items-center hidden gap-8 md:flex">
                 @auth
@@ -111,11 +111,11 @@
             <div
                 class="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Home</a>
+                    href="{{ route('user.home') }}">Home</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Informasi Tes</a>
+                    href="{{ route('user.informasi-test') }}">Informasi Tes</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                    href="javascript:void(0)">Statistic</a>
+                    href="{{ route('user.statistic') }}">Statistic</a>
                 <a href="{{ url()->to('user/login') }}" class="flex items-center text-sm font-normal text-black">Log
                     In</a>
                 <a href="{{ route('user.register') }}"
@@ -139,8 +139,8 @@
             </div>
         </div>
 
-        <div class="px-2 py-5 my-2 text-center">
-            <h1 class="display-5 fw-bold text-body-emphasis fs-4">Apa itu JLPT ?</h1>
+        <div class="px-2 py-3 mt-5 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis fs-4 text-2xl">Apa itu JLPT ?</h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mt-4 fs-5">JLPT adalah ujian berbahasa Jepang yang diperlukan untuk mendaftar kerja,
                     magang, atau kuliah di Jepang.</p>
@@ -148,6 +148,11 @@
                 <div class="border-t-4 border-blue-500 mt-5 mx-auto w-28"></div>
             </div>
         </div>
+
+        <div class="px-2 py-1 my-1 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis fs-4 text-2xl">Mengapa Harus Ikut Tes JLPT ?</h1>
+        </div>
+
     </main>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

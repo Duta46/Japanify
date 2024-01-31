@@ -15,19 +15,25 @@ class KategoriTestSeeder extends Seeder
     {
         DB::table('kategori_tests')->insert([
             [
-                'name' => 'N5'
+                'name' => 'N5',
+                'point_ujian' => '81',
+
             ],
             [
-                'name' => 'N4'
+                'name' => 'N4',
+                'point_ujian' => '81',
             ],
             [
-                'name' => 'N3'
+                'name' => 'N3',
+                'point_ujian' => '81',
             ],
             [
-                'name' => 'N2'
+                'name' => 'N2',
+                'point_ujian' => '81',
             ],
             [
-                'name' => 'N1'
+                'name' => 'N1',
+                'point_ujian' => '81',
             ],
         ]);
     }

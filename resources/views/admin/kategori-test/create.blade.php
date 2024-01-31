@@ -31,6 +31,20 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_ujian" class="fs-6 fw-bold mt-2 mb-3">Point Ujian</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_ujian" class="form-control" value="{{ old('point_ujian') }}"
+                                placeholder="Input Kategori Test " />
+                            @error('point_ujian')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <a href="{{ route('admin.kategori-test') }}" type="reset"

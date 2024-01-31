@@ -60,6 +60,7 @@ class KategoriTestController extends Controller
 
         $request->validate([
             'name' => 'required|string',
+            'point_ujian' => 'required|string'
         ]);
 
         KategoriTest::create($data);
@@ -80,6 +81,7 @@ class KategoriTestController extends Controller
 
         $request->validate([
             'name' => 'required|string',
+            'point_ujian' => 'required|string',
         ]);
 
         $Kategori = KategoriTest::find($id);

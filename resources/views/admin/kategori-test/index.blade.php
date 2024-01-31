@@ -38,6 +38,7 @@
                     <tr class="fw-semibold fs-6 text-muted">
                         <th class="text-start min-w-100px">No</th>
                         <th class="text-start min-w-70px">Kategori Test</th>
+                        <th class="text-start min-w-70px">Point KKM Ujian</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
                 </thead>
@@ -65,6 +66,13 @@
                 {
                     data: 'name',
                     name: 'name',
+                    orderable: true,
+                    searchable: true,
+                    width: '30%'
+                },
+                {
+                    data: 'point_ujian',
+                    name: 'point_ujian',
                     orderable: true,
                     searchable: true,
                     width: '30%'

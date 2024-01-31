@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kategori_tests', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('point_ujian');
             $table->softDeletes();
             $table->timestamps();
         });

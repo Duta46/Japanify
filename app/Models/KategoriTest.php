@@ -20,7 +20,8 @@ class KategoriTest extends Model
     protected $table = 'kategori_tests';
 
     protected $fillable = [
-        'name'
+        'name',
+        'point_ujian',
     ];
 
     public function PaketSoal() :HasMany

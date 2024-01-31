@@ -16,7 +16,7 @@
             <div class="card-title m-0">
                 <h3 class="fw-bold m-0">Ujian Soal Details</h3>
             </div>
-            <a href="{{ route('admin.ujian-soal.edit', $latihanSoal) }}" class="btn btn-primary align-self-center">
+            <a href="{{ route('admin.ujian-soal.edit', $soalUjian) }}" class="btn btn-primary align-self-center">
                 Edit
             </a>
         </div>
