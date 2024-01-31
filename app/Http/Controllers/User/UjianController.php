@@ -7,6 +7,7 @@ use App\Models\LatihanSoal;
 use Illuminate\Http\Request;
 use App\Models\SoalUjian;
 use App\Models\PaketSoal;
+use App\Models\KategoriTest;
 use App\Models\Kategori;
 use Illuminate\Support\Collection;
 
@@ -58,12 +59,14 @@ class UjianController extends Controller
     //     }
     // }
 
-    $soals = collect();
-    foreach ($kategoris as $kategori) {
-        $soals = $soals->merge($kategori->SoalUjian);
-    }
+    // $soals = collect();
+    // foreach ($kategoris as $kategori) {
+    //     $soals = $soals->merge($kategori->SoalUjian);
+    // }
 
-        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId]);
+    $soalIds = $soal->pluck('id')->toArray();
+
+        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId, 'soalIds' => $soalIds]);
     }
 
 
@@ -104,6 +107,8 @@ class UjianController extends Controller
         $lastSoalCategory = $soals->where('kategori_id', $currentCategory);
         $lastSoal = $lastSoalCategory->last() && $currentSoal->id === $lastSoalCategory->last()->id;
 
+        $soalIds = $soals->pluck('id')->toArray();
+
         return view('user.ujian.exercise', [
             'soals' => $soals,
             'jumlahSoals' => $soals->count(),
@@ -112,6 +117,7 @@ class UjianController extends Controller
             'nextSoal' => $nextSoal,
             'currentSoalIndex' => $currentSoalIndex,
             'lastSoal' => $lastSoal,
+            'soalIds' => 'soalIds'
         ]);
     }
 
@@ -149,11 +155,15 @@ class UjianController extends Controller
             }
         }
 
-        return view('user.result', [
+        $kategoriTest = KategoriTest::find($id);
+        $minimumPoint = $kategoriTest->point_ujian;
+
+        return view('user.ujian.result', [
             'currentSoal' => $currentSoal,
             'correctAnswer' => $correctAnswer,
             'userAnswer' => $userAnswer,
             'points' => $points,
+            'minimumPoint' => $minimumPoint,
         ]);
     }
 }

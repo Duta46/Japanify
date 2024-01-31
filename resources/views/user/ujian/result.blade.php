@@ -11,7 +11,7 @@
             <h2 class="text-2xl font-semibold mb-4 text-center">Review Hasil</h2>
 
             <table id="additionalRows" class=" border-white">
-                <!-- The additional rows will be populated here -->
+                <div id="minimumPoints" data-value="{{ $minimumPoint }}"></div>
             </table>
 
             <table id="resultTable" class="table-auto min-w-full border border-gray-300 divide-y divide-gray-300">
@@ -122,7 +122,7 @@
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Ya' : 'Tidak'}</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoints ? 'Ya' : 'Tidak'}</b></td>
        </tr>
    `;
 
@@ -133,7 +133,9 @@
             // sessionStorage.setItem('exerciseStatus', totalPoints >= 200 ? 'Ya' : 'Tidak');
         }
 
-        document.addEventListener('DOMContentLoaded', displayUserAnswers);
+        document.addEventListener('DOMContentLoaded', function() {
+            displayUserAnswers();
+        });
     </script>
 
     <script>
@@ -153,7 +155,7 @@
                     sessionStorage.clear();
 
                     // Melakukan redirect
-                    window.location.href = '/';
+                    window.location.href = '/menu';
                 }
             });
         }
