@@ -61,7 +61,7 @@
 
                         <button
                         type="submit"
-                            class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-purple-blue-600 focus:ring-4 focus:ring-purple-blue-100 bg-purple-blue-500">Register</button>
+                            class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white md:w-96 rounded-2xl bg-blue-500">Register</button>
 
                         <p class="text-sm leading-relaxed text-grey-900">Sudah punya akun ? <a
                                 href="{{ route('user.login') }}" class="font-bold text-grey-700">Log in</a></p>

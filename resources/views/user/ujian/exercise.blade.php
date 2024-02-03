@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Paket Soal')
+@section('title', 'Soal')
 
 @section('content')
     @include('user.components.ujian.header')
@@ -14,7 +14,7 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex + 1 }}</span>
+                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
@@ -54,7 +54,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 space-y-6">
+                                {{-- <div class="p-4 space-y-6">
                                     @foreach ($soals as $index => $soal)
                                         @php
                                             $SameCategory = $currentSoal->kategori->id === $soal->kategori->id;
@@ -70,7 +70,7 @@
                                             {{ $index + 1 }}
                                         </button>
                                     @endforeach
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

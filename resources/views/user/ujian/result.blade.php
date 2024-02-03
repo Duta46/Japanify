@@ -11,8 +11,9 @@
             <h2 class="text-2xl font-semibold mb-4 text-center">Review Hasil</h2>
 
             <table id="additionalRows" class=" border-white">
-                <div id="minimumPoints" data-value="{{ $minimumPoint }}"></div>
+
             </table>
+
 
             <table id="resultTable" class="table-auto min-w-full border border-gray-300 divide-y divide-gray-300">
                 <thead>
@@ -44,6 +45,8 @@
             const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
             const resultTableBody = document.querySelector('#resultTable tbody');
             let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
+
+
 
 
             sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
@@ -107,6 +110,8 @@
                 return str.startsWith('data:image/');
             }
 
+            const minimumPoint = <?php echo json_encode($minimumPoint); ?>;
+
 
             // Display the total points in the score recap table
             const totalRow = `
@@ -122,7 +127,7 @@
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoints ? 'Ya' : 'Tidak'}</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoint ? 'Ya' : 'Tidak'}</b></td>
        </tr>
    `;
 

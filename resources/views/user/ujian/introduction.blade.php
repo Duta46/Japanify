@@ -65,7 +65,7 @@
         }
 
         function fisherYatesShuffle(array) {
-            var currentIndex = array.length,
+            let currentIndex = array.length,
                 temporaryValue, randomIndex;
 
             while (0 !== currentIndex) {
@@ -82,7 +82,7 @@
             return array;
         }
 
-        function mulaiTes() {
+      function mulaiTes() {
             sessionStorage.clear();
 
             // Update waktu awal
@@ -96,6 +96,7 @@
             // Mendapatkan id paket soal dari PHP
             var paketSoalId = <?php echo json_encode($paket->id); ?>;
 
+            sessionStorage.setItem('shuffledSoalIds', JSON.stringify(shuffledSoalIds));
 
             // Redirect ke halaman tes
             window.location.href = window.location.href = "/exercise/" + paketSoalId + "/" + shuffledSoalIds[0];

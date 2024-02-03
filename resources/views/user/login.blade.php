@@ -34,11 +34,11 @@
                             <p class="mx-4 text-grey-600">or</p>
                             <hr class="h-0 border-b border-solid border-grey-500 grow">
                         </div>
-                        <label for="email" class="mb-2 text-sm text-start text-grey-900">Email*</label>
+                        <label for="email" class="mb-2 text-sm text-start text-grey-900">Email</label>
                         <input id="email" name="email" type="email" placeholder="johndoe@gmail.com" required
                             class="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl" />
 
-                        <label for="password" class="mb-2 text-sm text-start text-grey-900">Password*</label>
+                        <label for="password" class="mb-2 text-sm text-start text-grey-900">Password</label>
                         <input id="password" name="password" type="password" placeholder="********" required
                             class="flex items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl" />
 
@@ -46,18 +46,18 @@
                             <label class="relative inline-flex items-center mr-3 cursor-pointer select-none">
                                 <input type="checkbox" checked value="" class="sr-only peer">
                                 <div
-                                    class="w-5 h-5 bg-white border-2 rounded-sm border-grey-500 peer peer-checked:border-0 peer-checked:bg-purple-blue-500">
+                                    class="w-5 h-5 bg-white border-2 rounded-sm border-grey-500 peer peer-checked:border-0 peer-checked:bg-blue-500">
                                     <img class=""
                                         src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/icons/check.png"
                                         alt="tick">
                                 </div>
                                 <span class="ml-3 text-sm font-normal text-grey-900">Keep me logged in</span>
                             </label>
-                            <a href="javascript:void(0)" class="mr-4 text-sm font-medium text-purple-blue-500">Forget
+                            <a href="javascript:void(0)" class="mr-4 text-sm font-medium text-blue-500">Forget
                                 password?</a>
                         </div>
                         <button type="submit"
-                            class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-purple-blue-600 focus:ring-4 focus:ring-purple-blue-100 bg-purple-blue-500">Log
+                            class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white bg-blue-500 rounded-2xl">Log
                             in</button>
                         <p class="text-sm leading-relaxed text-grey-900">Belum Punya Akun ? <a
                                 href="{{ route('user.register') }}" class="font-bold text-grey-700">Buat Akun</a></p>

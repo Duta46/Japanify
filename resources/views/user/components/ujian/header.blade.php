@@ -16,7 +16,7 @@
             @endif
             <div class="flex items-center lg:order-2">
                 <p class="font-normal text-lg px-2 lg:px-5 py-2 lg:py-2.5">
-                    {{ session('siswa_name') }} <i class="fa-solid fa-graduation-cap"></i>
+                    {{ Auth::user()->username }} <i class="fa-solid fa-graduation-cap"></i>
                 </p>
             </div>
             {{-- <div class="justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">

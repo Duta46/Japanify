@@ -44,7 +44,7 @@ Route::get('/statistic', function () {
     return view('user.statistic');
 })->name('user.statistic');
 
-Route::get('user/login', [AuthController::class, 'index'])->name('user.login');
+Route::get('/login', [AuthController::class, 'index'])->name('user.login');
 Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
 Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
 
