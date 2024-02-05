@@ -30,7 +30,7 @@
             </table>
             <button onclick="logoutAndRedirect()"
                 class="px-4 py-2 rounded-md bg-red-500 hover:bg-red-700 text-white font-bold mt-4">
-                Logout
+                Kembali ke menu
             </button>
         </div>
 
@@ -45,9 +45,6 @@
             const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
             const resultTableBody = document.querySelector('#resultTable tbody');
             let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
-
-
-
 
             sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
                 const dataA = JSON.parse(sessionStorage.getItem(a));
@@ -110,9 +107,6 @@
                 return str.startsWith('data:image/');
             }
 
-            const minimumPoint = <?php echo json_encode($minimumPoint); ?>;
-
-
             // Display the total points in the score recap table
             const totalRow = `
        <tr>
@@ -127,7 +121,7 @@
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoint ? 'Ya' : 'Tidak'}</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Ya' : 'Tidak'}</b></td>
        </tr>
    `;
 
@@ -146,8 +140,8 @@
     <script>
         function logoutAndRedirect() {
             Swal.fire({
-                title: 'Are you sure you want to logout?',
-                html: '<div style="text-align: center;">Have you record this score yet!!</div>',
+                title: 'Kembali ke menu ?',
+                // html: '<div style="text-align: center;">Have you record this score yet!!</div>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

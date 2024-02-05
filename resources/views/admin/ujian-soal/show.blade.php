@@ -33,7 +33,7 @@
                 <label class="col-lg-4 fw-semibold text-muted">Soal</label>
                 <div class="col-lg-8">
                     @if ($soalUjian->question)
-                        <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($soalUjian->question)) !!}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{!! $soalUjian->question !!}</span>
                     @else
                         <p>-</p>
                     @endif

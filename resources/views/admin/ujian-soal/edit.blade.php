@@ -345,14 +345,17 @@
     {{-- <script src="/js/tinymce/tinymce.min.js"></script> --}}
 
     <script>
-        function initTinyMCE(selector) {
-            tinymce.init({
-                selector: selector,
-                forced_root_block: 'p',
-                force_br_newlines: true,
-            });
-        }
-        initTinyMCE('textarea#question');
+       function initTinyMCE(selector) {
+        tinymce.init({
+            selector: selector,
+            forced_root_block: 'p',
+            force_br_newlines: true,
+            formats: {
+                underline: { inline: 'u' } // Mengizinkan garis bawah
+            }
+        });
+    }
+    initTinyMCE('textarea#question');
     </script>
 
     <script>

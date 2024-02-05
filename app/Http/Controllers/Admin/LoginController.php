@@ -12,6 +12,21 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
+
     public function logout(Request $request) {
         Auth::guard('web')->logout();
 

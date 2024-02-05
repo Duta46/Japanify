@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->is(['LatihanSoal*', 'ReadingLatihanSoal*']) ? 'show' : '' }}">
+                {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->is(['LatihanSoal*', 'ReadingLatihanSoal*']) ? 'show' : '' }}">
                     <span class="menu-link {{ request()->is(['LatihanSoal*', 'ReadingLatihanSoal*']) ? 'active' : '' }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -151,7 +151,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="menu-item">
                     <a class="menu-link {{ Route::is('changePassword') ? 'active' : '' }}"
                         href="{{ route('changePassword') }}">

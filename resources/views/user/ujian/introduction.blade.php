@@ -82,24 +82,31 @@
             return array;
         }
 
-      function mulaiTes() {
+        function mulaiTes() {
+            // Bersihkan sessionStorage jika ada
             sessionStorage.clear();
+
+            // Periksa apakah shuffledSoalIds sudah ada di sessionStorage
+            var shuffledSoalIds = JSON.parse(sessionStorage.getItem('shuffledSoalIds'));
+
+            // Jika shuffledSoalIds belum ada, buat yang baru
+            if (!shuffledSoalIds) {
+                var soalIds = <?php echo json_encode($soalIds); ?>;
+
+                // Mengacak urutan id soal menggunakan Fisher-Yates Shuffle
+                shuffledSoalIds = fisherYatesShuffle(soalIds);
+
+                sessionStorage.setItem('shuffledSoalIds', JSON.stringify(shuffledSoalIds));
+            }
 
             // Update waktu awal
             updateWaktuAwal();
 
-            var soalIds = <?php echo json_encode($soalIds); ?>;
-
-            // Mengacak urutan id soal menggunakan Fisher-Yates Shuffle
-            var shuffledSoalIds = fisherYatesShuffle(soalIds);
-
             // Mendapatkan id paket soal dari PHP
             var paketSoalId = <?php echo json_encode($paket->id); ?>;
 
-            sessionStorage.setItem('shuffledSoalIds', JSON.stringify(shuffledSoalIds));
-
-            // Redirect ke halaman tes
-            window.location.href = window.location.href = "/exercise/" + paketSoalId + "/" + shuffledSoalIds[0];
+            // Redirect ke halaman tes dengan id soal pertama
+            window.location.href = "/exercise/" + paketSoalId + "/" + shuffledSoalIds[0];
         }
     </script>
 @endpush

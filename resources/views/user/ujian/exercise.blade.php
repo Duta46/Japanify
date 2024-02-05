@@ -14,7 +14,7 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex }}</span>
+                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex + 1 }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
