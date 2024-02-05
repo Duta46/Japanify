@@ -50,7 +50,7 @@ Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
 
-Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin']], function () {
+Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin|User']], function () {
     Route::get('/menu', [MenuController::class, 'index'])->name('user.menu');
     Route::get('/menu/{menu_id}', [MenuController::class, 'show'])->name('user.menu.show');
 
@@ -72,7 +72,7 @@ Route::get('/admin/login', [LoginController::class, 'index'])->name('admin.login
 Route::post('/admin/login', [LoginController::class, 'login'])->name('admin.login.post');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
-    Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin|User']], function () {
+    Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin']], function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');

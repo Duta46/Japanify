@@ -13,12 +13,12 @@ class MenuController extends Controller
         return view('user.menu', compact('menuTests'));
     }
 
-    public function menudetail() {
-        return view('user.menu-detail');
-    }
+    // public function menudetail() {
+    //     return view('user.menu-detail');
+    // }
 
     public function show($menu_id) {
         $menuTest = KategoriTest::findOrFail($menu_id);
-        return redirect()->route('user.ujian', ['menu_id' => $menu_id, 'kategori_test_id' => $menuTest->kategori_test_id]);
+        return redirect()->route('user.ujian', ['menu_id' => $menu_id]);
     }
 }
