@@ -38,7 +38,7 @@
                                 data-control="select2">
                                 @foreach ($kategoriTests as $kategoriTest)
                                     <option value="{{ $kategoriTest->id }}"
-                                        {{ $kategoriTest->id == $soalUjian->kategori_test_id ? 'selected' : '' }}>
+                                        {{ $kategoriTest->id == $PaketSoal->kategori_test_id ? 'selected' : '' }}>
                                         {{ $kategoriTest->name }}
                                     </option>
                                 @endforeach

@@ -83,7 +83,7 @@
                                     </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Ujian</span>
+                        <span class="menu-title">Soal</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -102,7 +102,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Soal Ujian</span>
+                                <span class="menu-title">Latihan Soal</span>
                             </a>
                         </div>
                         <div class="menu-item">
