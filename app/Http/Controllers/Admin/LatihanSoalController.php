@@ -9,6 +9,7 @@ use App\Models\LatihanSoal;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Kategori;
+use App\Models\PaketSoalLatihanSoal;
 use App\Models\KategoriTest;
 use Yajra\DataTables\DataTables;
 
@@ -77,6 +78,9 @@ class LatihanSoalController extends Controller
                 ->editColumn('kategori', function ($item) {
                     return $item->Kategori->name ? $item->Kategori->name : "-";
                 })
+                ->editColumn('paket_soal_latihan_soal', function ($item) {
+                    return $item->PaketSoalLatihanSoal->name ? $item->PaketSoalLatihanSoal->name : "-";
+                })
                 ->editColumn('kategori_test', function ($item) {
                     return $item->KategoriTest->name ?? "-";
                 })
@@ -91,12 +95,14 @@ class LatihanSoalController extends Controller
         // $paketSoal = PaketSoal::select(['id', 'name'])->get();
         $kategoriTests = KategoriTest::select(['id', 'name'])->get();
         $kategoris = Kategori::select(['id', 'name'])->get();
+        $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
         $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
         return view('admin.latihan-soal.create', [
             'kategoris' => $kategoris,
             'readingLatihanSoals' => $readingLatihanSoals,
             'kategoriTests' => $kategoriTests,
+            'paketSoal' => $paketSoal,
         ]);
     }
 
@@ -113,7 +119,7 @@ class LatihanSoalController extends Controller
             'answer_d_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'correct_answer' => 'required|string',
             'point_soal' => 'required|string',
-            // 'paket_soal_id' => 'required',
+            'paket_soal_latihan_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_latihan_soal_id' => 'nullable',
             'kategori_test_id' => 'nullable',
@@ -209,13 +215,13 @@ class LatihanSoalController extends Controller
 
         LatihanSoal::create($data);
 
-        // // Menghitung jumlah soal dalam paket yang sesuai
-        // $paketSoal = PaketSoal::find($data['paket_soal_id']);
-        // $jumlahSoal = SoalUjian::where('paket_soal_id', $data['paket_soal_id'])->count();
+        // Menghitung jumlah soal dalam paket yang sesuai
+        $paketSoal = PaketSoalLatihanSoal::find($data['paket_soal_latihan_soal_id']);
+        $jumlahSoal = LatihanSoal::where('paket_soal_latihan_soal_id', $data['paket_soal_latihan_soal_id'])->count();
 
-        // // Memperbarui nilai jumlah_soal dalam tabel PaketSoal
-        // $paketSoal->jumlah_soal = $jumlahSoal;
-        // $paketSoal->save();
+        // Memperbarui nilai jumlah_soal dalam tabel PaketSoal
+        $paketSoal->jumlah_soal = $jumlahSoal;
+        $paketSoal->save();
 
         return redirect()->route('admin.latihan-soal')->with('success', 'Berhasil Tambah Latihan Soal');
     }
@@ -237,11 +243,14 @@ class LatihanSoalController extends Controller
 
         $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
+        $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
+
         return view('admin.latihan-soal.edit', [
             'kategoriTests' => $kategoriTests,
             'categorySoal' => $categorySoal,
             'latihanSoal' => $latihanSoal,
             'readingLatihanSoals' => $readingLatihanSoals,
+            'paketSoal' => $paketSoal,
         ]);
     }
 
@@ -258,7 +267,7 @@ class LatihanSoalController extends Controller
             'answer_d_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'correct_answer' => 'required|string',
             'point_soal' => 'required|string',
-            // 'paket_soal_id' => 'required',
+            'paket_soal_latihan_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_latihan_soal_id' => 'nullable',
         ];

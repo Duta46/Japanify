@@ -182,7 +182,7 @@
                                 Awesome!
                             </p> --}}
                                 <div class="features-btn rounded-buttons">
-                                    <a class="btn primary-btn-outline rounded-full" href="{{ route('user.menu.show', ['menu_id' => $menuTest->id] }}">
+                                    <a class="btn primary-btn-outline rounded-full" href="{{ route('user.ujian', ['menu_id' => $menuTest->id]) }}" >
                                         Continue
                                     </a>
                                 </div>

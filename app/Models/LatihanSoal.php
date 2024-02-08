@@ -10,6 +10,8 @@ class LatihanSoal extends Model
 {
     use HasFactory;
 
+    protected $table = 'latihan_soals';
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -30,6 +32,7 @@ class LatihanSoal extends Model
         'correct_answer',
         'point_soal',
         'kategori_id',
+        'paket_soal_latihan_soal_id',
         'reading_latihan_soal_id',
         'kategori_test_id',
     ];
@@ -46,6 +49,11 @@ class LatihanSoal extends Model
 
     public function KategoriTest() :BelongsTo
     {
-        return $this->belongsTo(KategoriTest::class);
+        return $this->BelongsTo(KategoriTest::class);
+    }
+
+    public function PaketSoalLatihanSoal(): BelongsTo
+    {
+        return $this->BelongsTo(PaketSoalLatihanSoal::class);
     }
 }

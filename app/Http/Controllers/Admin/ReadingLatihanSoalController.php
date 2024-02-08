@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaketSoalLatihanSoal;
 use Illuminate\Http\Request;
 use App\Models\ReadingContentLatihanSoal;
 use Yajra\DataTables\DataTables;
@@ -44,9 +45,9 @@ class ReadingLatihanSoalController extends Controller
                     </div>
                 </div>';
                 })
-                // ->editColumn('paket_soal', function ($item) {
-                //     return $item->PaketSoal->name ?? "-";
-                // })
+                ->editColumn('paket_soal_latihan_soal', function ($item) {
+                    return $item->PaketSoalLatihanSoal->name ?? "-";
+                })
                 ->rawColumns(['actions'])
                 ->make();
         }
@@ -55,7 +56,9 @@ class ReadingLatihanSoalController extends Controller
 
     public function create()
     {
-        return view('admin.reading-content-latihan-soal.create');
+        $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
+
+        return view('admin.reading-content-latihan-soal.create', compact('paketSoal'));
     }
 
     public function store(Request $request)
@@ -64,6 +67,7 @@ class ReadingLatihanSoalController extends Controller
 
         $request->validate([
             'text_content' => 'required|string',
+            'paket_soal_latihan_soal_id' => 'nullable',
         ]);
 
         $data['text_content'] = strip_tags($data['text_content']);
@@ -84,11 +88,11 @@ class ReadingLatihanSoalController extends Controller
 
     public function edit($id)
     {
-        // $paketSoal = PaketSoal::select(['id', 'name'])->get();
+        $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
 
         $Reading = ReadingContentLatihanSoal::find($id);
 
-        return view('admin.reading-content-latihan-soal.edit', ['Reading' => $Reading]);
+        return view('admin.reading-content-latihan-soal.edit', compact('Reading', 'paketSoal'));
     }
 
     public function update(Request $request, $id)
@@ -97,6 +101,7 @@ class ReadingLatihanSoalController extends Controller
 
         $request->validate([
             'text_content' => 'required|string',
+            'paket_soal_latihan_soal_id' => 'nullable',
         ]);
 
         $data['text_content'] = strip_tags($data['text_content']);

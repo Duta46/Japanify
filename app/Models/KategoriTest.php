@@ -29,6 +29,11 @@ class KategoriTest extends Model
         return $this->hasMany(PaketSoal::class, 'kategori_test_id', 'id');
     }
 
+    public function PaketSoalLatihanSoal() :HasMany
+    {
+        return $this->hasMany(PaketSoalLatihanSoal::class, 'kategori_test_id', 'id');
+    }
+
     public function UjianSoal() :HasMany
     {
         return $this->hasMany(LatihanSoal::class, 'kategori_test_id', 'id');

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Reading Latihan Soal')
+@section('title', $paketSoal->name)
 
 @section('page-title')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold flex-column justify-content-center my-0">
-            Reading Latihan Soal
+            {{ $paketSoal->name }}
         </h1>
     </div>
 @endsection
@@ -26,20 +26,17 @@
                 <input type="search" name="search" class="form-control form-control-solid w-250px ps-15" id="search"
                     placeholder="Cari.." />
             </div>
-            {{-- <div class="d-flex flex-stack">
-                <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-text.create') }}">
-                    Tambah Reading Content
-                </a>
-            </div> --}}
         </div>
         <div class="card-body pt-0">
-            <table id="reading-text-table" class="table align-middle table-row-dashed fs-6 gy-5">
+            <table id="soal-detail-table" class="table align-middle table-row-dashed fs-6 gy-5">
                 <thead>
                     <tr class="fw-semibold fs-6 text-muted">
                         <th class="text-start min-w-100px">No</th>
-                        <th class="text-start min-w-70px">Reading Content</th>
-                        <th class="text-start min-w-100px">Paket Soal</th>
-                        <th class="text-end min-w-100px">Actions</th>
+                        <th class="text-start min-w-100px">Soal</th>
+                        <th class="text-start min-w-100px">Soal Gambar</th>
+                        <th class="text-center min-w-100px">Soal Audio</th>
+                        <th class="text-start min-w-100px">Kategori Soal</th>
+                        <th class="text-start min-w-100px">Actions</th>
                     </tr>
                 </thead>
             </table>
@@ -48,7 +45,7 @@
 @endsection
 @push('scripts')
     <script>
-        var datatable = $('#reading-text-table').DataTable({
+        var datatable = $('#soal-detail-table').DataTable({
             processing: true,
             serverSide: true,
             ordering: true,
@@ -64,8 +61,8 @@
                     width: '10%'
                 },
                 {
-                    data: 'text_content',
-                    name: 'text_content',
+                    data: 'question',
+                    name: 'question',
                     orderable: true,
                     searchable: true,
                     width: '30%',
@@ -82,11 +79,25 @@
                     }
                 },
                 {
-                    data: 'paket_soal_latihan_soal',
-                    name: 'paket_soal_latihan_soal',
+                    data: 'question_image',
+                    name: 'question_image',
                     orderable: true,
                     searchable: true,
-                    width: '30%'
+                    width: '20%',
+                },
+                {
+                    data: 'question_audio',
+                    name: 'question_audio',
+                    orderable: true,
+                    searchable: true,
+                    width: '20%',
+                },
+                {
+                    data: 'category_soal',
+                    name: 'category_soal',
+                    orderable: true,
+                    searchable: true,
+                    width: '20%'
                 },
                 {
                     data: 'actions',
@@ -95,70 +106,13 @@
                     searchable: false,
                     width: '10%'
                 },
-
             ],
             order: [
                 [0, "asc"]
             ]
         })
-
         $('#search').on('keyup', function() {
             datatable.search(this.value).draw();
-        });
-    </script>
-    <script>
-        $(document).on("click", ".delete-confirm", function(e) {
-            e.preventDefault();
-            Swal.fire({
-                customClass: {
-                    confirmButton: 'btn btn-danger',
-                    cancelButton: 'btn btn-light'
-                },
-                title: 'Apakah anda yakin?',
-                text: "Apakah anda yakin ingin menghapus data ini?",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Delete'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    e.preventDefault();
-                    var id = $(this).data("id");
-                    var route = "{{ route('admin.reading-latihan-soal.destroy', ':id') }}";
-                    route = route.replace(':id', id);
-                    $.ajax({
-                        url: route,
-                        type: 'DELETE',
-                        data: {
-                            _token: $("meta[name='csrf-token']").attr("content"),
-                            id: id
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                customClass: {
-                                    confirmButton: 'btn btn-success',
-                                },
-                                title: 'Success',
-                                text: response.message,
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            })
-                            datatable.ajax.reload();
-                        },
-                        error: function(xhr) {
-                            var json = JSON.parse(xhr.responseText);
-                            Swal.fire({
-                                customClass: {
-                                    confirmButton: 'btn btn-success',
-                                },
-                                title: 'Error',
-                                text: json.error,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            })
-                        }
-                    });
-                }
-            })
         });
     </script>
 @endpush

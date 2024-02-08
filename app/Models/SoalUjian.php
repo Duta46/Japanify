@@ -10,6 +10,8 @@ class SoalUjian extends Model
 {
     use HasFactory;
 
+    protected $table = 'soal_ujians';
+    
     protected $dates = [
         'created_at',
         'updated_at',

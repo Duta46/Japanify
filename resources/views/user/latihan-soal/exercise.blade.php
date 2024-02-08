@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.index')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Latihan Soal | Japanify</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@section('title', 'Latihan Soal')
 
-<body>
+@section('content')
+
     @include('user.components.latihan-soal.header')
 
     <div class="min-h-screen min-w-full bg-white flex flex-col justify-center p-10 shadow">
@@ -21,7 +15,7 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Number</span><span>1</span>
+                                <span class="me-2">Number</span><span>{{ $currentSoalIndex + 1 }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
@@ -61,7 +55,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                {{-- <div class="p-4 space-y-6">
+                                <div class="p-4 space-y-6">
                                     @foreach ($soals as $index => $soal)
                                         @php
                                             $SameCategory = $currentSoal->kategori->id === $soal->kategori->id;
@@ -77,7 +71,7 @@
                                             {{ $index + 1 }}
                                         </button>
                                     @endforeach
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +79,7 @@
                     <!-- hero section -->
                     <div class="lg:2/6 mt-10 lg:mt-37 lg:ml-16 text-left p-1 md:p-0">
                         <div class="mt-6 text-xl font-light text-true-gray-500 antialiased">
-                            {{-- @if ($currentSoal) --}}
+                            @if ($currentSoal)
                                 <div class="current-question">
 
                                     {{-- Tampilan Soal Start --}}
@@ -96,7 +90,7 @@
                                         @include('user.components.latihan-soal.jawaban')
                                     </div>
                                 </div>
-                            {{-- @endif --}}
+                            @endif
                         </div>
                         <div
                             class="flex flex-col md:flex-row items-center justify-between mt-3 space-y-2 md:space-y-0 md:space-x-2">
@@ -108,6 +102,257 @@
             </div>
         </div>
     </div>
-</body>
+@endsection
 
-</html>
+@push('scripts')
+
+    {{-- Menyimpan Waktu Start --}}
+    <script>
+        let waktuAwal = sessionStorage.getItem("waktuAwal");
+        let notifikasi30Menit = false;
+
+        if (!waktuAwal) {
+            waktuAwal = new Date().getTime();
+            sessionStorage.setItem("waktuAwal", waktuAwal);
+        }
+
+        let x = setInterval(() => {
+            let now = new Date().getTime();
+            let waktu = 3600000 - (now - waktuAwal);
+
+            let hours = Math.floor((waktu % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((waktu % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((waktu % (1000 * 60)) / 1000);
+
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+            // notifikasi 30 menit
+            if (minutes == 30 && seconds == 0 && !notifikasi30Menit) {
+                notifikasi30Menit = true
+                Swal.fire({
+                    title: "Attention!",
+                    text: "There's only 30 minutes remaining.",
+                    icon: "info",
+                    confirmButtonText: "OK"
+                });
+            }
+
+            // waktu habis
+            if (waktu <= 0) {
+                clearInterval(x);
+                document.getElementById("waktu").innerText = "Time Out";
+
+                Swal.fire({
+                    title: "Time Out!",
+                    text: "You've passed the time limit.",
+                    icon: "warning",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    // Redirect halaman result jika menekan ok
+                    if (result.isConfirmed || result.isDismissed) {
+                        window.location.href = "{{ route('result') }}";
+                    }
+                });
+            }
+        }, 1000);
+    </script>
+    {{-- Menyimpan Waktu End --}}
+
+    {{-- Menyimpan data Jawaban Start --}}
+    <script>
+        function pilihOpsi(opsi) {
+            const idPertanyaanSaatIni = '{{ $currentSoal->id }}';
+            const selectedLabel = document.querySelector(`label[for=${opsi}]`);
+            const jawaban = {
+                idPertanyaan: idPertanyaanSaatIni,
+                opsiDipilih: opsi,
+                kategori: '{{ $currentSoal->kategori->name }}',
+                correctAnswer: '{{ $currentSoal->correct_answer }}',
+                points: '{{ $currentSoal->point_soal }}',
+                idKategori: '{{ $currentSoal->kategori_id }}',
+            };
+
+            // Check if the selected label contains an image
+            const imageElement = selectedLabel.querySelector('img');
+            if (imageElement) {
+                const imageUrl = imageElement.getAttribute('src');
+                // Here, 'imageUrl' is the URL of the image
+                // Convert the image to Base64
+                convertImageToBase64(imageUrl, function(base64String) {
+                    jawaban.teksJawaban = base64String; // Store the Base64 string
+                    sessionStorage.setItem('jawabanSoal_' + idPertanyaanSaatIni, JSON.stringify(jawaban));
+                });
+            } else {
+                jawaban.teksJawaban = selectedLabel.innerText; // Store text as is
+                sessionStorage.setItem('jawabanSoal_' + idPertanyaanSaatIni, JSON.stringify(jawaban));
+            }
+        }
+
+        // Function to convert image URL to Base64
+        function convertImageToBase64(url, callback) {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                const base64String = canvas.toDataURL('image/png');
+                callback(base64String);
+            };
+            img.src = url;
+        }
+
+
+        function ambilOpsiDipilih() {
+            const idPertanyaanSaatIni = '{{ $currentSoal->id }}';
+            const dataJawaban = sessionStorage.getItem('jawabanSoal_' + idPertanyaanSaatIni);
+
+            if (dataJawaban) {
+                const jawaban = JSON.parse(dataJawaban);
+                if (jawaban.idPertanyaan === idPertanyaanSaatIni) {
+                    document.getElementById(jawaban.opsiDipilih).checked = true;
+
+                    // Create an image element dynamically
+                    const retrievedImage = new Image();
+                    retrievedImage.onload = function() {
+                        // Assuming 'resultImageContainer' is the container where you want to display the image
+                        const resultImageContainer = document.getElementById('resultImageContainer');
+                        resultImageContainer.appendChild(retrievedImage); // Append the image
+                    };
+                    retrievedImage.src = jawaban.teksJawaban; // Set the Base64 string as image source
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            ambilOpsiDipilih();
+        });
+
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('input[name="bordered-radio"]')) {
+                pilihOpsi(event.target.id);
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('.rounded-md.bg-blue-500, .rounded-md.bg-blue-700')) {
+                const opsiDipilih = document.querySelector('input[name="bordered-radio"]:checked');
+                if (opsiDipilih) {
+                    pilihOpsi(opsiDipilih.id);
+                }
+            }
+        });
+    </script>
+    {{-- Menyimpan data Jawaban End --}}
+
+    {{-- Navigasi daftar soal start --}}
+    <script>
+        function redirectToQuestion(soalId) {
+            const url = '/exercise/{{ $currentSoal->paket_soal_id }}/' + soalId;
+            window.location.href = url;
+        }
+    </script>
+    {{-- Navigasi daftar soal end --}}
+
+    {{-- tombol konfirmasi akhir ujian start --}}
+    <script>
+        function konfirmasiAkhiriUjian() {
+            Swal.fire({
+                title: "Are you sure ?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Exam Finished!",
+                        text: "You have successfully finished the exam.",
+                        icon: "success",
+                    }).then(() => {
+                        window.location.href = "{{ route('result') }}";
+                    });
+                }
+            });
+        }
+    </script>
+    {{-- tombol konfirmasi akhir ujian end --}}
+
+    <script>
+        let currentCategoryId = null;
+
+        function checkCategory(currentCategory, nextCategory, nextQuestionUrl) {
+            if (currentCategory !== nextCategory || currentCategoryId !== nextCategory) {
+                if (currentCategory !== nextCategory) {
+                    Swal.fire({
+                        title: "Section Change!",
+                        text: "You are moving to the next Section. Are you sure?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            currentCategoryId = nextCategory; // Update current category ID
+
+                            // Tambahkan entri ke dalam history
+                            history.pushState({ page: nextQuestionUrl }, null, nextQuestionUrl);
+
+                            window.location.href = nextQuestionUrl;
+                        }
+                    });
+                    return false;
+                } else {
+                    currentCategoryId = currentCategory; // Update current category ID
+                }
+            }
+            return true; // Allow navigation to the next question
+        }
+
+        window.onload = function() {
+            // Simpan status awal dalam history state
+            history.replaceState({ page: window.location.href }, null, window.location.href);
+
+            // Tangkap event ketika pengguna mencoba untuk kembali
+            window.addEventListener('popstate', function(event) {
+                if (event.state && event.state.page !== window.location.href) {
+                    history.pushState({ page: window.location.href }, null, window.location.href);
+                }
+            });
+        };
+    </script>
+
+    <script>
+        let audioElement = document.getElementById('soalAudio');
+        let audioPlayCount = 0;
+
+        function incrementPlayCount() {
+            audioPlayCount++;
+        }
+        function checkPlayCount() {
+            if (audioPlayCount >= 2) {
+                audioElement.controls = false;
+                audioElement.removeEventListener('play', incrementPlayCount);
+                audioElement.removeEventListener('ended', checkPlayCount);
+
+                // Simpan status audio ke sessionStorage
+                sessionStorage.setItem('audioPlayed', 'true');
+            }
+        }
+
+        audioElement.addEventListener('play', incrementPlayCount);
+        audioElement.addEventListener('ended', checkPlayCount);
+
+        window.onload = function() {
+            if (sessionStorage.getItem('audioPlayed') === 'true') {
+                audioElement.controls = false;
+            }
+        };
+    </script>
+@endpush

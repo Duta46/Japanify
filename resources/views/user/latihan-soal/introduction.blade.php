@@ -22,17 +22,12 @@
             @if ($paket->jumlah_soal > 0)
                 <hr class="mt-4 border-b border-blueGray-600 w-full">
                 <div class="divide-y divide-gray-200">
-                    {{-- <form method="get"
-                        action="{{ route('mulaiTest', ['paketSoalId' => $paket->id, 'soalId' => $firstSoalId]) }}">
-                        @csrf --}}
                     <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                        <div class="relative">
+                        <div class="relative" >
                             <p id="waktu" class="text-base">This test will take around 1 hour</p>
-                            @if ($kategoris)
                             @foreach ($kategoris as $kategori)
-                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal</p>
+                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }} Soal</p>
                             @endforeach
-                        @endif
                         </div>
                         <div class="relative mt-4 flex justify-center">
                             <button type="submit" onclick="mulaiTes()"
@@ -41,7 +36,6 @@
                             </button>
                         </div>
                     </div>
-                    {{-- </form> --}}
                 </div>
             @else
                 <p class="mt-4 text-base text-center leading-6 text-gray-700">
@@ -66,32 +60,50 @@
             sessionStorage.setItem("waktuAwal", waktuAwal);
         }
 
-        // function fisherYatesShuffle(array) {
-        //     let currentIndex = array.length,
-        //         temporaryValue, randomIndex;
+        function fisherYatesShuffle(array) {
+            let currentIndex = array.length,
+                temporaryValue, randomIndex;
 
-        //     while (0 !== currentIndex) {
-        //         // Ambil elemen yang tersisa
-        //         randomIndex = Math.floor(Math.random() * currentIndex);
-        //         currentIndex -= 1;
+            while (0 !== currentIndex) {
+                // Ambil elemen yang tersisa
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
 
-        //         // Tukar dengan elemen saat ini
-        //         temporaryValue = array[currentIndex];
-        //         array[currentIndex] = array[randomIndex];
-        //         array[randomIndex] = temporaryValue;
-        //     }
+                // Tukar dengan elemen saat ini
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
 
-        //     return array;
-        // }
+            return array;
+        }
 
         function mulaiTes() {
+            // Bersihkan sessionStorage jika ada
             sessionStorage.clear();
+
+            // Periksa apakah shuffledSoalIds sudah ada di sessionStorage
+            var shuffledSoalIds = JSON.parse(sessionStorage.getItem('shuffledSoalIds'));
+
+            // Jika shuffledSoalIds belum ada, buat yang baru
+            if (!shuffledSoalIds) {
+                var soalIds = <?php echo json_encode($soalIds); ?>;
+
+                // Mengacak urutan id soal menggunakan Fisher-Yates Shuffle
+                shuffledSoalIds = fisherYatesShuffle(soalIds);
+
+                sessionStorage.setItem('shuffledSoalIds', JSON.stringify(shuffledSoalIds));
+            }
 
             // Update waktu awal
             updateWaktuAwal();
 
-            // Redirect ke halaman tes
-            window.location.href = "{{ route('mulaiTest', ['paketSoalId' => $paket->id, 'soalId' => $firstSoalId]) }}";
+            // Mendapatkan id paket soal dari PHP
+            var paketSoalId = <?php echo json_encode($paket->id); ?>;
+
+            // Redirect ke halaman tes dengan id soal pertama
+            window.location.href = "/soal/" + paketSoalId + "/" + shuffledSoalIds[0];
         }
     </script>
+
 @endpush

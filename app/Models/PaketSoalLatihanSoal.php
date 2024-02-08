@@ -4,21 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaketSoal extends Model
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class PaketSoalLatihanSoal extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'paket_soals';
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    protected $table = 'paket_soal_latihan_soals';
 
     protected $fillable = [
         'name',
@@ -26,14 +21,14 @@ class PaketSoal extends Model
         'kategori_test_id',
     ];
 
-    public function SoalUjian(): HasMany
+    public function LatihanSoal(): HasMany
     {
-        return $this->hasMany(SoalUjian::class);
+        return $this->hasMany(LatihanSoal::class);
     }
 
-    public function ReadingUjian(): HasMany
+    public function ReadingLatihanSoal(): HasMany
     {
-        return $this->hasMany(ReadingContentUjian::class);
+        return $this->hasMany(ReadingContentLatihanSoal::class);
     }
 
     public function KategoriTest() :BelongsTo

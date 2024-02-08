@@ -385,13 +385,13 @@
         });
     </script>
 
-{{-- <script>
+<script>
     $(document).ready(function () {
 
-        let initialPaketSoalId = '{{ $soalUjian->paket_soal_id }}';
-        let initialReadingTextsId = '{{ $soalUjian->reading_ujian_id}}';
+        let initialPaketSoalId = '{{ $latihanSoal->paket_soal_id }}';
+        let initialReadingTextsId = '{{ $latihanSoal->reading_ujian_id}}';
 
-        var readingTexts = @json($readingUjians);
+        var readingTexts = @json($readingLatihanSoals);
 
         // Event handler saat pemilihan paket soal berubah
         $('#paket_soal_id').on('change', function () {
@@ -431,5 +431,5 @@
         $('#paket_soal_id').trigger('change');
         $('#reading_ujian_id').val(initialReadingTextsId).trigger('change.select2');
     });
-</script> --}}
+</script>
 @endpush

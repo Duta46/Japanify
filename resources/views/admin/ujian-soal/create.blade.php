@@ -369,7 +369,7 @@
         });
     </script>
 
-{{-- <script>
+<script>
 $(document).ready(function() {
     var paketSoal = @json($paketSoal); // Load semua paket soal
 
@@ -390,5 +390,5 @@ $(document).ready(function() {
         $('#paket_soal_id').val('').trigger('change.select2'); // Reset select2
     });
 });
-</script> --}}
+</script>
 @endpush

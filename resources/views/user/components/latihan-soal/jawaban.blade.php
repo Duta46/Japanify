@@ -7,8 +7,8 @@
         class="w-full py-4 md:py-4 ms-2 text-sm md:text-base font-normal text-gray-900 dark:text-gray-300 flex justify-center items-center space-x-2 md:space-x-4">
 
         @php
-            $answerText = $latihanSoals->answer_a;
-            $answerImage = $latihanSoals->answer_a_image;
+            $answerText = $currentSoal->answer_a;
+            $answerImage = $currentSoal->answer_a_image;
         @endphp
 
         @if ($answerText)
@@ -27,8 +27,8 @@
     <label for="bordered-radio-2"
         class="w-full py-4 md:py-4 ms-2 text-sm md:text-base font-normal text-gray-900 dark:text-gray-300 flex justify-center items-center space-x-2 md:space-x-4">
         @php
-            $answerText = $latihanSoals->answer_b;
-            $answerImage = $latihanSoals->answer_b_image;
+            $answerText = $currentSoal->answer_b;
+            $answerImage = $currentSoal->answer_b_image;
         @endphp
 
         @if ($answerText)
@@ -45,8 +45,8 @@
     <label for="bordered-radio-3"
         class="w-full py-4 md:py-4 ms-2 text-sm md:text-base font-normal text-gray-900 dark:text-gray-300 flex justify-center items-center space-x-2 md:space-x-4">
         @php
-            $answerText = $latihanSoals->answer_c;
-            $answerImage = $latihanSoals->answer_c_image;
+            $answerText = $currentSoal->answer_c;
+            $answerImage = $currentSoal->answer_c_image;
         @endphp
 
         @if ($answerText)
@@ -64,8 +64,8 @@
     <label for="bordered-radio-4"
         class="w-full py-4 md:py-4 ms-2 text-sm md:text-base font-normal text-gray-900 dark:text-gray-300 flex justify-center items-center space-x-2 md:space-x-4">
         @php
-            $answerText = $latihanSoals->answer_d;
-            $answerImage = $latihanSoals->answer_d_image;
+            $answerText = $currentSoal->answer_d;
+            $answerImage = $currentSoal->answer_d_image;
         @endphp
 
         @if ($answerText)

@@ -27,11 +27,11 @@
                     <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($Reading->text_content)) !!}</span>
                 </div>
             </div>
-            {{-- <div class="row mb-7">
+            <div class="row mb-7">
                 <label class="col-lg-4 fw-semibold text-muted">Paket Soal</label>
                 <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">{{ $Reading->PaketSoal->name }}</span>
+                    <span class="fw-bold fs-6 text-gray-800">{{ $Reading->PaketSoalLatihanSoal->name }}</span>
                 </div>
-            </div> --}}
+            </div>
         </div>
     @endsection

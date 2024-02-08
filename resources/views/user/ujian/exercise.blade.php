@@ -1,8 +1,9 @@
 @extends('layouts.index')
 
-@section('title', 'Soal')
+@section('title', 'Ujian')
 
 @section('content')
+
     @include('user.components.ujian.header')
 
     <div class="min-h-screen min-w-full bg-white flex flex-col justify-center p-10 shadow">
@@ -14,13 +15,13 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex + 1 }}</span>
+                                <span class="me-2">Number</span><span>{{ $currentSoalIndex + 1 }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
                             <span id="waktu"
                                 class="me-5 text-lg font-medium text-true-gray-800 hover:text-cool-gray-700 transition duration-150 ease-in-out">
-                                Sisa Waktu <span id="hours">01</span>:<span id="minutes">00</span>:<span
+                                Remaining Time <span id="hours">01</span>:<span id="minutes">00</span>:<span
                                     id="seconds">00</span>
                             </span>
                             <button data-modal-toggle="default-modal"
@@ -54,7 +55,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                {{-- <div class="p-4 space-y-6">
+                                <div class="p-4 space-y-6">
                                     @foreach ($soals as $index => $soal)
                                         @php
                                             $SameCategory = $currentSoal->kategori->id === $soal->kategori->id;
@@ -70,7 +71,7 @@
                                             {{ $index + 1 }}
                                         </button>
                                     @endforeach
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,6 +105,7 @@
 @endsection
 
 @push('scripts')
+
     {{-- Menyimpan Waktu Start --}}
     <script>
         let waktuAwal = sessionStorage.getItem("waktuAwal");
@@ -300,9 +302,7 @@
                             currentCategoryId = nextCategory; // Update current category ID
 
                             // Tambahkan entri ke dalam history
-                            history.pushState({
-                                page: nextQuestionUrl
-                            }, null, nextQuestionUrl);
+                            history.pushState({ page: nextQuestionUrl }, null, nextQuestionUrl);
 
                             window.location.href = nextQuestionUrl;
                         }
@@ -317,16 +317,12 @@
 
         window.onload = function() {
             // Simpan status awal dalam history state
-            history.replaceState({
-                page: window.location.href
-            }, null, window.location.href);
+            history.replaceState({ page: window.location.href }, null, window.location.href);
 
             // Tangkap event ketika pengguna mencoba untuk kembali
             window.addEventListener('popstate', function(event) {
                 if (event.state && event.state.page !== window.location.href) {
-                    history.pushState({
-                        page: window.location.href
-                    }, null, window.location.href);
+                    history.pushState({ page: window.location.href }, null, window.location.href);
                 }
             });
         };
@@ -339,7 +335,6 @@
         function incrementPlayCount() {
             audioPlayCount++;
         }
-
         function checkPlayCount() {
             if (audioPlayCount >= 2) {
                 audioElement.controls = false;

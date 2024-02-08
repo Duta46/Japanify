@@ -45,6 +45,7 @@
             const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
             const resultTableBody = document.querySelector('#resultTable tbody');
             let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
+            let shuffledSoalIds = JSON.parse(sessionStorage.getItem('shuffledSoalIds'));
 
             sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
                 const dataA = JSON.parse(sessionStorage.getItem(a));
@@ -58,49 +59,50 @@
             let questionNumber = 1;
             let totalPoints = 0;
 
-            sessionStorageKeys.forEach(sessionStorageKey => {
-                const dataJawaban = sessionStorage.getItem(sessionStorageKey);
+            shuffledSoalIds.forEach(soalId => {
+            const sessionStorageKey = `jawabanSoal_${soalId}`;
+            const dataJawaban = sessionStorage.getItem(sessionStorageKey);
 
-                if (dataJawaban) {
-                    const jawaban = JSON.parse(dataJawaban);
+            if (dataJawaban) {
+                const jawaban = JSON.parse(dataJawaban);
 
-                    const answerMapping = {
-                        'bordered-radio-1': 'A',
-                        'bordered-radio-2': 'B',
-                        'bordered-radio-3': 'C',
-                        'bordered-radio-4': 'D',
-                    };
+                const answerMapping = {
+                    'bordered-radio-1': 'A',
+                    'bordered-radio-2': 'B',
+                    'bordered-radio-3': 'C',
+                    'bordered-radio-4': 'D',
+                };
 
-                    const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
+                const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
 
-                    const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
+                const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
 
-                    let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
+                let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
 
-                    let resultCellContent = jawaban.teksJawaban;
+                let resultCellContent = jawaban.teksJawaban;
 
-                    // Check if 'teksJawaban' is a Base64 image
-                    if (isBase64Image(jawaban.teksJawaban)) {
-                        resultCellContent =
-                            `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
-                    }
-
-                    const resultRow = `
-            <tr>
-                <td class="py-2 px-4 border-b">${questionNumber}</td>
-                <td class="py-2 px-4 border-b">${resultCellContent}</td>
-                <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
-                <td class="py-2 px-4 border-b">${pointsSoal}</td>
-            </tr>
-        `;
-                    resultTableBody.innerHTML += resultRow;
-
-                    // Increment total points
-                    totalPoints += parseInt(pointsSoal);
-
-                    questionNumber++;
+                // Check if 'teksJawaban' is a Base64 image
+                if (isBase64Image(jawaban.teksJawaban)) {
+                    resultCellContent =
+                        `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
                 }
-            });
+
+                const resultRow = `
+                    <tr>
+                        <td class="py-2 px-4 border-b">${questionNumber}</td>
+                        <td class="py-2 px-4 border-b">${resultCellContent}</td>
+                        <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
+                        <td class="py-2 px-4 border-b">${pointsSoal}</td>
+                    </tr>
+                `;
+                resultTableBody.innerHTML += resultRow;
+
+                // Increment total points
+                totalPoints += parseInt(pointsSoal);
+
+                questionNumber++;
+            }
+        });
 
             // Function to check if the string is a Base64 image
             function isBase64Image(str) {

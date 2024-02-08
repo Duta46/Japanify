@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Soal')
+@section('title', 'Paket Soal Latihan Soal')
 
 @section('page-title')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold flex-column justify-content-center my-0">
-            Soal
+            Paket Soal Latihan Soal
         </h1>
     </div>
 @endsection
@@ -27,25 +27,19 @@
                     placeholder="Cari.." />
             </div>
             <div class="d-flex flex-stack">
-                    <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-latihan-soal.create') }}">
-                        Tambah Reading Content
-                    </a>
-                    <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.latihan-soal.create') }}">
-                        Tambah Soal
-                    </a>
+                <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.paket-soal-latihan-soal.create') }}">
+                    Tambah Paket Soal
+                </a>
             </div>
         </div>
         <div class="card-body pt-0">
-            <table id="soal-table" class="table align-middle table-row-dashed fs-6 gy-5">
+            <table id="paket-soal-latihan-soal-table" class="table align-middle table-row-dashed fs-6 gy-5">
                 <thead>
                     <tr class="fw-semibold fs-6 text-muted">
                         <th class="text-start min-w-100px">No</th>
-                        <th class="text-start min-w-100px">Soal</th>
-                        <th class="text-start min-w-100px">Soal Gambar</th>
-                        <th class="text-center min-w-100px">Soal Audio</th>
-                        <th class="text-start min-w-100px">Kategori Soal</th>
-                        <th class="text-start min-w-100px">Paket Soal</th>
-                        <th class="text-start min-w-100px">Kategori Test</th>
+                        <th class="text-start min-w-70px">Paket Soal</th>
+                        <th class="text-start min-w-70px">Jumlah Soal</th>
+                        <th class="text-start min-w-100px">Kategori test</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
                 </thead>
@@ -55,7 +49,7 @@
 @endsection
 @push('scripts')
     <script>
-        var datatable = $('#soal-table').DataTable({
+        var datatable = $('#paket-soal-latihan-soal-table').DataTable({
             processing: true,
             serverSide: true,
             ordering: true,
@@ -71,69 +65,15 @@
                     width: '10%'
                 },
                 {
-                    data: 'question',
-                    name: 'question',
-                    orderable: true,
-                    searchable: true,
-                    width: '30%',
-                    render: function(data, type, row) {
-                        if (type === 'display') {
-                            if (data.length > 100) {
-                                return data.slice(0, 100);
-                            } else {
-                                return data;
-                            }
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-                {
-                    data: 'question_image',
-                    name: 'question_image',
-                    orderable: true,
-                    searchable: true,
-                    width: '20%',
-                    // render: function (data, type, row) {
-                    //     if (type === 'display') {
-                    //         if (data) {
-                    //             return '<img src="'+ data +'" width="50%" height="50%">';
-                    //         } else {
-                    //             return 'Tidak Ada Gambar';
-                    //         }
-                    //     } else {
-                    //         return data;
-                    //     }
-                    // }
-                },
-                {
-                    data: 'question_audio',
-                    name: 'question_audio',
-                    orderable: true,
-                    searchable: true,
-                    width: '20%',
-                    // render: function (data, type, row) {
-                    //     if (type === 'display') {
-                    //         if (data) {
-                    //             return '<audio controls><source src="'+ data +'" type="audio/mpeg"></audio>';
-                    //         } else {
-                    //             return 'Tidak Ada Audio';
-                    //         }
-                    //     } else {
-                    //         return data;
-                    //     }
-                    // }
-                },
-                {
-                    data: 'kategori',
-                    name: 'kategori',
+                    data: 'name',
+                    name: 'name',
                     orderable: true,
                     searchable: true,
                     width: '30%'
                 },
                 {
-                    data: 'paket_soal_latihan_soal',
-                    name: 'paket_soal_latihan_soal',
+                    data: 'jumlah_soal',
+                    name: 'jumlah_soal',
                     orderable: true,
                     searchable: true,
                     width: '30%'
@@ -145,13 +85,6 @@
                     searchable: true,
                     width: '30%'
                 },
-                // {
-                //     data: 'paket_soal',
-                //     name: 'paket_soal',
-                //     orderable: true,
-                //     searchable: true,
-                //     width: '30%'
-                // },
                 {
                     data: 'actions',
                     name: 'actions',
@@ -162,8 +95,7 @@
             ],
             order: [
                 [0, "asc"]
-            ],
-
+            ]
         })
 
         $('#search').on('keyup', function() {
@@ -187,7 +119,7 @@
                 if (result.isConfirmed) {
                     e.preventDefault();
                     var id = $(this).data("id");
-                    var route = "{{ route('admin.latihan-soal.destroy', ':id') }}";
+                    var route = "{{ route('admin.paket-soal-latihan-soal.destroy', ':id') }}";
                     route = route.replace(':id', id);
                     $.ajax({
                         url: route,

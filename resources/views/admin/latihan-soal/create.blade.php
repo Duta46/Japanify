@@ -156,24 +156,24 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- <div class="row mb-5">
+                    <div class="row mb-5">
                         <div class="col-xl-3">
-                            <label for="paket_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
+                            <label for="paket_soal_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
                         </div>
                         <div class="col-lg">
-                            <select name="paket_soal_id" id="paket_soal_id" class="form-select custom-placeholder" data-control="select2" data-placeholder="Pilih Paket Soal">
+                            <select name="paket_soal_latihan_soal_id" id="paket_soal_latihan_soal_id" class="form-select custom-placeholder" data-control="select2" data-placeholder="Pilih Paket Soal">
                                 <option value="" disabled selected>Pilih Paket Soal</option>
                                 @foreach($paketSoal as $paket)
                                     <option value="{{ $paket->id }}">{{ $paket->name }}</option>
                                 @endforeach
                             </select>
-                            @error('paket_soal_id')
+                            @error('paket_soal_latihan_soal_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="reading_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Content Reading</label>
@@ -304,9 +304,9 @@ inputs.forEach(function (input) {
     });
 </script>
 
-{{-- <script>
+<script>
     $(document).ready(function () {
-        var readingUjians = @json($readingUjians);
+        var readingUjians = @json($readingLatihanSoals);
 
         // Event handler saat pemilihan paket soal berubah
         $('#paket_soal_id').on('change', function () {
@@ -325,5 +325,5 @@ inputs.forEach(function (input) {
             $('#reading_texts_id').val('').trigger('change.select2');
         });
     });
-</script> --}}
+</script>
 @endpush

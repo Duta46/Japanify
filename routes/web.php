@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\LatihanSoalController;
 use App\Http\Controllers\Admin\ReadingLatihanSoalController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\KategoriTestController;
-
+use App\Http\Controllers\Admin\PaketSoalLatihanSoalController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Middleware\CheckRoleMiddleware;
 use App\Http\Controllers\User\RegisterController;
@@ -57,9 +57,12 @@ Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin|User']
     Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
 
     Route::get('/menu/{menu_id}/latihan-soal', [UserLatihanSoalController::class, 'index'])->name('user.latihan-soal');
-    Route::get('/latihan_soal/{kategori_id}/{soal_id}', [LatihanSoalController::class, 'soal'])->name('exercise');
+    Route::get('/detail-paket-soal/{id}', [UserLatihanSoalController::class, 'detailPaketSoal'])->name('user.latihan-soal.introduction');
+    Route::get('/soal/{paketSoalId}/{soalId}', [UserLatihanSoalController::class, 'mulaiTest'])->name('user.latihan-soal.mulaiTest');
+    Route::get('/result', [UserLatihanSoalController::class, 'result'])->name('result');
+    Route::post('/store-answer', [UserLatihanSoalController::class, 'storeAnswer'])->name('storeAnswer');
 
-    Route::get('/menu/{menu_id}/latihan-soal', [UjianController::class, 'index'])->name('user.ujian');
+    Route::get('/menu/{menu_id}/ujian', [UjianController::class, 'index'])->name('user.ujian');
     Route::get('/introduction/{id}', [UjianController::class, 'introduction'])->name('user.introduction');
     Route::get('/exercise/{paketSoalId}/{soalId}', [UjianController::class, 'mulaiTest'])->name('mulaiTest');
     Route::get('/result', [UjianController::class, 'result'])->name('result');
@@ -82,7 +85,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-        //Route for paket soal
         Route::group(['prefix' => 'PaketSoal'], function () {
             Route::get('/', [PaketSoalController::class, 'index'])->name('admin.paket-soal');
 
@@ -95,6 +97,20 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::put('/update/{id}', [PaketSoalController::class, 'update'])->name('admin.paket-soal.update');
 
             Route::delete('/destroy/{id}', [PaketSoalController::class, 'destroy'])->name('admin.paket-soal.destroy');
+        });
+
+        Route::group(['prefix' => 'PaketLatihanSoal'], function () {
+            Route::get('/', [PaketSoalLatihanSoalController::class, 'index'])->name('admin.paket-soal-latihan-soal');
+
+            Route::get('/create', [PaketSoalLatihanSoalController::class, 'create'])->name('admin.paket-soal-latihan-soal.create');
+            Route::post('/store', [PaketSoalLatihanSoalController::class, 'store'])->name('admin.paket-soal-latihan-soal.store');
+
+            Route::get('/show/{id}', [PaketSoalLatihanSoalController::class, 'show'])->name('admin.paket-soal-latihan-soal.show');
+
+            Route::get('/edit/{id}', [PaketSoalLatihanSoalController::class, 'edit'])->name('admin.paket-soal-latihan-soal.edit');
+            Route::put('/update/{id}', [PaketSoalLatihanSoalController::class, 'update'])->name('admin.paket-soal-latihan-soal.update');
+
+            Route::delete('/destroy/{id}', [PaketSoalLatihanSoalController::class, 'destroy'])->name('admin.paket-soal-latihan-soal.destroy');
         });
 
         Route::group(['prefix' => 'Kategori'], function () {
