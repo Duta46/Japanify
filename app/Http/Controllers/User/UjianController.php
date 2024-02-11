@@ -9,7 +9,6 @@ use App\Models\SoalUjian;
 use App\Models\PaketSoal;
 use App\Models\KategoriTest;
 use App\Models\Kategori;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 
 class UjianController extends Controller
@@ -40,15 +39,19 @@ class UjianController extends Controller
         $paket = PaketSoal::find($paketSoalId);
 
         if (!$paket) {
-            abort(404);
+            return redirect()->route('package')->with('error', 'Paket soal tidak ditemukan');
         }
 
-        $soal = $paket->Soal;
+        $soal = SoalUjian::where('paket_soal_id', $paketSoalId)->get();
+
+        if ($soal->isEmpty()) {
+            return redirect()->route('package')->with('error', 'Tidak ada soal dalam paket ini');
+        }
 
         $firstSoalId = SoalUjian::where('paket_soal_id', $paketSoalId)
-        ->orderBy('kategori_id')
-        ->orderBy('id')
-        ->value('id');
+            ->orderBy('kategori_id')
+            ->orderBy('id')
+            ->value('id');
 
         $kategoris = Kategori::withCount(['SoalUjian' => function ($query) use ($soal) {
             $query->whereIn('id', $soal->pluck('id'));
@@ -56,19 +59,8 @@ class UjianController extends Controller
 
         return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId]);
     }
-    // private function fisherYatesShuffle($array)
-    // {
-    //     $count = count($array);
-    //     for ($i = $count - 1; $i > 0; $i--) {
-    //         $j = rand(0, $i);
-    //         if ($i != $j) {
-    //             list($array[$i], $array[$j]) = array($array[$j], $array[$i]);
-    //         }
-    //     }
-    //     return $array;
-    // }
 
-    public function mulaiTest(Request $request, $paketSoalId, $soalId)
+    public function mulaiTest($paketSoalId, $soalId)
     {
 
         $soals = SoalUjian::with('kategori')
@@ -116,72 +108,9 @@ class UjianController extends Controller
         ]);
     }
 
-
-    //     // Mengambil ID soal yang sudah muncul sebelumnya dari sesi
-    // $soalSudahMuncul = Session::get('soal_sudah_muncul', []);
-
-    // $soals = SoalUjian::with('kategori')
-    //     ->where('paket_soal_id', $paketSoalId)
-    //     ->orderBy('kategori_id')
-    //     ->orderBy('id')
-    //     ->get();
-
-    // // Mengambil urutan ID soal dari daftar soal
-    // $soalIds = $soals->pluck('id')->toArray();
-
-    // // Mengacak urutan ID soal menggunakan Fisher-Yates Shuffle
-    // $shuffledSoalIds = $this->fisherYatesShuffle($soalIds);
-
-    // // Mengambil indeks dari $soalId di dalam array $soalIds
-    // $currentIndex = array_search($soalId, $soalIds);
-
-    // // Memastikan indeks ditemukan
-    // if ($currentIndex === false) {
-    //     return redirect()->back()->with('error', 'Soal tidak ditemukan dalam urutan soal.');
-    // }
-
-    // // Mengambil ID soal dari urutan yang sesuai
-    // $currentSoalId = $shuffledSoalIds[$currentIndex];
-
-
-
-    // // Tambahkan ID soal yang sudah muncul ke dalam sesi
-    // $soalSudahMuncul[] = $currentSoalId;
-    // Session::put('soal_sudah_muncul', $soalSudahMuncul);
-
-    // // Mendapatkan detail soal yang sedang dikerjakan
-    // $currentSoal = $soals->firstWhere('id', $currentSoalId);
-
-    // // Menentukan soal sebelumnya dan soal berikutnya
-    // $previousSoal = null;
-    // $nextSoal = null;
-
-    // if ($currentIndex > 0) {
-    //     $previousSoal = $soals->firstWhere('id', $shuffledSoalIds[$currentIndex - 1]);
-    // }
-
-    // if ($currentIndex < count($soalIds) - 1) {
-    //     $nextSoal = $soals->firstWhere('id', $shuffledSoalIds[$currentIndex + 1]);
-    // }
-
-    // // Menentukan apakah soal yang sedang dikerjakan adalah yang terakhir
-    // $lastSoal = ($currentIndex === count($soalIds) - 1);
-
-    // // Menghitung nomor soal saat ini
-    // $currentSoalIndex = $currentIndex + 1;
-
-    // return view('user.ujian.exercise', [
-    //     'currentSoal' => $currentSoal,
-    //     'previousSoal' => $previousSoal,
-    //     'nextSoal' => $nextSoal,
-    //     'lastSoal' => $lastSoal,
-    //     'soalIds' => $shuffledSoalIds,
-    //     'currentSoalIndex' => $currentSoalIndex,
-    // ]);
-
-    public function result()
+    public function result(Request $request)
     {
-        return view('user.ujian.result');
+    return view('user.ujian.result');
     }
 
     public function showResultPage(Request $request, $id)
@@ -212,15 +141,11 @@ class UjianController extends Controller
             }
         }
 
-        $kategoriTest = KategoriTest::find($id);
-        $minimumPoint = $kategoriTest->point_ujian;
-
         return view('user.ujian.result', [
             'currentSoal' => $currentSoal,
             'correctAnswer' => $correctAnswer,
             'userAnswer' => $userAnswer,
             'points' => $points,
-            'minimumPoint' => $minimumPoint
         ]);
     }
 }

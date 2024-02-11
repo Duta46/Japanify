@@ -105,7 +105,6 @@
 @endsection
 
 @push('scripts')
-
     {{-- Menyimpan Waktu Start --}}
     <script>
         let waktuAwal = sessionStorage.getItem("waktuAwal");
@@ -142,17 +141,17 @@
             // waktu habis
             if (waktu <= 0) {
                 clearInterval(x);
-                document.getElementById("waktu").innerText = "Time Out";
+                document.getElementById("waktu").innerText = "Waktu Habis";
 
                 Swal.fire({
-                    title: "Time Out!",
-                    text: "You've passed the time limit.",
+                    title: "Waktu Habis!",
+                    text: "Anda telah melewati batas waktu.",
                     icon: "warning",
                     confirmButtonText: "OK"
                 }).then((result) => {
                     // Redirect halaman result jika menekan ok
                     if (result.isConfirmed || result.isDismissed) {
-                        window.location.href = "{{ route('result') }}";
+                        window.location.href = "{{ route('user.latihan-soal.result') }}";
                     }
                 });
             }
@@ -252,7 +251,7 @@
     {{-- Navigasi daftar soal start --}}
     <script>
         function redirectToQuestion(soalId) {
-            const url = '/exercise/{{ $currentSoal->paket_soal_id }}/' + soalId;
+            const url = '/soal/{{ $currentSoal->paket_soal_latihan_soal_id }}/' + soalId;
             window.location.href = url;
         }
     </script>
@@ -262,7 +261,7 @@
     <script>
         function konfirmasiAkhiriUjian() {
             Swal.fire({
-                title: "Are you sure ?",
+                title: "Apakah anda yakin ?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -271,11 +270,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: "Exam Finished!",
-                        text: "You have successfully finished the exam.",
+                        title: "Latihan Soal Selesai",
+                        text: "Anda telah meyelesaikan latihan soal",
                         icon: "success",
                     }).then(() => {
-                        window.location.href = "{{ route('result') }}";
+                        window.location.href = "{{ route('user.latihan-soal.result') }}";
                     });
                 }
             });
@@ -302,7 +301,9 @@
                             currentCategoryId = nextCategory; // Update current category ID
 
                             // Tambahkan entri ke dalam history
-                            history.pushState({ page: nextQuestionUrl }, null, nextQuestionUrl);
+                            history.pushState({
+                                page: nextQuestionUrl
+                            }, null, nextQuestionUrl);
 
                             window.location.href = nextQuestionUrl;
                         }
@@ -317,12 +318,16 @@
 
         window.onload = function() {
             // Simpan status awal dalam history state
-            history.replaceState({ page: window.location.href }, null, window.location.href);
+            history.replaceState({
+                page: window.location.href
+            }, null, window.location.href);
 
             // Tangkap event ketika pengguna mencoba untuk kembali
             window.addEventListener('popstate', function(event) {
                 if (event.state && event.state.page !== window.location.href) {
-                    history.pushState({ page: window.location.href }, null, window.location.href);
+                    history.pushState({
+                        page: window.location.href
+                    }, null, window.location.href);
                 }
             });
         };
@@ -335,6 +340,7 @@
         function incrementPlayCount() {
             audioPlayCount++;
         }
+
         function checkPlayCount() {
             if (audioPlayCount >= 2) {
                 audioElement.controls = false;

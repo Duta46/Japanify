@@ -59,7 +59,7 @@ Route::group(['middleware' => [CheckRoleMiddleware::class . ':Super Admin|User']
     Route::get('/menu/{menu_id}/latihan-soal', [UserLatihanSoalController::class, 'index'])->name('user.latihan-soal');
     Route::get('/detail-paket-soal/{id}', [UserLatihanSoalController::class, 'detailPaketSoal'])->name('user.latihan-soal.introduction');
     Route::get('/soal/{paketSoalId}/{soalId}', [UserLatihanSoalController::class, 'mulaiTest'])->name('user.latihan-soal.mulaiTest');
-    Route::get('/result', [UserLatihanSoalController::class, 'result'])->name('result');
+    Route::get('/skor-akhir', [UserLatihanSoalController::class, 'result'])->name('user.latihan-soal.result');
     Route::post('/store-answer', [UserLatihanSoalController::class, 'storeAnswer'])->name('storeAnswer');
 
     Route::get('/menu/{menu_id}/ujian', [UjianController::class, 'index'])->name('user.ujian');

@@ -2,7 +2,7 @@
 @if ($previousSoal && $previousSoal->kategori_id === $currentSoal->kategori_id)
 <a href="{{ route('mulaiTest', ['paketSoalId' => $currentSoal->paket_soal_id, 'soalId' => $previousSoal->id]) }}"
     class="w-full md:w-auto px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold text-center md:text-left">
-    Previous Question
+    Soal Sebelumnya
 </a>
 @endif
 
@@ -18,14 +18,14 @@
     onclick="return checkCategory('{{ $currentCategory }}', '{{ $nextCategory }}', '{{ $nextQuestionUrl }}')"
     class="w-full md:w-auto px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold text-center md:text-left ml-auto">
     @if ($lastSoal)
-        Move Session
+    Pindah Sesi
     @else
-        Next Question
+    Soal Selanjutnya
     @endif
 </a>
 @elseif ($nextSoal === null)
 <button onclick="konfirmasiAkhiriUjian()"
     class="w-full md:w-auto px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold text-center md:text-left ml-auto">
-    End Exam
+    Akhiri Ujian
 </button>
 @endif

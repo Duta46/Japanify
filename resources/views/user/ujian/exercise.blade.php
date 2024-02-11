@@ -262,7 +262,7 @@
     <script>
         function konfirmasiAkhiriUjian() {
             Swal.fire({
-                title: "Are you sure ?",
+                title: "Apa kamu yakin ?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -271,8 +271,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: "Exam Finished!",
-                        text: "You have successfully finished the exam.",
+                        title: "Ujian Selesai!",
+                        text: "Anda telah berhasil menyelesaikan ujian.",
                         icon: "success",
                     }).then(() => {
                         window.location.href = "{{ route('result') }}";
@@ -291,7 +291,7 @@
                 if (currentCategory !== nextCategory) {
                     Swal.fire({
                         title: "Section Change!",
-                        text: "You are moving to the next Section. Are you sure?",
+                        text: "Anda Pindah ke Bagian Kategori Soal Selanjutnya. Apa kamu yakin?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",

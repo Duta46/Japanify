@@ -1,9 +1,9 @@
 @extends('layouts.index')
 
-@section('title', 'Skor Akhir')
+@section('title', 'Skor Akhir Latihan Soal')
 
 @section('content')
-    @include('user.components.ujian.header')
+    @include('user.components.latihan-soal.header')
 
     <div class="container mx-auto py-6 sm:py-10">
 

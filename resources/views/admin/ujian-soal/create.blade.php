@@ -368,27 +368,4 @@
             });
         });
     </script>
-
-<script>
-$(document).ready(function() {
-    var paketSoal = @json($paketSoal); // Load semua paket soal
-
-    // Event handler saat pemilihan kategori test berubah
-    $('#kategori_test_id').on('change', function() {
-        var selectedKategoriTestId = $(this).val();
-
-        $('#paket_soal_id').empty();
-        $('#paket_soal_id').append('<option value="" disabled selected>Pilih Paket Soal</option>');
-
-        // Menampilkan opsi paket soal yang sesuai dengan kategori test yang dipilih
-        paketSoal.forEach(function(paket) {
-            if (paket.kategori_test_id == selectedKategoriTestId) {
-                $('#paket_soal_id').append('<option value="' + paket.id + '">' + paket.name + '</option>');
-            }
-        });
-
-        $('#paket_soal_id').val('').trigger('change.select2'); // Reset select2
-    });
-});
-</script>
 @endpush

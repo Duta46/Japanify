@@ -5,7 +5,7 @@
                 <img src="{{ asset('assets/images/logo-sahabat-jepang-indonesia.jpg')}}"
                     class="mr-3 w-24 sm:h-24 rounded-lg object-cover" alt="SJI Logo" />
             </div>
-            @if (!request()->is('result'))
+            @if (!request()->is('skor-akhir'))
                 @if ($currentSoal && $currentSoal->kategori)
                     <div class="flex items-center lg:order-1">
                         <p class="font-medium text-2xl px-2 lg:px-5 py-2 lg:py-2.5">

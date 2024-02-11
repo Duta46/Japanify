@@ -66,27 +66,7 @@
             sessionStorage.setItem("waktuAwal", waktuAwal);
         }
 
-        // function fisherYatesShuffle(array) {
-        //     let currentIndex = array.length,
-        //         temporaryValue, randomIndex;
-
-        //     while (0 !== currentIndex) {
-        //         // Ambil elemen yang tersisa
-        //         randomIndex = Math.floor(Math.random() * currentIndex);
-        //         currentIndex -= 1;
-
-        //         // Tukar dengan elemen saat ini
-        //         temporaryValue = array[currentIndex];
-        //         array[currentIndex] = array[randomIndex];
-        //         array[randomIndex] = temporaryValue;
-        //     }
-
-        //     return array;
-        // }
-
         function mulaiTes() {
-            sessionStorage.clear();
-
             // Update waktu awal
             updateWaktuAwal();
 

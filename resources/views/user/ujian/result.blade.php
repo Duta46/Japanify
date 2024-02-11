@@ -40,27 +40,26 @@
 @endsection
 
 @push('scripts')
-    <script>
-        function displayUserAnswers() {
-            const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
-            const resultTableBody = document.querySelector('#resultTable tbody');
-            let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
-            let shuffledSoalIds = JSON.parse(sessionStorage.getItem('shuffledSoalIds'));
+<script>
+    function displayUserAnswers() {
+        const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
+        const resultTableBody = document.querySelector('#resultTable tbody');
+        let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
 
-            sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
-                const dataA = JSON.parse(sessionStorage.getItem(a));
-                const dataB = JSON.parse(sessionStorage.getItem(b));
-                if (dataA.idKategori === dataB.idKategori) {
-                    return dataA.idPertanyaan - dataB.idPertanyaan;
-                }
-                return dataA.idKategori - dataB.idKategori;
-            });
 
-            let questionNumber = 1;
-            let totalPoints = 0;
+        sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
+            const dataA = JSON.parse(sessionStorage.getItem(a));
+            const dataB = JSON.parse(sessionStorage.getItem(b));
+            if (dataA.idKategori === dataB.idKategori) {
+                return dataA.idPertanyaan - dataB.idPertanyaan;
+            }
+            return dataA.idKategori - dataB.idKategori;
+        });
 
-            shuffledSoalIds.forEach(soalId => {
-            const sessionStorageKey = `jawabanSoal_${soalId}`;
+        let questionNumber = 1;
+        let totalPoints = 0;
+
+        sessionStorageKeys.forEach(sessionStorageKey => {
             const dataJawaban = sessionStorage.getItem(sessionStorageKey);
 
             if (dataJawaban) {
@@ -88,13 +87,13 @@
                 }
 
                 const resultRow = `
-                    <tr>
-                        <td class="py-2 px-4 border-b">${questionNumber}</td>
-                        <td class="py-2 px-4 border-b">${resultCellContent}</td>
-                        <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
-                        <td class="py-2 px-4 border-b">${pointsSoal}</td>
-                    </tr>
-                `;
+            <tr>
+                <td class="py-2 px-4 border-b">${questionNumber}</td>
+                <td class="py-2 px-4 border-b">${resultCellContent}</td>
+                <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
+                <td class="py-2 px-4 border-b">${pointsSoal}</td>
+            </tr>
+        `;
                 resultTableBody.innerHTML += resultRow;
 
                 // Increment total points
@@ -104,22 +103,23 @@
             }
         });
 
-            // Function to check if the string is a Base64 image
-            function isBase64Image(str) {
-                return str.startsWith('data:image/');
-            }
+        // Function to check if the string is a Base64 image
+        function isBase64Image(str) {
+            return str.startsWith('data:image/');
+        }
 
-            // Display the total points in the score recap table
-            const totalRow = `
+
+        // Display the total points in the score recap table
+        const totalRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Total</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints}/200</b></td>
        </tr>
    `;
 
-            // Display the lulus status
-            const lulusRow = `
+        // Display the lulus status
+        const lulusRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus</b></td>
@@ -127,17 +127,15 @@
        </tr>
    `;
 
-            const additionalRowsContainer = document.querySelector('#additionalRows');
-            additionalRowsContainer.innerHTML = totalRow + lulusRow;
+        const additionalRowsContainer = document.querySelector('#additionalRows');
+        additionalRowsContainer.innerHTML = totalRow + lulusRow;
 
-            // sessionStorage.setItem('exerciseTotal', totalPoints);
-            // sessionStorage.setItem('exerciseStatus', totalPoints >= 200 ? 'Ya' : 'Tidak');
-        }
+        // sessionStorage.setItem('exerciseTotal', totalPoints);
+        // sessionStorage.setItem('exerciseStatus', totalPoints >= 200 ? 'Ya' : 'Tidak');
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            displayUserAnswers();
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', displayUserAnswers);
+</script>
 
     <script>
         function logoutAndRedirect() {

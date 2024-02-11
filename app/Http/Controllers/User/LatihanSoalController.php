@@ -59,14 +59,11 @@ class LatihanSoalController extends Controller
 
     public function mulaiTest(Request $request, $paketSoalId, $soalId)
     {
-        // Ambil daftar soal berdasarkan paket soal ID
         $soals = LatihanSoal::with('kategori')
             ->where('paket_soal_latihan_soal_id', $paketSoalId)
             ->orderBy('kategori_id')
-            ->orderBy('id')
             ->get();
 
-        // Cek apakah soal dengan ID yang diberikan ada dalam daftar soal
         $currentSoal = $soals->firstWhere('id', $soalId);
         if (!$currentSoal) {
             return redirect()->back()->with('error', 'Soal tidak ditemukan.');
@@ -82,31 +79,31 @@ class LatihanSoalController extends Controller
             $shuffledSoalIds = Session::get('shuffledSoalIds');
         }
 
-        // Mengambil urutan soal yang sesuai dengan yang diacak
-        $sortedSoals = collect([]);
-        foreach ($shuffledSoalIds as $id) {
-            $soal = $soals->firstWhere('id', $id);
-            if ($soal) {
-                $sortedSoals->push($soal);
+        // Mendapatkan indeks soal yang sedang dikerjakan
+        $currentSoalIndex = array_search($soalId, $shuffledSoalIds);
+
+        // Mendapatkan soal sebelumnya dan berikutnya
+        $previousSoal = null;
+        $nextSoal = null;
+        if ($currentSoalIndex !== false) {
+            $previousSoalIndex = $currentSoalIndex - 1;
+            $nextSoalIndex = $currentSoalIndex + 1;
+
+            if (isset($shuffledSoalIds[$previousSoalIndex])) {
+                $previousSoal = $soals->firstWhere('id', $shuffledSoalIds[$previousSoalIndex]);
+            }
+
+            if (isset($shuffledSoalIds[$nextSoalIndex])) {
+                $nextSoal = $soals->firstWhere('id', $shuffledSoalIds[$nextSoalIndex]);
             }
         }
 
-        // Temukan indeks soal yang sedang ditampilkan dalam urutan soal yang diacak
-        $currentSoalIndex = $sortedSoals->search(function ($soal) use ($currentSoal) {
-            return $soal->id === $currentSoal->id;
-        });
-
-
-        // Temukan soal sebelumnya dan berikutnya berdasarkan urutan yang diacak
-        $previousSoal = $currentSoalIndex > 0 ? $sortedSoals[$currentSoalIndex - 1] : null;
-        $nextSoal = $currentSoalIndex < $sortedSoals->count() - 1 ? $sortedSoals[$currentSoalIndex + 1] : null;
-
         // Tentukan apakah soal yang sedang dikerjakan adalah yang terakhir dalam urutan soal
-        $lastSoal = $currentSoalIndex === $sortedSoals->count();
+        $lastSoal = $currentSoalIndex === (count($shuffledSoalIds) - 1);
 
         return view('user.latihan-soal.exercise', [
-            'soals' => $sortedSoals,
-            'jumlahSoals' => $sortedSoals->count(),
+            'soals' => $soals,
+            'jumlahSoals' => count($soals),
             'currentSoal' => $currentSoal,
             'previousSoal' => $previousSoal,
             'nextSoal' => $nextSoal,
@@ -114,11 +111,6 @@ class LatihanSoalController extends Controller
             'lastSoal' => $lastSoal,
         ]);
     }
-
-
-
-
-
 
     //     // Mengambil ID soal yang sudah muncul sebelumnya dari sesi
     // $soalSudahMuncul = Session::get('soal_sudah_muncul', []);
@@ -226,5 +218,4 @@ class LatihanSoalController extends Controller
             'minimumPoint' => $minimumPoint
         ]);
     }
-
 }

@@ -23,10 +23,11 @@
                 <hr class="mt-4 border-b border-blueGray-600 w-full">
                 <div class="divide-y divide-gray-200">
                     <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                        <div class="relative" >
+                        <div class="relative">
                             <p id="waktu" class="text-base">This test will take around 1 hour</p>
                             @foreach ($kategoris as $kategori)
-                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }} Soal</p>
+                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }} Soal
+                                </p>
                             @endforeach
                         </div>
                         <div class="relative mt-4 flex justify-center">
@@ -61,9 +62,11 @@
         }
 
         function fisherYatesShuffle(array) {
+              // Mengambil panjang array
             let currentIndex = array.length,
                 temporaryValue, randomIndex;
 
+                 // Selama masih ada elemen yang tersisa dalam array
             while (0 !== currentIndex) {
                 // Ambil elemen yang tersisa
                 randomIndex = Math.floor(Math.random() * currentIndex);
@@ -79,7 +82,6 @@
         }
 
         function mulaiTes() {
-            // Bersihkan sessionStorage jika ada
             sessionStorage.clear();
 
             // Periksa apakah shuffledSoalIds sudah ada di sessionStorage
@@ -105,5 +107,4 @@
             window.location.href = "/soal/" + paketSoalId + "/" + shuffledSoalIds[0];
         }
     </script>
-
 @endpush
