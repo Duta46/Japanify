@@ -34,62 +34,6 @@
                         <span class="text-sm font-normal text-gray-800">Welcome, {{ $username }}</span>
                     @else
                         <span class="text-sm font-normal text-gray-800">Welcome, {{ Auth::user()->username }}</span>
-                        {{-- <div class="flex items-center justify-center">
-                            <div aria-label="header" class="flex space-x-4 items-center p-4">
-                              <div aria-label="avatar" class="flex  items-center space-x-4">
-                                <img
-                                  src="https://avatars.githubusercontent.com/u/499550?v=4"
-                                  alt="avatar Evan You"
-                                  class="w-12 h-12 0-0 rounded-full"
-                                />
-                                <div class="space-y-2 flex flex-col flex-1 truncate">
-                                  <div class="font-medium relative text-xl leading-tight text-gray-900">
-                                    <span class="flex">
-                                      <span class="truncate relative pr-8">
-                                        Evan You
-                                        <span
-                                          aria-label="verified"
-                                          class="absolute top-1/2 -translate-y-1/2 right-0 inline-block rounded-full"
-                                        >
-                                        </span>
-                                      </span>
-                                    </span>
-                                  </div>
-                                  <p class="font-normal text-base leading-tight text-gray-500 truncate">
-                                    evanyou@gmail.com
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div aria-label="footer" class="pt-2">
-                              <button
-                                type="button"
-                                class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  aria-hidden="true"
-                                  class="w-7 h-7"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  stroke-width="2"
-                                  stroke="currentColor"
-                                  fill="none"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                >
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                  <path
-                                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-                                  ></path>
-                                  <path d="M9 12h12l-3 -3"></path>
-                                  <path d="M18 15l3 -3"></path>
-                                </svg>
-                                <span>Logout</span>
-                              </button>
-                            </div>
-                          </div> --}}
                     @endif
                     <a href="{{ route('user.logout') }}" class="text-sm font-normal text-gray-800">Logout</a>
                 @else
@@ -116,11 +60,21 @@
                     href="{{ route('user.informasi-test') }}">Informasi Tes</a>
                 <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
                     href="{{ route('user.statistic') }}">Statistic</a>
-                <a href="{{ url()->to('user/login') }}" class="flex items-center text-sm font-normal text-black">Log
-                    In</a>
-                <a href="{{ route('user.register') }}"
-                    class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">Sign
-                    Up</a>
+                @auth
+                    @if (isset($username))
+                        <span class="text-sm font-normal text-gray-800">Welcome, {{ $username }}</span>
+                    @else
+                        <span class="text-sm font-normal text-gray-800">Welcome, {{ Auth::user()->username }}</span>
+                    @endif
+                    <a href="{{ route('user.logout') }}" class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900">Logout</a>
+                @else
+                    <a href="{{ url()->to('user/login') }}" class="flex items-center text-sm font-normal text-black">Log
+                        In</a>
+                    <a href="{{ route('user.register') }}"
+                        class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">Sign
+                        Up</a>
+                @endauth
+
             </div>
         </div>
     </div>

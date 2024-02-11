@@ -113,8 +113,8 @@
         const totalRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Total</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints}/200</b></td>
+           <td class="py-2 px-4 border-b"><b>Total :</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
        </tr>
    `;
 
@@ -122,16 +122,13 @@
         const lulusRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Ya' : 'Tidak'}</b></td>
+           <td class="py-2 px-4 border-b"><b>Lulus :</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Lulus' : 'Tidak Lulus'}</b></td>
        </tr>
    `;
 
         const additionalRowsContainer = document.querySelector('#additionalRows');
         additionalRowsContainer.innerHTML = totalRow + lulusRow;
-
-        // sessionStorage.setItem('exerciseTotal', totalPoints);
-        // sessionStorage.setItem('exerciseStatus', totalPoints >= 200 ? 'Ya' : 'Tidak');
     }
 
     document.addEventListener('DOMContentLoaded', displayUserAnswers);
