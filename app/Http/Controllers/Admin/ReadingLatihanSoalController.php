@@ -12,10 +12,10 @@ class ReadingLatihanSoalController extends Controller
 {
     public function index(Request $request)
     {
-        $soalReadingUjian = ReadingContentLatihanSoal::get();
+        $soalReadingLatihanSoal = ReadingContentLatihanSoal::get();
 
         if ($request->ajax()) {
-            return DataTables::of($soalReadingUjian)
+            return DataTables::of($soalReadingLatihanSoal)
                 ->addIndexColumn()
                 ->addColumn('actions', function ($item) {
                     return
@@ -67,7 +67,7 @@ class ReadingLatihanSoalController extends Controller
 
         $request->validate([
             'text_content' => 'required|string',
-            'paket_soal_latihan_soal_id' => 'nullable',
+            'paket_soal_latihan_soal_id' => 'required|string',
         ]);
 
         $data['text_content'] = strip_tags($data['text_content']);

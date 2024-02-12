@@ -26,8 +26,11 @@
                         <div class="relative">
                             <p id="waktu" class="text-base">This test will take around 1 hour</p>
                             @foreach ($kategoris as $kategori)
-                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }} Soal
-                                </p>
+                                @if ($kategori->latihan_soal_count > 0)
+                                    <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }}
+                                        Soal
+                                    </p>
+                                @endif
                             @endforeach
                         </div>
                         <div class="relative mt-4 flex justify-center">
@@ -62,11 +65,11 @@
         }
 
         function fisherYatesShuffle(array) {
-              // Mengambil panjang array
+            // Mengambil panjang array
             let currentIndex = array.length,
                 temporaryValue, randomIndex;
 
-                 // Selama masih ada elemen yang tersisa dalam array
+            // Selama masih ada elemen yang tersisa dalam array
             while (0 !== currentIndex) {
                 // Ambil elemen yang tersisa
                 randomIndex = Math.floor(Math.random() * currentIndex);

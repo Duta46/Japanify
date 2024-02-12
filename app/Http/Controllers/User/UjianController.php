@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\LatihanSoal;
 use Illuminate\Http\Request;
 use App\Models\SoalUjian;
 use App\Models\PaketSoal;
