@@ -40,53 +40,52 @@
 @endsection
 
 @push('scripts')
-<script>
-    function displayUserAnswers() {
-        const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
-        const resultTableBody = document.querySelector('#resultTable tbody');
-        let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
+    <script>
+        function displayUserAnswers() {
+            const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
+            const resultTableBody = document.querySelector('#resultTable tbody');
+            let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
 
-
-        sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
-            const dataA = JSON.parse(sessionStorage.getItem(a));
-            const dataB = JSON.parse(sessionStorage.getItem(b));
-            if (dataA.idKategori === dataB.idKategori) {
-                return dataA.idPertanyaan - dataB.idPertanyaan;
-            }
-            return dataA.idKategori - dataB.idKategori;
-        });
-
-        let questionNumber = 1;
-        let totalPoints = 0;
-
-        sessionStorageKeys.forEach(sessionStorageKey => {
-            const dataJawaban = sessionStorage.getItem(sessionStorageKey);
-
-            if (dataJawaban) {
-                const jawaban = JSON.parse(dataJawaban);
-
-                const answerMapping = {
-                    'bordered-radio-1': 'A',
-                    'bordered-radio-2': 'B',
-                    'bordered-radio-3': 'C',
-                    'bordered-radio-4': 'D',
-                };
-
-                const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
-
-                const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
-
-                let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
-
-                let resultCellContent = jawaban.teksJawaban;
-
-                // Check if 'teksJawaban' is a Base64 image
-                if (isBase64Image(jawaban.teksJawaban)) {
-                    resultCellContent =
-                        `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
+            sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
+                const dataA = JSON.parse(sessionStorage.getItem(a));
+                const dataB = JSON.parse(sessionStorage.getItem(b));
+                if (dataA.idKategori === dataB.idKategori) {
+                    return dataA.idPertanyaan - dataB.idPertanyaan;
                 }
+                return dataA.idKategori - dataB.idKategori;
+            });
 
-                const resultRow = `
+            let questionNumber = 1;
+            let totalPoints = 0;
+
+            sessionStorageKeys.forEach(sessionStorageKey => {
+                const dataJawaban = sessionStorage.getItem(sessionStorageKey);
+
+                if (dataJawaban) {
+                    const jawaban = JSON.parse(dataJawaban);
+
+                    const answerMapping = {
+                        'bordered-radio-1': 'A',
+                        'bordered-radio-2': 'B',
+                        'bordered-radio-3': 'C',
+                        'bordered-radio-4': 'D',
+                    };
+
+                    const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
+
+                    const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
+
+                    let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
+
+                    let resultCellContent = jawaban.teksJawaban;
+
+                    // Check if 'teksJawaban' is a Base64 image
+                    if (isBase64Image(jawaban.teksJawaban)) {
+                        resultCellContent =
+                            `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
+                    }
+
+                    const resultRow = `
             <tr>
                 <td class="py-2 px-4 border-b">${questionNumber}</td>
                 <td class="py-2 px-4 border-b">${resultCellContent}</td>
@@ -94,23 +93,23 @@
                 <td class="py-2 px-4 border-b">${pointsSoal}</td>
             </tr>
         `;
-                resultTableBody.innerHTML += resultRow;
+                    resultTableBody.innerHTML += resultRow;
 
-                // Increment total points
-                totalPoints += parseInt(pointsSoal);
+                    // Increment total points
+                    totalPoints += parseInt(pointsSoal);
 
-                questionNumber++;
+                    questionNumber++;
+                }
+            });
+
+            // Function to check if the string is a Base64 image
+            function isBase64Image(str) {
+                return str.startsWith('data:image/');
             }
-        });
-
-        // Function to check if the string is a Base64 image
-        function isBase64Image(str) {
-            return str.startsWith('data:image/');
-        }
 
 
-        // Display the total points in the score recap table
-        const totalRow = `
+            // Display the total points in the score recap table
+            const totalRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Total :</b></td>
@@ -118,21 +117,24 @@
        </tr>
    `;
 
-        // Display the lulus status
-        const lulusRow = `
+            const pointUjianData = JSON.parse(sessionStorage.getItem('point_ujian'));
+            const passingScore = pointUjianData ? parseInt(pointUjianData.point_ujian) : 0;
+
+            // Display the lulus status
+            const lulusRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus :</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Lulus' : 'Tidak Lulus'}</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= passingScore ? 'Lulus' : 'Tidak Lulus'}</b></td>
        </tr>
    `;
 
-        const additionalRowsContainer = document.querySelector('#additionalRows');
-        additionalRowsContainer.innerHTML = totalRow + lulusRow;
-    }
+            const additionalRowsContainer = document.querySelector('#additionalRows');
+            additionalRowsContainer.innerHTML = totalRow + lulusRow;
+        }
 
-    document.addEventListener('DOMContentLoaded', displayUserAnswers);
-</script>
+        document.addEventListener('DOMContentLoaded', displayUserAnswers);
+    </script>
 
     <script>
         function logoutAndRedirect() {

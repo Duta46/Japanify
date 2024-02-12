@@ -162,7 +162,7 @@
                                 Awesome!
                             </p> --}}
                                 <div class="features-btn rounded-buttons">
-                                    <a class="btn primary-btn-outline rounded-full" href="{{ route('user.menu.show', ['menu_id' => $menuTest->id])  }}" onclick="setMenuId({{ $menuTest->id }})">
+                                    <a class="btn primary-btn-outline rounded-full" href="{{ route('user.menu.show', ['menu_id' => $menuTest->id])  }}" onclick="setMenu({{ json_encode($menuTest) }})">
                                         Continue
                                     </a>
                                 </div>
@@ -178,10 +178,10 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script>
-        function setMenuId(menuId) {
+        function setMenu(menu) {
             sessionStorage.clear();
-            
-            sessionStorage.setItem('menu_id', menuId);
+
+            sessionStorage.setItem('menu', JSON.stringify(menu));
         }
     </script>
 </body>
