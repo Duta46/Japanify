@@ -35,7 +35,7 @@
                             <label for="paket_soal_latihan_soal" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
                         </div>
                         <div class="col-lg">
-                            <select name="paket_soal_latihan_soal" id="paket_soal_latihan_soal" class="form-select custom-placeholder" data-control="select2" data-placeholder="Pilih Paket Soal">
+                            <select name="paket_soal_latihan_soal_id" id="paket_soal_latihan_soal_id" class="form-select custom-placeholder" data-control="select2" data-placeholder="Pilih Paket Soal">
                                 <option value="" disabled selected>Pilih Paket Soal</option>
                                 @foreach($paketSoal as $paket)
                                     <option value="{{ $paket->id }}">{{ $paket->name }}</option>

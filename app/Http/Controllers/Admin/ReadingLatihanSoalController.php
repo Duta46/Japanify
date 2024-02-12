@@ -67,7 +67,7 @@ class ReadingLatihanSoalController extends Controller
 
         $request->validate([
             'text_content' => 'required|string',
-            'paket_soal_latihan_soal_id' => 'nullable',
+            'paket_soal_latihan_soal_id' => 'required',
         ]);
 
         $data['text_content'] = strip_tags($data['text_content']);
