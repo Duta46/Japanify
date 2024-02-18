@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | {{ $setting->name ?? config('app.name', 'IJTS') }}</title>
-    <link rel="icon" type="image/jpg" href="/assets/images/logo-sahabat-jepang-indonesia.jpg" />
+    <link rel="icon" type="image/jpeg" href="assets/images/Japanify.jpeg" />
 
     {{-- Boostrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"

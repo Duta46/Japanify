@@ -57,6 +57,7 @@
 
             let questionNumber = 1;
             let totalPoints = 0;
+            const minimumPoint = Number(JSON.parse(sessionStorage.getItem('menu')).point_ujian);
 
             sessionStorageKeys.forEach(sessionStorageKey => {
                 const dataJawaban = sessionStorage.getItem(sessionStorageKey);
@@ -112,20 +113,17 @@
             const totalRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Total :</b></td>
+           <td class="py-2 px-4 border-b"><b>Total</b></td>
            <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
        </tr>
    `;
-
-            const pointUjianData = JSON.parse(sessionStorage.getItem('point_ujian'));
-            const passingScore = pointUjianData ? parseInt(pointUjianData.point_ujian) : 0;
 
             // Display the lulus status
             const lulusRow = `
        <tr>
            <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Lulus :</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= passingScore ? 'Lulus' : 'Tidak Lulus'}</b></td>
+           <td class="py-2 px-4 border-b"><b>Lulus</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoint ? 'Lulus' : 'Tidak Lulus'}</b></td>
        </tr>
    `;
 

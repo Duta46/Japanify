@@ -4,10 +4,10 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <a href="{{ route('dashboard') }}">
             <img alt="Logo"
-                src="{{ isset($setting->logo_default) ? asset('storage/' . $setting->logo_default) : asset('assets/images/logo-sahabat-jepang-indonesia.jpg') }}"
+                src="{{ isset($setting->logo_default) ? asset('storage/' . $setting->logo_default) : asset('assets/images/Japanify.jpeg') }}"
                 class="h-60px ms-15 app-sidebar-logo-default" />
             <img alt="Logo"
-                src="{{ isset($setting->logo_square) ? asset('storage/' . $setting->logo_square) : asset('assets/images/logo-sahabat-jepang-indonesia.jpg') }}"
+                src="{{ isset($setting->logo_square) ? asset('storage/' . $setting->logo_square) : asset('assets/images/Japanify.jpeg') }}"
                 class="h-30px app-sidebar-logo-minimize" />
         </a>
         <div id="kt_app_sidebar_toggle"

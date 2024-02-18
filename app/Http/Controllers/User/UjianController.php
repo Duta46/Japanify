@@ -56,10 +56,22 @@ class UjianController extends Controller
             $query->whereIn('id', $soal->pluck('id'));
         }])->get();
 
-        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId]);
+        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId, 'soal' => $soal]);
     }
 
-    public function mulaiTest($paketSoalId, $soalId)
+    private function fisherYatesShuffle($array)
+    {
+        $count = count($array);
+        for ($i = $count - 1; $i > 0; $i--) {
+            $j = random_int(0, $i);
+            $temp = $array[$i];
+            $array[$i] = $array[$j];
+            $array[$j] = $temp;
+        }
+        return $array;
+    }
+
+    public function mulaiTest(Request $request, $paketSoalId, $soalId)
     {
 
         $soals = SoalUjian::with('kategori')
@@ -109,7 +121,7 @@ class UjianController extends Controller
 
     public function result(Request $request)
     {
-    return view('user.ujian.result');
+        return view('user.ujian.result');
     }
 
     public function showResultPage(Request $request, $id)
@@ -119,9 +131,10 @@ class UjianController extends Controller
         $correctAnswer = $currentSoal->correct_answer;
         $pointsForCurrentSoal = $currentSoal->point_soal;
 
+        // Retrieve the user's answer key from session storage
+        $userAnswerKey = $request->input('user_answer_key'); // Update this based on your session storage key
 
-        $userAnswerKey = $request->input('user_answer_key');
-
+        // Mapping array for session storage keys and their corresponding answers
         $answerMapping = [
             'bordered-radio-1' => 'A',
             'bordered-radio-2' => 'B',

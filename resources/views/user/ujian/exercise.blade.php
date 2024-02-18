@@ -142,7 +142,7 @@
             // waktu habis
             if (waktu <= 0) {
                 clearInterval(x);
-                document.getElementById("waktu").innerText = "Time Out";
+                document.getElementById("waktu").innerText = "Waktu Habis";
 
                 Swal.fire({
                     title: "Time Out!",

@@ -12,6 +12,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/bootstrap.min.css" />
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet" />
+    <link rel="icon" type="image/jpeg" href="assets/images/Japanify.jpeg" />
     <link rel="stylesheet" href="https://cdn.ayroui.com/1.0/css/starter.css" />
     <style type="text/css">
         .features-style-one .primary-btn-outline {

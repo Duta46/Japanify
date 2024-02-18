@@ -29,10 +29,11 @@
                         <div class="relative">
                             <p id="waktu" class="text-base">This test will take around 1 hour</p>
                             @if ($kategoris)
-                            @foreach ($kategoris as $kategori)
-                                <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal</p>
-                            @endforeach
-                        @endif
+                                @foreach ($kategoris as $kategori)
+                                    <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal
+                                    </p>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="relative mt-4 flex justify-center">
                             <button type="submit" onclick="mulaiTes()"
@@ -67,6 +68,7 @@
         }
 
         function mulaiTes() {
+            // sessionStorage.clear();
             // Update waktu awal
             updateWaktuAwal();
 

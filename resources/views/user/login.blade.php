@@ -7,6 +7,7 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css"
         rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="assets/images/Japanify.jpeg" />
 </head>
 
 <body class="bg-white rounded-lg py-2">

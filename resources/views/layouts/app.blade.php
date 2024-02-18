@@ -20,7 +20,7 @@
 
     <!-- Styles -->
     {{-- @livewireStyles --}}
-    <link rel="shortcut icon" href="{{ isset($setting->favicon) ? asset('storage/' . $setting->favicon) : asset('assets/images/logo-sahabat-jepang-indonesia.jpg') }}" />
+    <link rel="shortcut icon" href="{{ isset($setting->favicon) ? asset('storage/' . $setting->favicon) : asset('assets/images/Japanify.jpeg') }}" />
     <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
