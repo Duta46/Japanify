@@ -8,10 +8,11 @@
     <title>Japanify</title>
 
     <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('assets/images/user/favicon.png') }}" type="image/png">
 
     <!--====== Animate CSS ======-->
 
@@ -34,15 +35,9 @@
     <!--====== Style CSS ======-->
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link href="{{ asset('assets/css/user/tailwind.css') }}" rel="stylesheet" type="text/css" />
-
 </head>
 
 <body>
-    <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
-
-
     <!--====== PRELOADER PART START ======-->
 
     <div class="hidden preloader">
@@ -109,18 +104,21 @@
                                 </ul>
                             </div> <!-- navbar collapse -->
 
-                            <div class="absolute right-0 hidden mt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0" id="loginButton">
+                            <div class="absolute right-0 hidden mt-2 mr-24 navbar-btn sm:inline-block lg:mt-0 lg:static lg:mr-0"
+                                id="loginButton">
                                 @auth
-                                @if (isset($username))
-                                    <span class="text-sm font-normal text-gray-800">Welcome, {{ $username }}</span>
+                                    @if (isset($username))
+                                        <span class="text-sm font-normal text-gray-800">Welcome, {{ $username }}</span>
+                                    @else
+                                        <span class="text-sm font-normal text-gray-800">Welcome,
+                                            {{ Auth::user()->username }}</span>
+                                    @endif
+                                    <a href="{{ route('user.logout') }}"
+                                        class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900">Logout</a>
                                 @else
-                                    <span class="text-sm font-normal text-gray-800">Welcome, {{ Auth::user()->username }}</span>
-                                @endif
-                                <a href="{{ route('user.logout') }}" class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900">Logout</a>
-                            @else
-                            <a class="main-btn gradient-btn" data-scroll-nav="0" href="{{ route('user.login') }}"
-                            rel="nofollow">Login</a>
-                            @endauth
+                                    <a class="main-btn gradient-btn" data-scroll-nav="0" href="{{ route('user.login') }}"
+                                        rel="nofollow">Login</a>
+                                @endauth
 
                             </div>
                         </nav> <!-- navbar -->
@@ -136,14 +134,15 @@
                     <div class="w-full lg:w-2/3">
                         <div class="pt-32 mb-12 text-center lg:pt-48 header-hero-content">
                             <h3 class="text-4xl font-light leading-tight text-white header-sub-title wow fadeInUp"
-                                data-wow-duration="1.3s" data-wow-delay="0.2s">Basic - SaaS Landing Page</h3>
+                                data-wow-duration="1.3s" data-wow-delay="0.2s">Japanify</h3>
                             <h2 class="mb-3 text-4xl font-bold text-white header-title wow fadeInUp"
-                                data-wow-duration="1.3s" data-wow-delay="0.5s">Kickstart Your SaaS or App Site</h2>
-                            <p class="mb-8 text-white text wow fadeInUp" data-wow-duration="1.3s"
+                                data-wow-duration="1.3s" data-wow-delay="0.5s">Simulasi Test JLPT Online</h2>
+                            {{-- <p class="mb-8 text-white text wow fadeInUp" data-wow-duration="1.3s"
                                 data-wow-delay="0.8s">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                nonumy eirmod tempor</p>
-                            <a href="{{ route('user.menu') }}" class="main-btn gradient-btn gradient-btn-2 wow fadeInUp"
-                                data-wow-duration="1.3s" data-wow-delay="1.1s">Get Started</a>
+                                nonumy eirmod tempor</p> --}}
+                            <a href="{{ route('user.menu') }}"
+                                class="main-btn gradient-btn gradient-btn-2 wow fadeInUp" data-wow-duration="1.3s"
+                                data-wow-delay="1.1s">Get Started</a>
                         </div> <!-- header hero content -->
                     </div>
                 </div> <!-- row -->
@@ -486,7 +485,7 @@
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-twitter-filled"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-instagram-filled"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a>
+                                    <li><a href="https://www.linkedin.com/in/duta-gunawan/"><i class="lni lni-linkedin-original"></i></a>
                                     </li>
                                 </ul>
                             </div>
