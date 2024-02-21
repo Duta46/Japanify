@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Detail Paket Soal')
+@section('title', 'Detail Paket Soal Ujian')
 
 @section('content')
     <div class="container mx-auto py-6 sm:py-20 animate-fade-down">

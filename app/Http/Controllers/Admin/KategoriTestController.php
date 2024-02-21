@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KategoriTest;
 use App\Models\SoalUjian;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -32,6 +33,11 @@ class KategoriTestController extends Controller
                         </span>
                     </button>
                     <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-100px py-4" data-kt-menu="true">
+                        <div class="menu-item px-3">
+                            <a href="' . route('admin.kategori-test.show', $item->id) . '" class="menu-link px-3">
+                                Kategori Test Detail
+                            </a>
+                        </div>
                         <div class="menu-item px-3">
                             <a href="' . route('admin.kategori-test.edit', $item->id) . '" class="menu-link px-3">
                                 Edit Data
@@ -60,12 +66,23 @@ class KategoriTestController extends Controller
 
         $request->validate([
             'name' => 'required|string',
-            'point_ujian' => 'required|string'
+            'point_ujian' => 'required|string',
+            'point_kategori_1' => 'required|string',
+            'point_kategori_2' => 'required|string',
+            'point_kategori_3' => 'required|string',
+            'point_kategori_4' => 'required|string',
         ]);
 
         KategoriTest::create($data);
 
         return redirect()->route('admin.kategori-test')->with('success', 'Berhasil Tambah Kategori Test');
+    }
+
+    public function show($id)
+    {
+        $kategoriTest = KategoriTest::find($id);
+
+        return view('admin.kategori-test.show', compact('kategoriTest'));
     }
 
     public function edit($id)
@@ -82,6 +99,10 @@ class KategoriTestController extends Controller
         $request->validate([
             'name' => 'required|string',
             'point_ujian' => 'required|string',
+            'point_kategori_1' => 'required|string',
+            'point_kategori_2' => 'required|string',
+            'point_kategori_3' => 'required|string',
+            'point_kategori_4' => 'required|string',
         ]);
 
         $Kategori = KategoriTest::find($id);
@@ -99,7 +120,7 @@ class KategoriTestController extends Controller
             if (!$KategoriTest) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Test Kategori not found',
+                    'message' => 'Kategori Tes not found',
                 ], 404);
             }
 
@@ -111,7 +132,7 @@ class KategoriTestController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Test Kategori deleted',
+                'message' => 'Kategori Test Deleted',
             ]);
         } catch (\Exception $e) {
             return response()->json([

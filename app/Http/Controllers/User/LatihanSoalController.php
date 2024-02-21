@@ -101,6 +101,8 @@ class LatihanSoalController extends Controller
         // Tentukan apakah soal yang sedang dikerjakan adalah yang terakhir dalam urutan soal
         $lastSoal = $currentSoalIndex === (count($shuffledSoalIds) - 1);
 
+        // dd(session()->all());
+
         return view('user.latihan-soal.exercise', [
             'soals' => $soals,
             'jumlahSoals' => count($soals),
@@ -109,10 +111,10 @@ class LatihanSoalController extends Controller
             'nextSoal' => $nextSoal,
             'currentSoalIndex' => $currentSoalIndex,
             'lastSoal' => $lastSoal,
+            'shuffledSoalIds' => $shuffledSoalIds,
         ]);
     }
 
-    //     // Mengambil ID soal yang sudah muncul sebelumnya dari sesi
     // $soalSudahMuncul = Session::get('soal_sudah_muncul', []);
 
     // $soals = SoalUjian::with('kategori')

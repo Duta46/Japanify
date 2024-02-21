@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Skor Akhir')
+@section('title', 'Skor Akhir Ujian')
 
 @section('content')
     @include('user.components.ujian.header')

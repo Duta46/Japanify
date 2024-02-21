@@ -35,7 +35,42 @@
                         <div class="col-lg">
                             <input type="number" name="point_ujian" class="form-control" value="{{ $Kategori->point_ujian }}"
                                 placeholder="Input nama kategori soal " />
-
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_kategori_1" class="fs-6 fw-bold mt-2 mb-3">Poin Kategori 1</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_kategori_1" class="form-control" value="{{ $Kategori->point_kategori_1 }}"
+                                placeholder="Input Point Kategori 1" />
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_kategori_2" class="fs-6 fw-bold mt-2 mb-3">Poin Kategori 2</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_kategori_2" class="form-control" value="{{ $Kategori->point_kategori_2 }}"
+                                placeholder="Input Point Kategori 2" />
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_kategori_3" class="fs-6 fw-bold mt-2 mb-3">Poin Kategori 3</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_kategori_3" class="form-control" value="{{ $Kategori->point_kategori_3 }}"
+                                placeholder="Input Point Kategori 3" />
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="point_kategori_4" class="fs-6 fw-bold mt-2 mb-3">Poin Kategori 4</label>
+                        </div>
+                        <div class="col-lg">
+                            <input type="number" name="point_kategori_4" class="form-control" value="{{ $Kategori->point_kategori_4 }}"
+                                placeholder="Input Point Kategori 4" />
                         </div>
                     </div>
                 </div>

@@ -203,9 +203,12 @@
             <div class="justify-center row">
                 <div class="w-full lg:w-2/3">
                     <div class="pb-10 text-center section-title">
+                        <h3 class="title">Apa Itu JLPT ?</h3>
+                        <p class="mb-8 mt-8 text-lg">JLPT merupakan ujian kemampuan berbahasa Jepang yang diperlukan untuk mendaftar masuk ke universitas di Jepang
+
+                        </p>
                         <div class="m-auto line"></div>
-                        <h3 class="title">Clean and simple design, <span> Comes with everything you need to get
-                                started!</span></h3>
+                        <h3 class="title">Mengapa Harus Ikut Tes JLPT ?</h3>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
@@ -220,11 +223,10 @@
                             <i class="lni lni-baloon"></i>
                         </div>
                         <div class="mt-8 services-content">
-                            <h4 class="mb-8 text-xl font-bold text-gray-900">Clean</h4>
-                            <p class="mb-8">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu
-                                eirmod tempor invidunt labore.</p>
-                            <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
-                                    class="ml-2 lni lni-chevron-right"></i></a>
+                            <h4 class="mb-8 text-xl font-bold text-gray-900">Pendidikan</h4>
+                            <p class="mb-8">Lebih mudah masuk ke universitas di Jepang</p>
+                            {{-- <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
+                                    class="ml-2 lni lni-chevron-right"></i></a> --}}
                         </div>
                     </div> <!-- single services -->
                 </div>
@@ -239,11 +241,10 @@
                             <i class="lni lni-cog"></i>
                         </div>
                         <div class="mt-8 services-content">
-                            <h4 class="mb-8 text-xl font-bold text-gray-900">Robust</h4>
-                            <p class="mb-8">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu
-                                eirmod tempor invidunt labore.</p>
-                            <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
-                                    class="ml-2 lni lni-chevron-right"></i></a>
+                            <h4 class="mb-8 text-xl font-bold text-gray-900">Kerja di Jepang</h4>
+                            <p class="mb-8">Menjadi salah satu syarat untuk kerja di Jepang</p>
+                            {{-- <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
+                                    class="ml-2 lni lni-chevron-right"></i></a> --}}
                         </div>
                     </div> <!-- single services -->
                 </div>
@@ -258,11 +259,10 @@
                             <i class="lni lni-bolt-alt"></i>
                         </div>
                         <div class="mt-8 services-content">
-                            <h4 class="mb-8 text-xl font-bold text-gray-900">Powerful</h4>
-                            <p class="mb-8">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu
-                                eirmod tempor invidunt labore.</p>
-                            <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
-                                    class="ml-2 lni lni-chevron-right"></i></a>
+                            <h4 class="mb-8 text-xl font-bold text-gray-900">Portfolio</h4>
+                            <p class="mb-8">Bisa menjadi nilai tambah pada portfolio</p>
+                            {{-- <a class="duration-300 hover:text-theme-color" href="javascript:void(0)">Learn More <i
+                                    class="ml-2 lni lni-chevron-right"></i></a> --}}
                         </div>
                     </div> <!-- single services -->
                 </div>
@@ -282,7 +282,7 @@
                         data-wow-delay="0.5s">
                         <div class="mb-4 section-title">
                             <div class="line"></div>
-                            <h3 class="title">Quick & Easy <span>to Use Tailwind Template</span></h3>
+                            <h3 class="title">Berapa Tingkatan Test Dalam JLPT?</h3>
                         </div> <!-- section title -->
                         <p class="mb-8">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod
                             tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et

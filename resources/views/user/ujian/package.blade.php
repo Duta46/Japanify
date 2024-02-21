@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Paket Soal')
+@section('title', 'Paket Soal Ujian')
 
 @section('content')
     <div class="container mx-auto mt-36 px-4 sm:px-6 lg:px-8">

@@ -192,6 +192,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::get('/create', [KategoriTestController::class, 'create'])->name('admin.kategori-test.create');
             Route::post('/store', [KategoriTestController::class, 'store'])->name('admin.kategori-test.store');
 
+            Route::get('/show/{id}', [KategoriTestController::class, 'show'])->name('admin.kategori-test.show');
+
             Route::get('/edit/{id}', [KategoriTestController::class, 'edit'])->name('admin.kategori-test.edit');
             Route::put('/update/{id}', [KategoriTestController::class, 'update'])->name('admin.kategori-test.update');
 

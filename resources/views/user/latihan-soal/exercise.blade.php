@@ -15,7 +15,7 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Number</span><span>{{ $currentSoalIndex + 1 }}</span>
+                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex + 1 }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
@@ -26,7 +26,7 @@
                             </span>
                             <button data-modal-toggle="default-modal"
                                 class="px-6 py-3 rounded-3xl font-medium bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none ease-in-out">
-                                Question List
+                                Daftar Soal
                             </button>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 <!-- Modal header -->
                                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">
-                                        Question List
+                                        Daftar Soal
                                     </h3>
                                     <button type="button"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -56,8 +56,9 @@
                                 </div>
                                 <!-- Modal body -->
                                 <div class="p-4 space-y-6">
-                                    @foreach ($soals as $index => $soal)
+                                    @foreach ($shuffledSoalIds as $index => $soalId)
                                         @php
+                                            $soal = $soals->firstWhere('id', $soalId);
                                             $SameCategory = $currentSoal->kategori->id === $soal->kategori->id;
                                         @endphp
 
@@ -65,9 +66,9 @@
                                             @continue
                                         @endif
 
-                                        <button onclick="redirectToQuestion({{ $soal->id }})"
-                                            class="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-1 rounded"
-                                            @if (!$SameCategory) disabled @endif>
+                                        <button onclick="redirectToQuestion({{ $soalId }})"
+                                                class="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-1 rounded"
+                                                @if (!$SameCategory) disabled @endif>
                                             {{ $index + 1 }}
                                         </button>
                                     @endforeach
@@ -333,32 +334,4 @@
         };
     </script>
 
-    <script>
-        let audioElement = document.getElementById('soalAudio');
-        let audioPlayCount = 0;
-
-        function incrementPlayCount() {
-            audioPlayCount++;
-        }
-
-        function checkPlayCount() {
-            if (audioPlayCount >= 2) {
-                audioElement.controls = false;
-                audioElement.removeEventListener('play', incrementPlayCount);
-                audioElement.removeEventListener('ended', checkPlayCount);
-
-                // Simpan status audio ke sessionStorage
-                sessionStorage.setItem('audioPlayed', 'true');
-            }
-        }
-
-        audioElement.addEventListener('play', incrementPlayCount);
-        audioElement.addEventListener('ended', checkPlayCount);
-
-        window.onload = function() {
-            if (sessionStorage.getItem('audioPlayed') === 'true') {
-                audioElement.controls = false;
-            }
-        };
-    </script>
 @endpush
