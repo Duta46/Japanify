@@ -114,7 +114,7 @@
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Total</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints}/100</b></td>
        </tr>
    `;
 
@@ -123,7 +123,7 @@
        <tr>
            <td class="py-2 px-4 border-b"></td>
            <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= 81 ? 'Ya' : 'Tidak'}</b></td>
+           <td class="py-2 px-4 border-b"><b>${totalPoints >= 80 ? 'Ya' : 'Tidak'}</b></td>
        </tr>
    `;
 
@@ -148,8 +148,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Logout',
-                cancelButtonText: 'No'
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Membersihkan sessionStorage

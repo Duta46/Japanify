@@ -20,6 +20,19 @@ class LatihanSoalController extends Controller
         return view('user.latihan-soal.package', compact('paketSoals', 'jumlahPaketSoal'));
     }
 
+    private function fisherYatesShuffle($array)
+    {
+        $count = count($array);
+        for ($i = $count - 1; $i > 0; $i--) {
+            $j = rand(0, $i);
+            if ($i != $j) {
+                list($array[$i], $array[$j]) = array($array[$j], $array[$i]);
+            }
+        }
+
+        return $array;
+    }
+
     public function detailPaketSoal($paketSoalId)
     {
 
@@ -41,21 +54,12 @@ class LatihanSoalController extends Controller
             ->pluck('id')
             ->toArray();
 
-        return view('user.latihan-soal.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'soalIds' => $soalIds]);
+        $shuffledSoalIds = $this->fisherYatesShuffle($soalIds);
+        session(['shuffledSoalIds' => $shuffledSoalIds]);
+
+        return view('user.latihan-soal.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'soalIds' => $soalIds, 'shuffledSoalIds' => $shuffledSoalIds]);
     }
 
-    private function fisherYatesShuffle($array)
-    {
-        $count = count($array);
-        for ($i = $count - 1; $i > 0; $i--) {
-            $j = rand(0, $i);
-            if ($i != $j) {
-                list($array[$i], $array[$j]) = array($array[$j], $array[$i]);
-            }
-        }
-
-        return $array;
-    }
 
     public function mulaiTest(Request $request, $paketSoalId, $soalId)
     {
@@ -114,67 +118,6 @@ class LatihanSoalController extends Controller
             'shuffledSoalIds' => $shuffledSoalIds,
         ]);
     }
-
-    // $soalSudahMuncul = Session::get('soal_sudah_muncul', []);
-
-    // $soals = SoalUjian::with('kategori')
-    //     ->where('paket_soal_id', $paketSoalId)
-    //     ->orderBy('kategori_id')
-    //     ->orderBy('id')
-    //     ->get();
-
-    // // Mengambil urutan ID soal dari daftar soal
-    // $soalIds = $soals->pluck('id')->toArray();
-
-    // // Mengacak urutan ID soal menggunakan Fisher-Yates Shuffle
-    // $shuffledSoalIds = $this->fisherYatesShuffle($soalIds);
-
-    // // Mengambil indeks dari $soalId di dalam array $soalIds
-    // $currentIndex = array_search($soalId, $soalIds);
-
-    // // Memastikan indeks ditemukan
-    // if ($currentIndex === false) {
-    //     return redirect()->back()->with('error', 'Soal tidak ditemukan dalam urutan soal.');
-    // }
-
-    // // Mengambil ID soal dari urutan yang sesuai
-    // $currentSoalId = $shuffledSoalIds[$currentIndex];
-
-
-
-    // // Tambahkan ID soal yang sudah muncul ke dalam sesi
-    // $soalSudahMuncul[] = $currentSoalId;
-    // Session::put('soal_sudah_muncul', $soalSudahMuncul);
-
-    // // Mendapatkan detail soal yang sedang dikerjakan
-    // $currentSoal = $soals->firstWhere('id', $currentSoalId);
-
-    // // Menentukan soal sebelumnya dan soal berikutnya
-    // $previousSoal = null;
-    // $nextSoal = null;
-
-    // if ($currentIndex > 0) {
-    //     $previousSoal = $soals->firstWhere('id', $shuffledSoalIds[$currentIndex - 1]);
-    // }
-
-    // if ($currentIndex < count($soalIds) - 1) {
-    //     $nextSoal = $soals->firstWhere('id', $shuffledSoalIds[$currentIndex + 1]);
-    // }
-
-    // // Menentukan apakah soal yang sedang dikerjakan adalah yang terakhir
-    // $lastSoal = ($currentIndex === count($soalIds) - 1);
-
-    // // Menghitung nomor soal saat ini
-    // $currentSoalIndex = $currentIndex + 1;
-
-    // return view('user.ujian.exercise', [
-    //     'currentSoal' => $currentSoal,
-    //     'previousSoal' => $previousSoal,
-    //     'nextSoal' => $nextSoal,
-    //     'lastSoal' => $lastSoal,
-    //     'soalIds' => $shuffledSoalIds,
-    //     'currentSoalIndex' => $currentSoalIndex,
-    // ]);
 
     public function result()
     {

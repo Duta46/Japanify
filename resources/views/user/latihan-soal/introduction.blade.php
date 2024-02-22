@@ -32,6 +32,7 @@
                                 @endif
                             @endforeach
                         </div>
+                        <input type="hidden" id="shuffledSoalIds" value="{{ json_encode($shuffledSoalIds) }}">
                         <div class="relative mt-4 flex justify-center">
                             <button type="submit" onclick="mulaiTes()"
                                 class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold">
@@ -86,7 +87,7 @@
         function mulaiTes() {
             sessionStorage.clear();
 
-            let shuffledSoalIds = {!! json_encode(Session::get('shuffledSoalIds')) !!};
+            let shuffledSoalIds = JSON.parse(document.getElementById('shuffledSoalIds').value);
 
             // Update waktu awal
             updateWaktuAwal();

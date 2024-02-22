@@ -19,19 +19,19 @@ class UjianController extends Controller
         return view('user.ujian.package', compact('packages', 'jumlahPaketSoal'));
     }
 
-    // private function fisherYatesShuffle($array)
-    // {
-    //     $count = count($array);
-    //     for ($i = $count - 1; $i > 0; $i--) {
-    //         $j = random_int(0, $i);
-    //         if ($i !== $j) {
-    //             $temp = $array[$i];
-    //             $array[$i] = $array[$j];
-    //             $array[$j] = $temp;
-    //         }
-    //     }
-    //     return $array;
-    // }
+    private function fisherYatesShuffle($array)
+    {
+        $count = count($array);
+        for ($i = $count - 1; $i > 0; $i--) {
+            $j = random_int(0, $i);
+            if ($i !== $j) {
+                $temp = $array[$i];
+                $array[$i] = $array[$j];
+                $array[$j] = $temp;
+            }
+        }
+        return $array;
+    }
 
     public function introduction($paketSoalId)
     {
@@ -57,18 +57,6 @@ class UjianController extends Controller
         }])->get();
 
         return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId, 'soal' => $soal]);
-    }
-
-    private function fisherYatesShuffle($array)
-    {
-        $count = count($array);
-        for ($i = $count - 1; $i > 0; $i--) {
-            $j = random_int(0, $i);
-            $temp = $array[$i];
-            $array[$i] = $array[$j];
-            $array[$j] = $temp;
-        }
-        return $array;
     }
 
     public function mulaiTest(Request $request, $paketSoalId, $soalId)
