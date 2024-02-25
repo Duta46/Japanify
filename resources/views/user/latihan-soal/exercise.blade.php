@@ -21,7 +21,7 @@
                         <div class="flex items-center justify-center md:justify-end space-x-4">
                             <span id="waktu"
                                 class="me-5 text-lg font-medium text-true-gray-800 hover:text-cool-gray-700 transition duration-150 ease-in-out">
-                                Remaining Time <span id="hours">01</span>:<span id="minutes">00</span>:<span
+                                Sisa Waktu <span id="hours">01</span>:<span id="minutes">00</span>:<span
                                     id="seconds">00</span>
                             </span>
                             <button data-modal-toggle="default-modal"

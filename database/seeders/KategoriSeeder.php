@@ -18,7 +18,7 @@ class KategoriSeeder extends Seeder
                 'name' => 'Vocabulary'
             ],
             [
-                'name' => 'Structure'
+                'name' => 'Grammar'
             ],
             [
                 'name' => 'Reading'

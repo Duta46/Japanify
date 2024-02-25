@@ -36,14 +36,6 @@ Route::get('/', function () {
     return view('user.home');
 })->name('user.home');
 
-Route::get('/informasi-test', function () {
-    return view('user.informasi-test');
-})->name('user.informasi-test');
-
-Route::get('/statistic', function () {
-    return view('user.statistic');
-})->name('user.statistic');
-
 Route::get('/login', [AuthController::class, 'index'])->name('user.login');
 Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
 
