@@ -94,6 +94,7 @@
             sessionStorage.clear();
 
             let shuffledSoalIds = JSON.parse(document.getElementById('shuffledSoalIds').value);
+            console.log('shuffledSoalIds:', shuffledSoalIds);
 
             // Update waktu awal
             updateWaktuAwal();

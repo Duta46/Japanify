@@ -68,12 +68,43 @@
         }
 
         function mulaiTes() {
-            // sessionStorage.clear();
-            // Update waktu awal
-            updateWaktuAwal();
+        // Update waktu awal
+        updateWaktuAwal();
 
-            // Redirect ke halaman tes
-            window.location.href = "{{ route('mulaiTest', ['paketSoalId' => $paket->id, 'soalId' => $firstSoalId]) }}";
+        let paketSoalId = <?php echo json_encode($paket->id); ?>;
+        let soalByCategory = <?php echo json_encode($soalByCategory); ?>;
+
+        if (!soalByCategory || Object.keys(soalByCategory).length === 0) {
+            // Handle the case where soalByCategory is null or empty
+            console.error("Invalid or empty soalByCategory.");
+            return;
         }
+
+        // Get the keys of soalByCategory
+        let categoryKeys = Object.keys(soalByCategory);
+
+        // Get the index of the first question in the first category
+        let questionIndex = 0;
+
+        // Ensure the category index exists
+        if (categoryKeys.length > 0) {
+            // Get the category key for the first category
+            let firstCategoryKey = categoryKeys[0];
+
+            // Ensure the category has questions
+            if (soalByCategory[firstCategoryKey].length > questionIndex) {
+                // Get the first question from the first category
+                let firstQuestion = soalByCategory[firstCategoryKey][questionIndex];
+
+                // Redirect to the exercise page with the question id
+                window.location.href = `/exercise/${paketSoalId}/${firstQuestion.id}`;
+                return;
+            }
+        }
+
+        console.error("Invalid category or question index.");
+    }
+
+
     </script>
 @endpush

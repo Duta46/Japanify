@@ -67,7 +67,7 @@ class UjianController extends Controller
             $query->whereIn('id', $soal->pluck('id'));
         }])->get();
 
-        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId, 'soal' => $soal]);
+        return view('user.ujian.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'firstSoalId' => $firstSoalId, 'soal' => $soal,  'soalByCategory' => $soalByCategory,]);
     }
 
     public function mulaiTest(Request $request, $paketSoalId, $soalId)
@@ -90,6 +90,8 @@ class UjianController extends Controller
 
         // Mengambil soal yang sedang ditampilkan
         $currentSoal = $soals->firstWhere('id', $soalId);
+
+        // dd($currentSoal);
 
         // Menemukan index soal yang sedang ditampilkan dalam koleksi soal
         $currentSoalIndex = $soals->search(function ($soal) use ($currentSoal) {
@@ -128,6 +130,7 @@ class UjianController extends Controller
             'nextSoal' => $nextSoal,
             'currentSoalIndex' => $currentSoalIndex,
             'lastSoal' => $lastSoal,
+            'soalByCategory' => $soalByCategory
         ]);
 
     }
