@@ -27,7 +27,7 @@
                         @csrf --}}
                     <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                         <div class="relative">
-                            <p id="waktu" class="text-base">This test will take around 1 hour</p>
+                            <p id="waktu" class="text-base">Waktu pengerjaan ujian selama 2 jam 30 menit.</p>
                             @if ($kategoris)
                                 @foreach ($kategoris as $kategori)
                                     <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->soal_ujian_count }} Soal

@@ -21,12 +21,12 @@
                         <div class="flex items-center justify-center md:justify-end space-x-4">
                             <span id="waktu"
                                 class="me-5 text-lg font-medium text-true-gray-800 hover:text-cool-gray-700 transition duration-150 ease-in-out">
-                                Sisa Waktu <span id="hours">01</span>:<span id="minutes">00</span>:<span
+                                Sisa Waktu <span id="hours">02</span>:<span id="minutes">30</span>:<span
                                     id="seconds">00</span>
                             </span>
                             <button data-modal-toggle="default-modal"
                                 class="px-6 py-3 rounded-3xl font-medium bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none ease-in-out">
-                                Question List
+                                Daftar Soal
                             </button>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 <!-- Modal header -->
                                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-gray-900 text-xl lg:text-2xl font-semibold dark:text-white">
-                                        Question List
+                                        Daftar Soal
                                     </h3>
                                     <button type="button"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -116,9 +116,13 @@
             sessionStorage.setItem("waktuAwal", waktuAwal);
         }
 
+        // Waktu akhir = waktu awal + 2 jam 30 menit
+    let waktuAkhir = parseInt(waktuAwal) + (2 * 60 * 60 * 1000) + (30 * 60 * 1000);
+
+
         let x = setInterval(() => {
             let now = new Date().getTime();
-            let waktu = 3600000 - (now - waktuAwal);
+            let waktu = waktuAkhir - now;
 
             let hours = Math.floor((waktu % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((waktu % (1000 * 60 * 60)) / (1000 * 60));
@@ -145,8 +149,8 @@
                 document.getElementById("waktu").innerText = "Waktu Habis";
 
                 Swal.fire({
-                    title: "Time Out!",
-                    text: "You've passed the time limit.",
+                    title: "Waktu Habis!",
+                    text: "Anda telah melewati batas waktu.",
                     icon: "warning",
                     confirmButtonText: "OK"
                 }).then((result) => {
@@ -290,7 +294,7 @@
             if (currentCategory !== nextCategory || currentCategoryId !== nextCategory) {
                 if (currentCategory !== nextCategory) {
                     Swal.fire({
-                        title: "Section Change!",
+                        title: "Pindah Kategori!",
                         text: "Anda Pindah ke Bagian Kategori Soal Selanjutnya. Apa kamu yakin?",
                         icon: "warning",
                         showCancelButton: true,

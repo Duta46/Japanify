@@ -23,12 +23,10 @@ class UjianController extends Controller
     {
         $count = count($array);
         for ($i = $count - 1; $i > 0; $i--) {
-            $j = random_int(0, $i);
-            if ($i !== $j) {
-                $temp = $array[$i];
-                $array[$i] = $array[$j];
-                $array[$j] = $temp;
-            }
+            $j = mt_rand(0, $i);
+            $temp = $array[$i];
+            $array[$i] = $array[$j];
+            $array[$j] = $temp;
         }
         return $array;
     }
@@ -41,11 +39,24 @@ class UjianController extends Controller
             return redirect()->route('package')->with('error', 'Paket soal tidak ditemukan');
         }
 
-        $soal = SoalUjian::where('paket_soal_id', $paketSoalId)->get();
+        $soal = $paket->SoalUjian;
+
+        // $soal = SoalUjian::where('paket_soal_id', $paketSoalId)->get();
 
         if ($soal->isEmpty()) {
-            return redirect()->route('package')->with('error', 'Tidak ada soal dalam paket ini');
+            return redirect()->route('user.introduction')->with('error', 'Tidak ada soal dalam paket ini');
         }
+
+        // Mengelompokkan soal berdasarkan kategori
+        $soalByCategory = $soal->groupBy('kategori_id');
+
+        // Mengacak urutan soal di setiap kategori
+        $soalByCategory->transform(function ($category) {
+            return $category->shuffle();
+        });
+
+        // Menyimpan urutan soal yang sudah diacak ke dalam sesi Laravel
+        Session::put('soalByCategory', $soalByCategory);
 
         $firstSoalId = SoalUjian::where('paket_soal_id', $paketSoalId)
             ->orderBy('kategori_id')
@@ -68,8 +79,19 @@ class UjianController extends Controller
             ->orderBy('id')
             ->get();
 
+        // Mengambil urutan soal yang sudah diacak dari sesi Laravel
+        $soalByCategory = Session::get('soalByCategory');
+
+        // Menggabungkan semua soal dari setiap kategori menjadi satu koleksi soal
+        $soals = collect();
+        foreach ($soalByCategory as $category) {
+            $soals = $soals->concat($category);
+        }
+
+        // Mengambil soal yang sedang ditampilkan
         $currentSoal = $soals->firstWhere('id', $soalId);
 
+        // Menemukan index soal yang sedang ditampilkan dalam koleksi soal
         $currentSoalIndex = $soals->search(function ($soal) use ($currentSoal) {
             return $soal->id === optional($currentSoal)->id;
         });
@@ -96,6 +118,8 @@ class UjianController extends Controller
         $lastSoalCategory = $soals->where('kategori_id', $currentCategory);
         $lastSoal = $lastSoalCategory->last() && $currentSoal->id === $lastSoalCategory->last()->id;
 
+        // dd(session()->all());
+
         return view('user.ujian.exercise', [
             'soals' => $soals,
             'jumlahSoals' => $soals->count(),
@@ -105,6 +129,7 @@ class UjianController extends Controller
             'currentSoalIndex' => $currentSoalIndex,
             'lastSoal' => $lastSoal,
         ]);
+
     }
 
     public function result(Request $request)

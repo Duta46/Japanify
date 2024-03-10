@@ -499,7 +499,7 @@
                 {{-- <div class="w-full sm:w-2/3 lg:w-1/3">
                     <div class="mt-8 text-center single-team wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
                         <div class="relative team-image">
-                            <img class="w-full" src="assets/images/team-3.png" alt="Team">
+                            <img class="w-full" src="{{ asset('assets/images/Freya_new.jpeg')}}" alt="Team">
                             <div class="team-social">
                                 <ul>
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
@@ -510,8 +510,8 @@
                             </div>
                         </div>
                         <div class="p-8">
-                            <h5 class="mb-1 text-xl font-bold text-gray-900">Fiona Smith</h5>
-                            <p>Business Development Manager</p>
+                            <h5 class="mb-1 text-xl font-bold text-gray-900">Freya Jayawardana</h5>
+                            <p>Support System</p>
                         </div>
                     </div> <!-- single team -->
                 </div> --}}

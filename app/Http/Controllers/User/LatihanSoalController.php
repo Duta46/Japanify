@@ -54,7 +54,20 @@ class LatihanSoalController extends Controller
             ->pluck('id')
             ->toArray();
 
-        $shuffledSoalIds = $this->fisherYatesShuffle($soalIds);
+        $jumlahSoal = $soal->count();
+
+        $jumlahSoalDiambil = min($jumlahSoal, 10);
+
+        // Ambil 10 soal secara acak
+        $shuffleSoal = $soal->random($jumlahSoalDiambil);
+
+        // Ambil array ID dari 10 soal yang diacak
+        $shuffledSoalIds = $shuffleSoal->pluck('id')->toArray();
+
+        // Lakukan Fisher-Yates Shuffle pada array ID soal
+        $shuffledSoalIds = $this->fisherYatesShuffle($shuffledSoalIds);
+
+        // Simpan urutan soal yang telah diacak ke dalam session
         session(['shuffledSoalIds' => $shuffledSoalIds]);
 
         return view('user.latihan-soal.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'soalIds' => $soalIds, 'shuffledSoalIds' => $shuffledSoalIds]);
@@ -73,10 +86,13 @@ class LatihanSoalController extends Controller
             return redirect()->back()->with('error', 'Soal tidak ditemukan.');
         }
 
+        $shuffleSoal = $soals->random(10);
+        $shuffledSoalIds = $shuffleSoal->pluck('id')->toArray();
+
         // Cek apakah session untuk urutan soal sudah ada atau belum
         if (!Session::has('shuffledSoalIds')) {
-            // Jika belum ada, maka lakukan shuffle dan simpan ke session
-            $shuffledSoalIds = $this->fisherYatesShuffle($soals->pluck('id')->toArray());
+            $shuffledSoalIds = $this->fisherYatesShuffle($shuffledSoalIds);
+
             Session::put('shuffledSoalIds', $shuffledSoalIds);
         } else {
             // Jika sudah ada, gunakan urutan soal yang telah disimpan di session
@@ -105,7 +121,7 @@ class LatihanSoalController extends Controller
         // Tentukan apakah soal yang sedang dikerjakan adalah yang terakhir dalam urutan soal
         $lastSoal = $currentSoalIndex === (count($shuffledSoalIds) - 1);
 
-        // dd(session()->all());
+        dd(session()->all());
 
         return view('user.latihan-soal.exercise', [
             'soals' => $soals,

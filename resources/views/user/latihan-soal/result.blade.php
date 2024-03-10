@@ -42,52 +42,41 @@
 @push('scripts')
     <script>
         function displayUserAnswers() {
-            const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
             const resultTableBody = document.querySelector('#resultTable tbody');
-            let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
-            let shuffledSoalIds = JSON.parse(sessionStorage.getItem('shuffledSoalIds'));
 
-            sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
-                const dataA = JSON.parse(sessionStorage.getItem(a));
-                const dataB = JSON.parse(sessionStorage.getItem(b));
-                if (dataA.idKategori === dataB.idKategori) {
-                    return dataA.idPertanyaan - dataB.idPertanyaan;
-                }
-                return dataA.idKategori - dataB.idKategori;
-            });
+            const shuffledSoalIds = {!! json_encode(session('shuffledSoalIds')) !!};
 
             let questionNumber = 1;
             let totalPoints = 0;
 
             shuffledSoalIds.forEach(soalId => {
-            const sessionStorageKey = `jawabanSoal_${soalId}`;
-            const dataJawaban = sessionStorage.getItem(sessionStorageKey);
+                const dataJawaban = sessionStorage.getItem('jawabanSoal_' + soalId);
 
-            if (dataJawaban) {
-                const jawaban = JSON.parse(dataJawaban);
+                if (dataJawaban) {
+                    const jawaban = JSON.parse(dataJawaban);
 
-                const answerMapping = {
-                    'bordered-radio-1': 'A',
-                    'bordered-radio-2': 'B',
-                    'bordered-radio-3': 'C',
-                    'bordered-radio-4': 'D',
-                };
+                    const answerMapping = {
+                        'bordered-radio-1': 'A',
+                        'bordered-radio-2': 'B',
+                        'bordered-radio-3': 'C',
+                        'bordered-radio-4': 'D',
+                    };
 
-                const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
+                    const mappedUserAnswer = answerMapping[jawaban.opsiDipilih] || '';
 
-                const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
+                    const isAnswerCorrect = jawaban.correctAnswer === mappedUserAnswer;
 
-                let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
+                    let pointsSoal = isAnswerCorrect ? jawaban.points : 0;
 
-                let resultCellContent = jawaban.teksJawaban;
+                    let resultCellContent = jawaban.teksJawaban;
 
-                // Check if 'teksJawaban' is a Base64 image
-                if (isBase64Image(jawaban.teksJawaban)) {
-                    resultCellContent =
-                        `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
-                }
+                    // Check if 'teksJawaban' is a Base64 image
+                    if (isBase64Image(jawaban.teksJawaban)) {
+                        resultCellContent =
+                            `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
+                    }
 
-                const resultRow = `
+                    const resultRow = `
                     <tr>
                         <td class="py-2 px-4 border-b">${questionNumber}</td>
                         <td class="py-2 px-4 border-b">${resultCellContent}</td>
@@ -95,14 +84,14 @@
                         <td class="py-2 px-4 border-b">${pointsSoal}</td>
                     </tr>
                 `;
-                resultTableBody.innerHTML += resultRow;
+                    resultTableBody.innerHTML += resultRow;
 
-                // Increment total points
-                totalPoints += parseInt(pointsSoal);
+                    // Increment total points
+                    totalPoints += parseInt(pointsSoal);
 
-                questionNumber++;
-            }
-        });
+                    questionNumber++;
+                }
+            });
 
             // Function to check if the string is a Base64 image
             function isBase64Image(str) {
@@ -111,32 +100,27 @@
 
             // Display the total points in the score recap table
             const totalRow = `
-       <tr>
-           <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Total</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints}/100</b></td>
-       </tr>
-   `;
+           <tr>
+               <td class="py-2 px-4 border-b"></td>
+               <td class="py-2 px-4 border-b"><b>Total</b></td>
+               <td class="py-2 px-4 border-b"><b>${totalPoints}/100</b></td>
+           </tr>
+       `;
 
             // Display the lulus status
             const lulusRow = `
-       <tr>
-           <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Lulus</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= 80 ? 'Ya' : 'Tidak'}</b></td>
-       </tr>
-   `;
+           <tr>
+               <td class="py-2 px-4 border-b"></td>
+               <td class="py-2 px-4 border-b"><b>Status</b></td>
+               <td class="py-2 px-4 border-b"><b>${totalPoints >= 80 ? 'Lulus' : 'Tidak Lulus'}</b></td>
+           </tr>
+       `;
 
             const additionalRowsContainer = document.querySelector('#additionalRows');
             additionalRowsContainer.innerHTML = totalRow + lulusRow;
-
-            // sessionStorage.setItem('exerciseTotal', totalPoints);
-            // sessionStorage.setItem('exerciseStatus', totalPoints >= 200 ? 'Ya' : 'Tidak');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            displayUserAnswers();
-        });
+        document.addEventListener('DOMContentLoaded', displayUserAnswers);
     </script>
 
     <script>
@@ -148,8 +132,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Iya',
-                cancelButtonText: 'Tidak'
+                confirmButtonText: 'Yes, Logout',
+                cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Membersihkan sessionStorage
@@ -161,6 +145,7 @@
             });
         }
     </script>
+
 
     <script>
         window.onload = function() {

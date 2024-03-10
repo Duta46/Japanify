@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
 
             return in_array(strtolower($value->getClientOriginalExtension()), $allowedExtensions);
         });
+
+        // if(config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
     }
 }

@@ -99,7 +99,7 @@ class PaketSoalLatihanSoalController extends Controller
                 </button>
                 <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-100px py-4" data-kt-menu="true">
                     <div class="menu-item px-3">
-                        <a href="' . route('admin.ujian-soal.show', $item->id) . '" class="menu-link px-3">
+                        <a href="' . route('admin.latihan-soal.show', $item->id) . '" class="menu-link px-3">
                             Detail Soal
                         </a>
                     </div>

@@ -15,7 +15,8 @@
                             d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                     </svg>
                     <h1 class="text-lg font-medium">
-                        {{ $paket->jumlah_soal }} Soal
+                        {{-- {{ $paket->jumlah_soal }} Soal --}}
+                        10 Soal
                     </h1>
                 </div>
             </div>
@@ -24,10 +25,15 @@
                 <div class="divide-y divide-gray-200">
                     <div class="py-6 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                         <div class="relative">
+                            <p id="waktu" class="text-base">Waktu pengerjaan latihan soal selama 1 jam</p>
                             @foreach ($kategoris as $kategori)
                                 @if ($kategori->latihan_soal_count > 0)
-                                    <p class="text-base mt-2">{{ $kategori->name }}: {{ $kategori->latihan_soal_count }}
-                                        Soal
+                                    <p class="text-base mt-2">{{ $kategori->name }}:
+                                        @if ($kategori->latihan_soal_count < 10)
+                                            {{ $kategori->latihan_soal_count }} Soal
+                                        @else
+                                            10 Soal
+                                        @endif
                                     </p>
                                 @endif
                             @endforeach

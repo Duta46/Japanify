@@ -120,7 +120,7 @@
                             @if ($latihanSoal->answer_b_image)
                                 <img src="{{ asset('storage/jawaban_b/' . $latihanSoal->answer_b_image) }}" id="image-answer-b"
                                     alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $soalUjian->id]) }}"
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-b" class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-b">No Image Uploaded.</p>
@@ -229,6 +229,27 @@
                                 @endforeach
                             </select>
                             @error('kategori_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="paket_soal_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
+                        </div>
+                        <div class="col-lg">
+                            <select name="paket_soal_latihan_soal_id" id="paket_soal_latihan_soal_id" class="form-select" data-control="select2">
+                                @foreach ($paketSoal as $paket)
+                                    <option value="{{ $paket->id }}"
+                                        {{ $paket->id == $latihanSoal->paket_soal_latihan_soal_id ? 'selected' : '' }}>
+                                        {{ $paket->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('paket_soal_latihan_soal_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

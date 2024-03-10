@@ -68,7 +68,7 @@
                     @if ($latihanSoal->answer_a)
                         <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->answer_a }}</span>
                     @elseif ($latihanSoal->answer_a_image)
-                        <img src="{{ asset('storage/jawaban_a/' . $latihanSoal->answer_a_image) }}" width="20%" height="20%" >
+                        <img src="{{ asset('storage/jawaban_a/' .$latihanSoal->answer_a_image) }}" width="20%" height="20%" >
                     @endif
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     @if ($latihanSoal->answer_b)
                         <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->answer_b }}</span>
                     @elseif ($latihanSoal->answer_b_image)
-                        <img src="{{ asset('storage/jawaban_b/' . $latihanSoal->answer_b_image) }}" width="100px" height="100px" >
+                        <img src="{{ asset('storage/jawaban_b/' .$latihanSoal->answer_b_image) }}" width="20%" height="20%" >
                     @endif
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     @if ($latihanSoal->answer_c)
                         <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->answer_c }}</span>
                     @elseif ($latihanSoal->answer_c_image)
-                        <img src="{{ asset('storage/jawaban_c/' . $latihanSoal->answer_c_image) }}" width="100px" height="100px" >
+                        <img src="{{ asset('storage/jawaban_c/' .$latihanSoal->answer_c_image) }}" width="20%" height="20%" >
                     @endif
                 </div>
             </div>
@@ -98,7 +98,7 @@
                     @if ($latihanSoal->answer_d)
                         <span class="fw-bold fs-6 text-gray-800">{{ $latihanSoal->answer_d }}</span>
                     @elseif ($latihanSoal->answer_d_image)
-                        <img src="{{ asset('storage/jawaban_d/' . $latihanSoal->answer_d_image) }}" width="100px" height="100px">
+                        <img src="{{ asset('storage/jawaban_d/' .$latihanSoal->answer_d_image) }}" width="20%" height="20%">
                     @endif
                 </div>
             </div>

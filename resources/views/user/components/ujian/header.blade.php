@@ -2,7 +2,7 @@
     <nav class="px-4 lg:px-6 py-2.5">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <div class="flex items-center">
-                <img src="{{ asset('assets/images/logo-sahabat-jepang-indonesia.jpg')}}"
+                <img src="{{ asset('assets/images/Japanify.jpeg')}}"
                     class="mr-3 w-24 sm:h-24 rounded-lg object-cover" alt="SJI Logo" />
             </div>
             @if (!request()->is('result'))

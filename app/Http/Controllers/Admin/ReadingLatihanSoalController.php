@@ -83,7 +83,7 @@ class ReadingLatihanSoalController extends Controller
     {
         $Reading = ReadingContentLatihanSoal::find($id);
 
-        return view('admin.reading-content-ujian-soal.show', compact('Reading'));
+        return view('admin.reading-content-latihan-soal.show', compact('Reading'));
     }
 
     public function edit($id)
