@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaketSoalLatihanSoal;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ReadingContentLatihanSoal;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class ReadingLatihanSoalController extends Controller
@@ -45,10 +47,19 @@ class ReadingLatihanSoalController extends Controller
                     </div>
                 </div>';
                 })
+                ->editColumn('image_content', function ($item) {
+                    if ($item->image_content) {
+                        $imagePath = "storage/reading-latihan-soal/{$item->image_content}";
+                        $imageUrl = asset($imagePath);
+                        return  '<img src="' . $imageUrl . '" width="50%" height="50%">';
+                    } else {
+                        return '-';
+                    }
+                })
                 ->editColumn('paket_soal_latihan_soal', function ($item) {
                     return $item->PaketSoalLatihanSoal->name ?? "-";
                 })
-                ->rawColumns(['actions'])
+                ->rawColumns(['actions', 'image_content'])
                 ->make();
         }
         return view('admin.reading-content-latihan-soal.index');
@@ -66,13 +77,33 @@ class ReadingLatihanSoalController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'text_content' => 'required|string',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'paket_soal_latihan_soal_id' => 'nullable',
         ]);
 
-        $data['text_content'] = strip_tags($data['text_content']);
+        //question
+        if ($request->has('text_content')) {
+            $validate['text_content'] = 'string';
+            $input = strip_tags($request->input('text_content'));
+            $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
+            $input = preg_replace('/&rdquo;/', '"', $input);
+            $validate['text_content'] = 'nullable|string';
+            $data['text_content'] = $input;
+        }
 
-        $data['text_content'] = preg_replace('/&hellip;|&nbsp;/', '', $data['text_content']);
+         //image content
+         if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/reading-latihan-soal', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+        }
+
+        // $data['text_content'] = strip_tags($data['text_content']);
+
+        // $data['text_content'] = preg_replace('/&hellip;|&nbsp;/', '', $data['text_content']);
+
+        $request->validate($validate);
 
         ReadingContentLatihanSoal::create($data);
 
@@ -100,15 +131,25 @@ class ReadingLatihanSoalController extends Controller
         $data = $request->except('_token');
 
         $request->validate([
-            'text_content' => 'required|string',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'paket_soal_latihan_soal_id' => 'nullable',
         ]);
+
+        $Reading = ReadingContentLatihanSoal::find($id);
+
+           //image content
+           if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/soal', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+
+            Storage::delete('public/reading-latihan-soal/' . $Reading->image_content);
+        }
 
         $data['text_content'] = strip_tags($data['text_content']);
 
         $data['text_content'] = preg_replace('/&hellip;|&nbsp;/', '', $data['text_content']);
-
-        $Reading = ReadingContentLatihanSoal::find($id);
 
         $Reading->update($data);
 
@@ -126,6 +167,8 @@ class ReadingLatihanSoalController extends Controller
                     'message' => 'Reading Content not found',
                 ], 404);
             }
+
+            Storage::delete('public/reading-latihan-soal/' . $Reading->image_content);
 
             $Reading->delete();
 

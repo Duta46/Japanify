@@ -24,8 +24,7 @@
                         </div>
                         <div class="col-lg">
                             <input type="text" name="name" class="form-control" value="{{ $PaketSoal->name }}"
-                                placeholder="Input nama akreditasi banpt " />
-
+                                placeholder="Input nama paket soal" />
                         </div>
                     </div>
 

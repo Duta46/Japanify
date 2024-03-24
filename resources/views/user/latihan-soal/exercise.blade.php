@@ -334,4 +334,31 @@
         };
     </script>
 
+<script>
+    // Menangkap elemen gambar
+    var img = document.getElementById("gambarSoal");
+
+    // Menangkap elemen pop-up
+    var modal = document.getElementById("gambarPopUp");
+    var modalImg = document.getElementById("modalImg");
+
+    // Mengaktifkan pop-up ketika gambar diklik
+    img.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+    }
+
+    // Menutup pop-up ketika gambar di luar area pop-up diklik
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Menutup pop-up ketika tombol close di dalam pop-up diklik
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>
 @endpush

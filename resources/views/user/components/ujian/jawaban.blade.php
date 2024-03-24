@@ -14,8 +14,8 @@
         @if ($answerText)
             {{ $answerText }}
         @elseif ($answerImage)
-            <img id="jawaban-a-image" src="{{ asset('storage/jawaban_a/' . $answerImage) }}" width="10%"
-                height="10%">
+            <img id="jawaban-a-image" src="{{ asset('storage/jawaban_a/' . $answerImage) }}" width="18%"
+                height="18%">
         @endif
     </label>
 </button>
@@ -34,7 +34,7 @@
         @if ($answerText)
             {{ $answerText }}
         @elseif ($answerImage)
-            <img src="{{ asset('storage/jawaban_b/' . $answerImage) }}" width="10%" height="10%">
+            <img src="{{ asset('storage/jawaban_b/' . $answerImage) }}" width="18%" height="18%">
         @endif
     </label>
 </button>
@@ -52,7 +52,7 @@
         @if ($answerText)
             {{ $answerText }}
         @elseif ($answerImage)
-            <img src="{{ asset('storage/jawaban_c/' . $answerImage) }}" width="10%" height="10%">
+            <img src="{{ asset('storage/jawaban_c/' . $answerImage) }}" width="18%" height="18%">
         @endif
     </label>
 </button>
@@ -71,7 +71,7 @@
         @if ($answerText)
             {{ $answerText }}
         @elseif ($answerImage)
-            <img src="{{ asset('storage/jawaban_d/' . $answerImage) }}" width="10%" height="10%">
+            <img src="{{ asset('storage/jawaban_d/' . $answerImage) }}" width="18%" height="18%">
         @endif
     </label>
 </button>

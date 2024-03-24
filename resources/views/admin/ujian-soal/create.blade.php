@@ -53,6 +53,25 @@
 
                     <div class="row mb-5">
                         <div class="col-xl-3">
+                            <label for="text_content" class="fs-6 fw-bold mt-2 mb-3">Konten Bacaan</label>
+                        </div>
+                        <div class="col-lg">
+                            <textarea name="text_content" id="text_content" class="form-control" placeholder="Input Reading Content">{!!  old('text_content') !!}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="image_content" class="fs-6 fw-bold mt-2 mb-3">Konten Bacaan Gambar</label>
+                        </div>
+                        <div class="col-lg">
+                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15" id="file_input" name="image_content" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG or JPEG(MAX. 5MB).</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
                             <label for="answer_a" class="fs-6 fw-bold mt-2 mb-3">Jawaban A</label>
                         </div>
                         <div class="col-lg">
@@ -221,7 +240,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-5">
+                    {{-- <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="reading_texts_id" class="fs-6 fw-bold mt-2 mb-3">Content Reading</label>
                         </div>
@@ -234,7 +253,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <a href="{{ route('admin.ujian-soal') }}" type="reset"
@@ -261,6 +280,17 @@
     }
     initTinyMCE('textarea#question');
     </script>
+
+<script>
+    function initTinyMCE(selector) {
+         tinymce.init({
+             selector: selector,
+             forced_root_block: 'p',
+             force_br_newlines: true,
+         });
+     }
+     initTinyMCE('textarea#text_content');
+ </script>
 
     <script>
         const inputs = document.querySelectorAll('.custom-placeholder');
@@ -343,7 +373,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             var readingUjians = @json($readingUjians);
 
@@ -367,5 +397,5 @@
                 $('#reading_texts_id').val('').trigger('change.select2');
             });
         });
-    </script>
+    </script> --}}
 @endpush

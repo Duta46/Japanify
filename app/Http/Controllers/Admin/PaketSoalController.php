@@ -160,6 +160,7 @@ public function edit($id)
 
         $request->validate([
             'name' => 'required|string',
+            'kategori_test_id' => 'nullable',
         ]);
 
         $PaketSoal = PaketSoal::find($id);

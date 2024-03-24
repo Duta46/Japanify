@@ -11,7 +11,7 @@ class SoalUjian extends Model
     use HasFactory;
 
     protected $table = 'soal_ujians';
-    
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -35,6 +35,8 @@ class SoalUjian extends Model
         'kategori_id',
         'reading_ujian_id',
         'kategori_test_id',
+        'text_content',
+        'image_content',
     ];
 
     public function PaketSoal() :BelongsTo

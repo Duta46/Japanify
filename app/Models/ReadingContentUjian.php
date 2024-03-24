@@ -18,8 +18,8 @@ class ReadingContentUjian extends Model
 
     protected $fillable = [
         'text_content',
+        'image_content',
         'paket_soal_id'
-
     ];
 
     public function SoalUjian() :HasMany

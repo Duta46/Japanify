@@ -80,6 +80,44 @@
 
                     <div class="row mb-5">
                         <div class="col-xl-3">
+                            <label for="text_content" class="fs-6 fw-bold mt-2 mb-3">Reading Content</label>
+                        </div>
+                        <div class="col-lg">
+                            <textarea name="text_content" id="text_content" class="form-control" value="{{ $soalUjian->text_content }}"
+                                placeholder="Input Reading Content">
+                                @if (old('text_content'))
+{{ old('text_content') }}
+@elseif(isset($soalUjian))
+{{ $soalUjian->text_content }}
+@endif
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="image_content" class="fs-6 fw-bold mt-2 mb-3">Reading Image Content</label>
+                        </div>
+                        <div class="col-lg">
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15"
+                                id="file_input" name="image_content" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG or JPG(MAX.
+                                5MB).</p>
+                            @if ($soalUjian->image_content)
+                                <p>Current Image:</p>
+                                <img src="{{ asset('storage/reading-ujian/' . $soalUjian->image_content) }}"
+                                    alt="Current Image" width="20%" height="20%">
+                                <a href="{{ route('admin.soal-ujian.delete_image', ['id' => $soalUjian->id]) }}"
+                                    class="text-red-500">Hapus Gambar</a>
+                            @else
+                                <p>No Image Uploaded.</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
                             <label for="answer_a" class="fs-6 fw-bold mt-2 mb-3">Jawaban A</label>
                         </div>
                         <div class="col-lg">
@@ -289,7 +327,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-5">
+                    {{-- <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="reading_ujian_id" class="fs-6 fw-bold mt-2 mb-3">Content Reading</label>
                         </div>
@@ -306,7 +344,7 @@
                                 <option value="null">Reset Default</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="row mb-5">
                         <div class="col-xl-3">
@@ -345,17 +383,19 @@
     {{-- <script src="/js/tinymce/tinymce.min.js"></script> --}}
 
     <script>
-       function initTinyMCE(selector) {
-        tinymce.init({
-            selector: selector,
-            forced_root_block: 'p',
-            force_br_newlines: true,
-            formats: {
-                underline: { inline: 'u' } // Mengizinkan garis bawah
-            }
-        });
-    }
-    initTinyMCE('textarea#question');
+        function initTinyMCE(selector) {
+            tinymce.init({
+                selector: selector,
+                forced_root_block: 'p',
+                force_br_newlines: true,
+                formats: {
+                    underline: {
+                        inline: 'u'
+                    } // Mengizinkan garis bawah
+                }
+            });
+        }
+        initTinyMCE('textarea#question');
     </script>
 
     <script>
@@ -445,7 +485,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
 
             let initialPaketSoalId = '{{ $soalUjian->paket_soal_id }}';
@@ -495,5 +535,5 @@
             $('#paket_soal_id').trigger('change');
             $('#reading_ujian_id').val(initialReadingTextsId).trigger('change.select2');
         });
-    </script>
+    </script> --}}
 @endpush

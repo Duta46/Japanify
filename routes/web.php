@@ -133,19 +133,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::get('soal/{id}/delete-audio', [SoalUjianController::class, 'deleteAudio'])->name('admin.soal-ujian.delete_audio');
         });
 
-        Route::group(['prefix' => 'ReadingUjian'], function () {
-            Route::get('/', [ReadingUjianController::class, 'index'])->name('admin.reading-ujian');
+        // Route::group(['prefix' => 'ReadingUjian'], function () {
+        //     Route::get('/', [ReadingUjianController::class, 'index'])->name('admin.reading-ujian');
 
-            Route::get('/create', [ReadingUjianController::class, 'create'])->name('admin.reading-ujian.create');
-            Route::post('/store', [ReadingUjianController::class, 'store'])->name('admin.reading-ujian.store');
+        //     Route::get('/create', [ReadingUjianController::class, 'create'])->name('admin.reading-ujian.create');
+        //     Route::post('/store', [ReadingUjianController::class, 'store'])->name('admin.reading-ujian.store');
 
-            Route::get('/show/{id}', [ReadingUjianController::class, 'show'])->name('admin.reading-ujian.show');
+        //     Route::get('/show/{id}', [ReadingUjianController::class, 'show'])->name('admin.reading-ujian.show');
 
-            Route::get('/edit/{id}', [ReadingUjianController::class, 'edit'])->name('admin.reading-ujian.edit');
-            Route::put('/update/{id}', [ReadingUjianController::class, 'update'])->name('admin.reading-ujian.update');
+        //     Route::get('/edit/{id}', [ReadingUjianController::class, 'edit'])->name('admin.reading-ujian.edit');
+        //     Route::put('/update/{id}', [ReadingUjianController::class, 'update'])->name('admin.reading-ujian.update');
 
-            Route::delete('/destroy/{id}', [ReadingUjianController::class, 'destroy'])->name('admin.reading-ujian.destroy');
-        });
+        //     Route::delete('/destroy/{id}', [ReadingUjianController::class, 'destroy'])->name('admin.reading-ujian.destroy');
+        // });
 
         Route::group(['prefix' => 'LatihanSoal'], function () {
             Route::get('/', [LatihanSoalController::class, 'index'])->name('admin.latihan-soal');
@@ -164,19 +164,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             Route::get('soal/{id}/delete-audio', [LatihanSoalController::class, 'deleteAudio'])->name('admin.latihan-soal.delete_audio');
         });
 
-        Route::group(['prefix' => 'ReadingLatihanSoal'], function () {
-            Route::get('/', [ReadingLatihanSoalController::class, 'index'])->name('admin.reading-latihan-soal');
+        // Route::group(['prefix' => 'ReadingLatihanSoal'], function () {
+        //     Route::get('/', [ReadingLatihanSoalController::class, 'index'])->name('admin.reading-latihan-soal');
 
-            Route::get('/create', [ReadingLatihanSoalController::class, 'create'])->name('admin.reading-latihan-soal.create');
-            Route::post('/store', [ReadingLatihanSoalController::class, 'store'])->name('admin.reading-latihan-soal.store');
+        //     Route::get('/create', [ReadingLatihanSoalController::class, 'create'])->name('admin.reading-latihan-soal.create');
+        //     Route::post('/store', [ReadingLatihanSoalController::class, 'store'])->name('admin.reading-latihan-soal.store');
 
-            Route::get('/show/{id}', [ReadingLatihanSoalController::class, 'show'])->name('admin.reading-latihan-soal.show');
+        //     Route::get('/show/{id}', [ReadingLatihanSoalController::class, 'show'])->name('admin.reading-latihan-soal.show');
 
-            Route::get('/edit/{id}', [ReadingLatihanSoalController::class, 'edit'])->name('admin.reading-latihan-soal.edit');
-            Route::put('/update/{id}', [ReadingLatihanSoalController::class, 'update'])->name('admin.reading-latihan-soal.update');
+        //     Route::get('/edit/{id}', [ReadingLatihanSoalController::class, 'edit'])->name('admin.reading-latihan-soal.edit');
+        //     Route::put('/update/{id}', [ReadingLatihanSoalController::class, 'update'])->name('admin.reading-latihan-soal.update');
 
-            Route::delete('/destroy/{id}', [ReadingLatihanSoalController::class, 'destroy'])->name('admin.reading-latihan-soal.destroy');
-        });
+        //     Route::delete('/destroy/{id}', [ReadingLatihanSoalController::class, 'destroy'])->name('admin.reading-latihan-soal.destroy');
+        // });
 
         Route::group(['prefix' => 'KategoriTest'], function () {
             Route::get('/', [KategoriTestController::class, 'index'])->name('admin.kategori-test');

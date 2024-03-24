@@ -40,26 +40,20 @@
 @endsection
 
 @push('scripts')
-    <script>
-        function displayUserAnswers() {
-            const scoreRecapTableBody = document.querySelector('#scoreRecapTable tbody');
-            const resultTableBody = document.querySelector('#resultTable tbody');
-            let sessionStorageKeys = Object.keys(sessionStorage).filter(key => key.includes('jawabanSoal_'));
+<script>
+    function displayUserAnswers() {
+        const resultTableBody = document.querySelector('#resultTable tbody');
 
-            sessionStorageKeys = sessionStorageKeys.sort((a, b) => {
-                const dataA = JSON.parse(sessionStorage.getItem(a));
-                const dataB = JSON.parse(sessionStorage.getItem(b));
-                if (dataA.idKategori === dataB.idKategori) {
-                    return dataA.idPertanyaan - dataB.idPertanyaan;
-                }
-                return dataA.idKategori - dataB.idKategori;
-            });
+        // Mengambil data soal dari sesi Laravel
+        const soalByCategory = {!! json_encode(session('soalByCategory')) !!};
 
-            let questionNumber = 1;
-            let totalPoints = 0;
-            const minimumPoint = Number(JSON.parse(sessionStorage.getItem('menu')).point_ujian);
+        let questionNumber = 1;
+        let totalPoints = 0;
 
-            sessionStorageKeys.forEach(sessionStorageKey => {
+        // Melakukan iterasi pada setiap kategori dan soal di dalamnya
+        Object.values(soalByCategory).forEach(category => {
+            category.forEach(soal => {
+                const sessionStorageKey = 'jawabanSoal_' + soal.id;
                 const dataJawaban = sessionStorage.getItem(sessionStorageKey);
 
                 if (dataJawaban) {
@@ -83,17 +77,17 @@
                     // Check if 'teksJawaban' is a Base64 image
                     if (isBase64Image(jawaban.teksJawaban)) {
                         resultCellContent =
-                            `<img src="${jawaban.teksJawaban}" alt="User Image" width="50px" height="50px" />`;
+                            `<img src="${jawaban.teksJawaban}" alt="User Image" width="80px" height="80px" />`;
                     }
 
                     const resultRow = `
-            <tr>
-                <td class="py-2 px-4 border-b">${questionNumber}</td>
-                <td class="py-2 px-4 border-b">${resultCellContent}</td>
-                <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
-                <td class="py-2 px-4 border-b">${pointsSoal}</td>
-            </tr>
-        `;
+                        <tr>
+                            <td class="py-2 px-4 border-b">${questionNumber}</td>
+                            <td class="py-2 px-4 border-b">${resultCellContent}</td>
+                            <td class="py-2 px-4 border-b">${jawaban.kategori}</td>
+                            <td class="py-2 px-4 border-b">${pointsSoal}</td>
+                        </tr>
+                    `;
                     resultTableBody.innerHTML += resultRow;
 
                     // Increment total points
@@ -102,37 +96,38 @@
                     questionNumber++;
                 }
             });
+        });
 
-            // Function to check if the string is a Base64 image
-            function isBase64Image(str) {
-                return str.startsWith('data:image/');
-            }
-
-
-            // Display the total points in the score recap table
-            const totalRow = `
-       <tr>
-           <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Total</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
-       </tr>
-   `;
-
-            // Display the lulus status
-            const lulusRow = `
-       <tr>
-           <td class="py-2 px-4 border-b"></td>
-           <td class="py-2 px-4 border-b"><b>Status</b></td>
-           <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoint ? 'Lulus' : 'Tidak Lulus'}</b></td>
-       </tr>
-   `;
-
-            const additionalRowsContainer = document.querySelector('#additionalRows');
-            additionalRowsContainer.innerHTML = totalRow + lulusRow;
+        // Function to check if the string is a Base64 image
+        function isBase64Image(str) {
+            return str.startsWith('data:image/');
         }
 
-        document.addEventListener('DOMContentLoaded', displayUserAnswers);
-    </script>
+        // Display the total points in the score recap table
+        const totalRow = `
+            <tr>
+                <td class="py-2 px-4 border-b"></td>
+                <td class="py-2 px-4 border-b"><b>Total</b></td>
+                <td class="py-2 px-4 border-b"><b>${totalPoints}/180</b></td>
+            </tr>
+        `;
+
+        // Display the lulus status
+        const minimumPoint = Number(JSON.parse(sessionStorage.getItem('menu')).point_ujian);
+        const lulusRow = `
+            <tr>
+                <td class="py-2 px-4 border-b"></td>
+                <td class="py-2 px-4 border-b"><b>Status</b></td>
+                <td class="py-2 px-4 border-b"><b>${totalPoints >= minimumPoint ? 'Lulus' : 'Tidak Lulus'}</b></td>
+            </tr>
+        `;
+
+        const additionalRowsContainer = document.querySelector('#additionalRows');
+        additionalRowsContainer.innerHTML = totalRow + lulusRow;
+    }
+
+    document.addEventListener('DOMContentLoaded', displayUserAnswers);
+</script>
 
     <script>
         function logoutAndRedirect() {

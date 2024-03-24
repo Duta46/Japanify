@@ -105,7 +105,6 @@
 @endsection
 
 @push('scripts')
-
     {{-- Menyimpan Waktu Start --}}
     <script>
         let waktuAwal = sessionStorage.getItem("waktuAwal");
@@ -117,7 +116,7 @@
         }
 
         // Waktu akhir = waktu awal + 2 jam 30 menit
-    let waktuAkhir = parseInt(waktuAwal) + (2 * 60 * 60 * 1000) + (30 * 60 * 1000);
+        let waktuAkhir = parseInt(waktuAwal) + (2 * 60 * 60 * 1000) + (30 * 60 * 1000);
 
 
         let x = setInterval(() => {
@@ -306,7 +305,9 @@
                             currentCategoryId = nextCategory; // Update current category ID
 
                             // Tambahkan entri ke dalam history
-                            history.pushState({ page: nextQuestionUrl }, null, nextQuestionUrl);
+                            history.pushState({
+                                page: nextQuestionUrl
+                            }, null, nextQuestionUrl);
 
                             window.location.href = nextQuestionUrl;
                         }
@@ -321,12 +322,16 @@
 
         window.onload = function() {
             // Simpan status awal dalam history state
-            history.replaceState({ page: window.location.href }, null, window.location.href);
+            history.replaceState({
+                page: window.location.href
+            }, null, window.location.href);
 
             // Tangkap event ketika pengguna mencoba untuk kembali
             window.addEventListener('popstate', function(event) {
                 if (event.state && event.state.page !== window.location.href) {
-                    history.pushState({ page: window.location.href }, null, window.location.href);
+                    history.pushState({
+                        page: window.location.href
+                    }, null, window.location.href);
                 }
             });
         };
@@ -339,6 +344,7 @@
         function incrementPlayCount() {
             audioPlayCount++;
         }
+
         function checkPlayCount() {
             if (audioPlayCount >= 2) {
                 audioElement.controls = false;
@@ -358,5 +364,33 @@
                 audioElement.controls = false;
             }
         };
+    </script>
+
+    <script>
+        // Menangkap elemen gambar
+        var img = document.getElementById("gambarSoal");
+
+        // Menangkap elemen pop-up
+        var modal = document.getElementById("gambarPopUp");
+        var modalImg = document.getElementById("modalImg");
+
+        // Mengaktifkan pop-up ketika gambar diklik
+        img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+        }
+
+        // Menutup pop-up ketika gambar di luar area pop-up diklik
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Menutup pop-up ketika tombol close di dalam pop-up diklik
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
     </script>
 @endpush

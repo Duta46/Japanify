@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reading_content_ujians', function (Blueprint $table) {
-            $table->id();
+        Schema::table('soal_ujians', function (Blueprint $table) {
             $table->text('text_content')->nullable();
-            $table->foreignId('paket_soal_id')->constrained('paket_soals');
-            $table->timestamps();
-
+            $table->string('image_content')->nullable();
         });
     }
 
@@ -25,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reading_content_ujians');
+        Schema::table('soal_ujians', function (Blueprint $table) {
+            $table->dropColumn('text_content');
+            $table->dropColumn('image_content');
+        });
     }
 };

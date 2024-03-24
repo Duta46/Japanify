@@ -33,29 +33,6 @@
                     <span class="fw-bold fs-6 text-gray-800">{{ $kategoriTest->point_ujian }}</span>
                 </div>
             </div>
-            <div class="row mb-7">
-                <label class="col-lg-4 fw-semibold text-muted">Point Kategori 1</label>
-                <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">{{ $kategoriTest->point_kategori_1 }}</span>
-                </div>
-            </div>
-            <div class="row mb-7">
-                <label class="col-lg-4 fw-semibold text-muted">Point Kategori 2</label>
-                <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">{{ $kategoriTest->point_kategori_2 }}</span>
-                </div>
-            </div>
-            <div class="row mb-7">
-                <label class="col-lg-4 fw-semibold text-muted">Point Kategori 3</label>
-                <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">{{ $kategoriTest->point_kategori_3 }}</span>
-                </div>
-            </div>
-            <div class="row mb-7">
-                <label class="col-lg-4 fw-semibold text-muted">Point Kategori 4</label>
-                <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">{{ $kategoriTest->point_kategori_4 }}</span>
-                </div>
-            </div>
         </div>
+    </div>
     @endsection

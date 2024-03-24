@@ -105,7 +105,7 @@
                                 <span class="menu-title">Soal Ujian</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        {{-- <div class="menu-item">
                             <a class="menu-link {{ Route::is('admin.reading-ujian*') ? 'active' : '' }}"
                                 href="{{ route('admin.reading-ujian') }}">
                                 <span class="menu-bullet">
@@ -113,7 +113,7 @@
                                 </span>
                                 <span class="menu-title">Reading Content</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -152,7 +152,7 @@
                                 <span class="menu-title">Soal</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        {{-- <div class="menu-item">
                             <a class="menu-link {{ Route::is('admin.reading-latihan-soal*') ? 'active' : '' }}"
                                 href="{{ route('admin.reading-latihan-soal') }}">
                                 <span class="menu-bullet">
@@ -160,7 +160,7 @@
                                 </span>
                                 <span class="menu-title">Reading Content</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="menu-item">

@@ -97,13 +97,13 @@ class SoalUjianController extends Controller
     {
         $paketSoal = PaketSoal::select(['id', 'name'])->get();
         $kategoris = Kategori::select(['id', 'name'])->get();
-        $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
+        // $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
         $kategoriTests = KategoriTest::select(['id', 'name'])->get();
 
         return view('admin.ujian-soal.create', [
             'paketSoal' => $paketSoal,
             'kategoris' => $kategoris,
-            'readingUjians' => $readingUjians,
+            // 'readingUjians' => $readingUjians,
             'kategoriTests' => $kategoriTests,
         ]);
     }
@@ -125,6 +125,7 @@ class SoalUjianController extends Controller
             'kategori_id' => 'required',
             'reading_texts_id' => 'nullable',
             'kategori_test_id' => 'nullable',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         //question
@@ -135,6 +136,8 @@ class SoalUjianController extends Controller
             $input = preg_replace('/&rdquo;/', '"', $input);
             $validate['question'] = 'nullable|string';
             $data['question'] = $input;
+        } else {
+            $data['question'] = null;
         }
 
         //question image
@@ -213,6 +216,28 @@ class SoalUjianController extends Controller
 
         $data['correct_answer'] = $request->input('correct_answer');
 
+        //text content
+        if ($request->has('text_content')) {
+            $validate['text_content'] = 'string';
+            $input = strip_tags($request->input('text_content'));
+            $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
+            $input = preg_replace('/&rdquo;/', '"', $input);
+            $validate['text_content'] = 'nullable|string';
+            $data['text_content'] = $input;
+        } else {
+            $data['text_content'] = null;
+        }
+
+        //image_content
+        if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/reading-ujian', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+        } else {
+            $data['image_content'] = null;
+        }
+
         $request->validate($validate);
 
         SoalUjian::create($data);
@@ -245,13 +270,13 @@ class SoalUjianController extends Controller
 
         $kategoriTests = KategoriTest::select(['id', 'name'])->get();
 
-        $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
+        // $readingUjians = ReadingContentUjian::select(['id', 'text_content', 'paket_soal_id'])->get();
 
         return view('admin.ujian-soal.edit', [
             'paketSoal' => $paketSoal,
             'categorySoal' => $categorySoal,
             'soalUjian' => $soalUjian,
-            'readingUjians' => $readingUjians,
+            // 'readingUjians' => $readingUjians,
             'kategoriTests' => $kategoriTests,
         ]);
     }
@@ -273,6 +298,7 @@ class SoalUjianController extends Controller
             'kategori_id' => 'required',
             'reading_texts_id' => 'nullable',
             'reading_latihan_soal_id' => 'nullable',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         $soalUjian = SoalUjian::find($id);
@@ -385,10 +411,28 @@ class SoalUjianController extends Controller
         }
 
         //reading_teks_id
-        if ($request->input('reading_ujian_id') === 'null') {
-            $data['reading_ujian_id'] = null;
-        } else {
-            $data['reading_ujian_id'] = $request->input('reading_ujian_id');
+        // if ($request->input('reading_ujian_id') === 'null') {
+        //     $data['reading_ujian_id'] = null;
+        // } else {
+        //     $data['reading_ujian_id'] = $request->input('reading_ujian_id');
+        // }
+
+        if ($request->has('text_content')) {
+            $validate['question'] = 'string';
+            $input = strip_tags($request->input('question'));
+            $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
+            $input = preg_replace('/&rdquo;/', '"', $input);
+            $validate['question'] = 'nullable|string';
+            $data['question'] = $input;
+        }
+
+        if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/reading-ujian', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+
+            Storage::delete('public/reading-ujian/' . $soalUjian->image_content);
         }
 
         $soalUjian->update($data);
@@ -414,6 +458,7 @@ class SoalUjianController extends Controller
             Storage::delete('public/jawaban_b/' . $soalUjian->answer_b_image);
             Storage::delete('public/jawaban_c/' . $soalUjian->answer_c_image);
             Storage::delete('public/jawaban_d/' . $soalUjian->answer_d_image);
+            Storage::delete('public/reading-ujian/' . $soalUjian->image_content);
 
             // Mengambil ID paket soal sebelum menghapus soal
             $paketSoalId = $soalUjian->paket_soal_id;
@@ -433,7 +478,7 @@ class SoalUjianController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Ujian Soal deleted',
+                'message' => 'Soal deleted',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -453,6 +498,17 @@ class SoalUjianController extends Controller
             $soalUjian->update(['question_image' => null]);
 
             return redirect()->back()->with('success', 'Gambar soal berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        //image content reading
+        if ($soalUjian && $soalUjian->image_content) {
+            Storage::delete('public/reading-ujian/' . $soalUjian->image_content);
+
+            $soalUjian->update(['image_content' => null]);
+
+            return redirect()->back()->with('success', 'Gambar reading content berhasil dihapus.');
         } else {
             return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
         }
@@ -516,5 +572,4 @@ class SoalUjianController extends Controller
             return redirect()->back()->with('error', 'Tidak ada audio yang dapat dihapus.');
         }
     }
-
 }

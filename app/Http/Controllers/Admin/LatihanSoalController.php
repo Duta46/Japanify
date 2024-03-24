@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ReadingContentLatihanSoal;
 use Illuminate\Http\Request;
 use App\Models\LatihanSoal;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +14,8 @@ use Yajra\DataTables\DataTables;
 
 class LatihanSoalController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $latihanSoal = LatihanSoal::get();
 
         if ($request->ajax()) {
@@ -28,6 +28,7 @@ class LatihanSoalController extends Controller
                         return '-';
                     }
                 })
+
                 ->editColumn('question_image', function ($item) {
                     if ($item->question_image) {
                         $imagePath = "storage/soal/{$item->question_image}";
@@ -96,11 +97,11 @@ class LatihanSoalController extends Controller
         $kategoriTests = KategoriTest::select(['id', 'name'])->get();
         $kategoris = Kategori::select(['id', 'name'])->get();
         $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
-        $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
+        // $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
         return view('admin.latihan-soal.create', [
             'kategoris' => $kategoris,
-            'readingLatihanSoals' => $readingLatihanSoals,
+            // 'readingLatihanSoals' => $readingLatihanSoals,
             'kategoriTests' => $kategoriTests,
             'paketSoal' => $paketSoal,
         ]);
@@ -123,6 +124,7 @@ class LatihanSoalController extends Controller
             'kategori_id' => 'required',
             'reading_latihan_soal_id' => 'nullable',
             'kategori_test_id' => 'nullable',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         //question
@@ -133,6 +135,8 @@ class LatihanSoalController extends Controller
             $input = preg_replace('/&rdquo;/', '"', $input);
             $validate['question'] = 'nullable|string';
             $data['question'] = $input;
+        } else {
+            $data['question'] = null;
         }
 
         //question image
@@ -211,6 +215,28 @@ class LatihanSoalController extends Controller
 
         $data['correct_answer'] = $request->input('correct_answer');
 
+        //text content
+        if ($request->has('text_content')) {
+            $validate['text_content'] = 'string';
+            $input = strip_tags($request->input('text_content'));
+            $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
+            $input = preg_replace('/&rdquo;/', '"', $input);
+            $validate['text_content'] = 'nullable|string';
+            $data['text_content'] = $input;
+        } else {
+            $data['text_content'] = null;
+        }
+
+        //image_content
+        if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/reading-latihan-soal', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+        } else {
+            $data['image_content'] = null;
+        }
+
         $request->validate($validate);
 
         LatihanSoal::create($data);
@@ -223,7 +249,7 @@ class LatihanSoalController extends Controller
         $paketSoal->jumlah_soal = $jumlahSoal;
         $paketSoal->save();
 
-        return redirect()->route('admin.latihan-soal')->with('success', 'Berhasil Tambah Latihan Soal');
+        return redirect()->route('admin.latihan-soal')->with('success', 'Berhasil Tambah Soal');
     }
 
     public function show(Request $request, $id)
@@ -241,7 +267,7 @@ class LatihanSoalController extends Controller
 
         $categorySoal = Kategori::select(['id', 'name'])->get();
 
-        $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
+        // $readingLatihanSoals = ReadingContentLatihanSoal::select(['id', 'text_content'])->get();
 
         $paketSoal = PaketSoalLatihanSoal::select(['id', 'name'])->get();
 
@@ -249,7 +275,7 @@ class LatihanSoalController extends Controller
             'kategoriTests' => $kategoriTests,
             'categorySoal' => $categorySoal,
             'latihanSoal' => $latihanSoal,
-            'readingLatihanSoals' => $readingLatihanSoals,
+            // 'readingLatihanSoals' => $readingLatihanSoals,
             'paketSoal' => $paketSoal,
         ]);
     }
@@ -270,6 +296,7 @@ class LatihanSoalController extends Controller
             'paket_soal_latihan_soal_id' => 'required',
             'kategori_id' => 'required',
             'reading_latihan_soal_id' => 'nullable',
+            'image_content' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
 
         $latihanSoal = LatihanSoal::find($id);
@@ -382,15 +409,33 @@ class LatihanSoalController extends Controller
         }
 
         //reading_teks_id
-        if ($request->input('reading_latihan_soal_id') === 'null') {
-            $data['reading_latihan_soal_id'] = null;
-        } else {
-            $data['reading_latihan_soal_id'] = $request->input('reading_latihan_soal_id');
+        // if ($request->input('reading_latihan_soal_id') === 'null') {
+        //     $data['reading_latihan_soal_id'] = null;
+        // } else {
+        //     $data['reading_latihan_soal_id'] = $request->input('reading_latihan_soal_id');
+        // }
+
+        if ($request->has('text_content')) {
+            $validate['question'] = 'string';
+            $input = strip_tags($request->input('question'));
+            $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
+            $input = preg_replace('/&rdquo;/', '"', $input);
+            $validate['question'] = 'nullable|string';
+            $data['question'] = $input;
+        }
+
+        if ($request->hasFile('image_content')) {
+            $imageQuestion = $request->file('image_content');
+            $originalImageQuestion = Str::random(10) . $imageQuestion->getClientOriginalName();
+            $imageQuestion->storeAs('public/reading-latihan-soal', $originalImageQuestion);
+            $data['image_content'] = $originalImageQuestion;
+
+            Storage::delete('public/reading-latihan-soal/' . $latihanSoal->image_content);
         }
 
         $latihanSoal->update($data);
 
-        return redirect()->route('admin.latihan-soal')->with('success', 'Berhasil Ubah Latihan Soal');
+        return redirect()->route('admin.latihan-soal')->with('success', 'Berhasil Ubah Soal');
     }
 
     public function destroy($id)
@@ -411,13 +456,24 @@ class LatihanSoalController extends Controller
             Storage::delete('public/jawaban_b/' . $latihanSoal->answer_b_image);
             Storage::delete('public/jawaban_c/' . $latihanSoal->answer_c_image);
             Storage::delete('public/jawaban_d/' . $latihanSoal->answer_d_image);
+            Storage::delete('public/reading-latihan-soal/' . $latihanSoal->image_content);
 
             //Menghapus soal
             $latihanSoal->delete();
 
+            // Menghitung ulang jumlah soal dalam paket yang sesuai
+            $paketSoalLatihanSoalId = $latihanSoal->paket_soal_latihan_soal_id;
+            $paketSoalLatihanSoal = PaketSoalLatihanSoal::find($paketSoalLatihanSoalId);
+
+            if ($paketSoalLatihanSoal) {
+                $jumlahSoal = LatihanSoal::where('paket_soal_latihan_soal_id', $paketSoalLatihanSoalId)->count();
+                $paketSoalLatihanSoal->jumlah_soal = $jumlahSoal;
+                $paketSoalLatihanSoal->save();
+            }
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Latihan Soal deleted',
+                'message' => 'Soal deleted',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -437,6 +493,17 @@ class LatihanSoalController extends Controller
             $latihanSoal->update(['question_image' => null]);
 
             return redirect()->back()->with('success', 'Gambar soal berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
+        }
+
+        //image content reading
+        if ($latihanSoal && $latihanSoal->image_content) {
+            Storage::delete('public/reading-latihan-soal/' . $latihanSoal->image_content);
+
+            $latihanSoal->update(['image_content' => null]);
+
+            return redirect()->back()->with('success', 'Gambar reading content berhasil dihapus.');
         } else {
             return redirect()->back()->with('error', 'Tidak ada gambar yang dapat dihapus.');
         }

@@ -28,9 +28,9 @@
             </div>
             <div class="d-flex flex-stack">
                 @if ($jumlahPaketSoal > 0)
-                    <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-ujian.create') }}">
+                    {{-- <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-ujian.create') }}">
                         Tambah Reading Content
-                    </a>
+                    </a> --}}
                     <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.ujian-soal.create') }}">
                         Tambah Soal
                     </a>

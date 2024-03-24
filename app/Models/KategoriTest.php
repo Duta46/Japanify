@@ -22,10 +22,6 @@ class KategoriTest extends Model
     protected $fillable = [
         'name',
         'point_ujian',
-        'point_kategori_1',
-        'point_kategori_2',
-        'point_kategori_3',
-        'point_kategori_4',
     ];
 
     public function PaketSoal() :HasMany

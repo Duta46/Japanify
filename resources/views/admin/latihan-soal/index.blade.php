@@ -27,9 +27,9 @@
                     placeholder="Cari.." />
             </div>
             <div class="d-flex flex-stack">
-                    <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-latihan-soal.create') }}">
+                    {{-- <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.reading-latihan-soal.create') }}">
                         Tambah Reading Content
-                    </a>
+                    </a> --}}
                     <a type="button" class="btn btn-primary ms-2" href="{{ route('admin.latihan-soal.create') }}">
                         Tambah Soal
                     </a>
@@ -94,17 +94,6 @@
                     orderable: true,
                     searchable: true,
                     width: '20%',
-                    // render: function (data, type, row) {
-                    //     if (type === 'display') {
-                    //         if (data) {
-                    //             return '<img src="'+ data +'" width="50%" height="50%">';
-                    //         } else {
-                    //             return 'Tidak Ada Gambar';
-                    //         }
-                    //     } else {
-                    //         return data;
-                    //     }
-                    // }
                 },
                 {
                     data: 'question_audio',

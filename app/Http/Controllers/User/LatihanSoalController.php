@@ -73,7 +73,6 @@ class LatihanSoalController extends Controller
         return view('user.latihan-soal.introduction', ['paket' => $paket, 'kategoris' => $kategoris, 'soalIds' => $soalIds, 'shuffledSoalIds' => $shuffledSoalIds]);
     }
 
-
     public function mulaiTest(Request $request, $paketSoalId, $soalId)
     {
         $soals = LatihanSoal::with('kategori')
@@ -121,7 +120,7 @@ class LatihanSoalController extends Controller
         // Tentukan apakah soal yang sedang dikerjakan adalah yang terakhir dalam urutan soal
         $lastSoal = $currentSoalIndex === (count($shuffledSoalIds) - 1);
 
-        dd(session()->all());
+        // dd(session()->all());
 
         return view('user.latihan-soal.exercise', [
             'soals' => $soals,

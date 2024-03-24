@@ -23,13 +23,18 @@
                         </div>
                         <div class="col-lg">
                             <textarea name="text_content" id="text_content" class="form-control" placeholder="Input Reading Content">{!!  old('text_content') !!}</textarea>
-                            @error('text_content')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="image_content" class="fs-6 fw-bold mt-2 mb-3">Image Content</label>
+                        </div>
+                        <div class="col-lg">
+                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15" id="file_input" name="image_content" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG or JPEG(MAX. 5MB).</p>
+                        </div>
+                    </div>
+
                     <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="paket_soal_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>

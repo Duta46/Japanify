@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reading_content_latihan_soals', function (Blueprint $table) {
             $table->id();
-            $table->text('text_content');
+            $table->text('text_content')->nullable();
             $table->timestamps();
         });
     }

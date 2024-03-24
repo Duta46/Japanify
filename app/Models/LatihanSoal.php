@@ -33,20 +33,15 @@ class LatihanSoal extends Model
         'point_soal',
         'kategori_id',
         'paket_soal_latihan_soal_id',
-        'reading_latihan_soal_id',
         'kategori_test_id',
+        'text_content',
+        'image_content',
     ];
 
     public function Kategori() :BelongsTo
     {
         return $this->belongsTo(Kategori::class);
     }
-
-    public function ReadingLatihanSoal() :BelongsTo
-    {
-        return $this->belongsTo(ReadingContentLatihanSoal::class);
-    }
-
     public function KategoriTest() :BelongsTo
     {
         return $this->BelongsTo(KategoriTest::class);

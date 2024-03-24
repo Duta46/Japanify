@@ -21,14 +21,17 @@
             </a>
         </div>
         <div class="card-body p-9">
-            @if ($soalUjian->ReadingUjian)
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-semibold text-muted">Reading Content</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($soalUjian->ReadingUjian->text_content)) !!}</span>
-                    </div>
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Reading Content</label>
+                <div class="col-lg-8">
+                    @if ($soalUjian->text_content)
+                        <span class="fw-bold fs-6 text-gray-800">{!! nl2br(e($soalUjian->text_content)) !!}</span>
+                    @elseif ($soalUjian->image_content)
+                        <img src="{{ asset('storage/reading-ujian/' .$soalUjian->image_content) }}" alt="image"
+                            width="100px" height="100px" />
+                    @endif
                 </div>
-            @endif
+            </div>
             <div class="row mb-7">
                 <label class="col-lg-4 fw-semibold text-muted">Soal</label>
                 <div class="col-lg-8">

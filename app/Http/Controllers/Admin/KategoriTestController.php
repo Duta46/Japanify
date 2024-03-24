@@ -9,7 +9,6 @@ use App\Models\SoalUjian;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
-
 use App\Models\LatihanSoal;
 
 class KategoriTestController extends Controller
@@ -67,10 +66,6 @@ class KategoriTestController extends Controller
         $request->validate([
             'name' => 'required|string',
             'point_ujian' => 'required|string',
-            'point_kategori_1' => 'required|string',
-            'point_kategori_2' => 'required|string',
-            'point_kategori_3' => 'required|string',
-            'point_kategori_4' => 'required|string',
         ]);
 
         KategoriTest::create($data);
@@ -99,10 +94,6 @@ class KategoriTestController extends Controller
         $request->validate([
             'name' => 'required|string',
             'point_ujian' => 'required|string',
-            'point_kategori_1' => 'required|string',
-            'point_kategori_2' => 'required|string',
-            'point_kategori_3' => 'required|string',
-            'point_kategori_4' => 'required|string',
         ]);
 
         $Kategori = KategoriTest::find($id);

@@ -11,13 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reading_content_ujians', function (Blueprint $table) {
-            $table->id();
-            $table->text('text_content')->nullable();
-            $table->foreignId('paket_soal_id')->constrained('paket_soals');
-            $table->timestamps();
-
-        });
+        Schema::dropIfExists('reading_content_ujians');
     }
 
     /**
@@ -25,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reading_content_ujians');
+        //
     }
 };

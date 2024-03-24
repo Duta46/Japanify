@@ -91,8 +91,6 @@ class UjianController extends Controller
         // Mengambil soal yang sedang ditampilkan
         $currentSoal = $soals->firstWhere('id', $soalId);
 
-        // dd($currentSoal);
-
         // Menemukan index soal yang sedang ditampilkan dalam koleksi soal
         $currentSoalIndex = $soals->search(function ($soal) use ($currentSoal) {
             return $soal->id === optional($currentSoal)->id;

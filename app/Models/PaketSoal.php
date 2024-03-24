@@ -31,11 +31,6 @@ class PaketSoal extends Model
         return $this->hasMany(SoalUjian::class);
     }
 
-    public function ReadingUjian(): HasMany
-    {
-        return $this->hasMany(ReadingContentUjian::class);
-    }
-
     public function KategoriTest() :BelongsTo
     {
         return $this->belongsTo(KategoriTest::class);

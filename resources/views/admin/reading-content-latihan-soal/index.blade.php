@@ -38,6 +38,7 @@
                     <tr class="fw-semibold fs-6 text-muted">
                         <th class="text-start min-w-100px">No</th>
                         <th class="text-start min-w-70px">Reading Content</th>
+                        <th class="text-start min-w-100px">Image Content</th>
                         <th class="text-start min-w-100px">Paket Soal</th>
                         <th class="text-end min-w-100px">Actions</th>
                     </tr>
@@ -80,6 +81,13 @@
                             return data;
                         }
                     }
+                },
+                {
+                    data: 'image_content',
+                    name: 'image_content',
+                    orderable: true,
+                    searchable: true,
+                    width: '20%',
                 },
                 {
                     data: 'paket_soal_latihan_soal',

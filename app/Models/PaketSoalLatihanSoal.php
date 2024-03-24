@@ -26,11 +26,6 @@ class PaketSoalLatihanSoal extends Model
         return $this->hasMany(LatihanSoal::class);
     }
 
-    public function ReadingLatihanSoal(): HasMany
-    {
-        return $this->hasMany(ReadingContentLatihanSoal::class);
-    }
-
     public function KategoriTest() :BelongsTo
     {
         return $this->belongsTo(KategoriTest::class);

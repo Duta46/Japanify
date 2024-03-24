@@ -14,7 +14,8 @@
 @section('content')
     <div class="card card-docs flex-row-fluid mb-2">
         <div class="card-body fs-6 text-gray-700">
-            <form action="{{ route('admin.latihan-soal.update', $latihanSoal->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.latihan-soal.update', $latihanSoal->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="card-body p-9">
@@ -23,12 +24,13 @@
                             <label for="question" class="fs-6 fw-bold mt-2 mb-3">Soal</label>
                         </div>
                         <div class="col-lg">
-                            <textarea name="question" id="question" class="form-control" value="{{ $latihanSoal->question }}" placeholder="Input Soal">
+                            <textarea name="question" id="question" class="form-control" value="{{ $latihanSoal->question }}"
+                                placeholder="Input Soal">
                                 @if (old('question'))
-                                {{ old('question') }}
-                                @elseif(isset($latihanSoal))
-                                {{ $latihanSoal->question }}
-                                @endif
+{{ old('question') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->question }}
+@endif
                             </textarea>
                         </div>
                     </div>
@@ -65,13 +67,52 @@
                                 id="file_input" name="question_audio" type="file">
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">MP3(MAX. 5MB).</p>
                             @if ($latihanSoal->question_audio)
-                            <audio controls>
-                                <source src="{{ asset('storage/soal/' . $latihanSoal->question_audio) }}" type="audio/mpeg">
-                            </audio>
-                            <a href="{{ route('admin.latihan-soal.delete_audio', ['id' => $latihanSoal->id]) }}"
-                                class="text-red-500">Hapus Audio</a>
+                                <audio controls>
+                                    <source src="{{ asset('storage/soal/' . $latihanSoal->question_audio) }}"
+                                        type="audio/mpeg">
+                                </audio>
+                                <a href="{{ route('admin.latihan-soal.delete_audio', ['id' => $latihanSoal->id]) }}"
+                                    class="text-red-500">Hapus Audio</a>
                             @else
                                 <p>No Audio Uploaded.</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="text_content" class="fs-6 fw-bold mt-2 mb-3">Reading Content</label>
+                        </div>
+                        <div class="col-lg">
+                            <textarea name="text_content" id="text_content" class="form-control" value="{{ $latihanSoal->text_content }}"
+                                placeholder="Input Reading Content">
+                                @if (old('text_content'))
+{{ old('text_content') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->text_content }}
+@endif
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-xl-3">
+                            <label for="image_content" class="fs-6 fw-bold mt-2 mb-3">Reading Image Content</label>
+                        </div>
+                        <div class="col-lg">
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15"
+                                id="file_input" name="image_content" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG or JPG(MAX.
+                                5MB).</p>
+                            @if ($latihanSoal->image_content)
+                                <p>Current Image:</p>
+                                <img src="{{ asset('storage/reading-latihan-soal/' . $latihanSoal->image_content) }}"
+                                    alt="Current Image" width="20%" height="20%">
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
+                                    class="text-red-500">Hapus Gambar</a>
+                            @else
+                                <p>No Image Uploaded.</p>
                             @endif
                         </div>
                     </div>
@@ -85,17 +126,24 @@
                             <label for="textAnswerRadio">Teks</label>
                             <input type="radio" name="answer_a_type" value="image" id="imageAnswerRadio" />
                             <label for="imageAnswerRadio">Gambar</label>
-                            <textarea name="answer_a" id="answer_a" class="form-control z-depth-1 mt-2" rows="3" value="{{ $latihanSoal->answer_a }}" placeholder="Input Jawaban A">@if (old('answer_a')) {{ old('answer_a') }} @elseif(isset($latihanSoal)) {{ $latihanSoal->answer_a }} @endif </textarea>
+                            <textarea name="answer_a" id="answer_a" class="form-control z-depth-1 mt-2" rows="3"
+                                value="{{ $latihanSoal->answer_a }}" placeholder="Input Jawaban A">
+@if (old('answer_a'))
+{{ old('answer_a') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->answer_a }}
+@endif
+</textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_a_image" id="imageAnswerA" type="file" style="display: none;" />
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_image_answer_a"
                                 style="display: none;">PNG or JPG(MAX. 5MB).</p>
                             @if ($latihanSoal->answer_a_image)
-                                <img src="{{ asset('storage/jawaban_a/' . $latihanSoal->answer_a_image) }}" id="image-answer-a"
-                                    alt="Current Image" width="20%" height="20%">
-                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}" id="delete-button-a"
-                                    class="text-red-500">Hapus Gambar</a>
+                                <img src="{{ asset('storage/jawaban_a/' . $latihanSoal->answer_a_image) }}"
+                                    id="image-answer-a" alt="Current Image" width="20%" height="20%">
+                                <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
+                                    id="delete-button-a" class="text-red-500">Hapus Gambar</a>
                             @else
                                 <p id="keterangan-no-image-a">No Image Uploaded.</p>
                             @endif
@@ -111,15 +159,22 @@
                             <label for="textAnswerRadioB">Teks</label>
                             <input type="radio" name="answer_b_type" value="image" id="imageAnswerRadioB" />
                             <label for="imageAnswerRadioB">Gambar</label>
-                            <textarea name="answer_b" id="answer_b" class="form-control z-depth-1 mt-2" rows="3" value="{{ $latihanSoal->answer_b }}" placeholder="Input Jawaban B">@if (old('answer_b')) {{ old('answer_b') }} @elseif(isset($latihanSoal)) {{ $latihanSoal->answer_b }} @endif </textarea>
+                            <textarea name="answer_b" id="answer_b" class="form-control z-depth-1 mt-2" rows="3"
+                                value="{{ $latihanSoal->answer_b }}" placeholder="Input Jawaban B">
+@if (old('answer_b'))
+{{ old('answer_b') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->answer_b }}
+@endif
+</textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_b_image" id="imageAnswerB" type="file" style="display: none;" />
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_image_answer_b"
                                 style="display: none;">PNG or JPG(MAX. 5MB).</p>
                             @if ($latihanSoal->answer_b_image)
-                                <img src="{{ asset('storage/jawaban_b/' . $latihanSoal->answer_b_image) }}" id="image-answer-b"
-                                    alt="Current Image" width="20%" height="20%">
+                                <img src="{{ asset('storage/jawaban_b/' . $latihanSoal->answer_b_image) }}"
+                                    id="image-answer-b" alt="Current Image" width="20%" height="20%">
                                 <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-b" class="text-red-500">Hapus Gambar</a>
                             @else
@@ -137,15 +192,20 @@
                             <label for="textAnswerRadioC">Teks</label>
                             <input type="radio" name="answer_c_type" value="image" id="imageAnswerRadioC" />
                             <label for="imageAnswerRadioC">Gambar</label>
-                            <textarea name="answer_c" id="answer_c" class="form-control z-depth-1 mt-2" rows="3" value="{{ $latihanSoal->answer_c }}" placeholder="Input Jawaban C"> @if (old('answer_c')) {{ old('answer_c') }} @elseif(isset($latihanSoal)) {{ $latihanSoal->answer_c }} @endif </textarea>
+                            <textarea name="answer_c" id="answer_c" class="form-control z-depth-1 mt-2" rows="3"
+                                value="{{ $latihanSoal->answer_c }}" placeholder="Input Jawaban C"> @if (old('answer_c'))
+{{ old('answer_c') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->answer_c }}
+@endif </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_c_image" id="imageAnswerC" type="file" style="display: none;" />
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_image_answer_c"
                                 style="display: none;">PNG or JPG(MAX. 5MB).</p>
                             @if ($latihanSoal->answer_c_image)
-                                <img src="{{ asset('storage/jawaban_c/' . $latihanSoal->answer_c_image) }}" id="image-answer-c"
-                                    alt="Current Image" width="20%" height="20%">
+                                <img src="{{ asset('storage/jawaban_c/' . $latihanSoal->answer_c_image) }}"
+                                    id="image-answer-c" alt="Current Image" width="20%" height="20%">
                                 <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-c" class="text-red-500">Hapus Gambar</a>
                             @else
@@ -163,15 +223,20 @@
                             <label for="textAnswerRadioD">Teks</label>
                             <input type="radio" name="answer_d_type" value="image" id="imageAnswerRadioD" />
                             <label for="imageAnswerRadioD">Gambar</label>
-                            <textarea name="answer_d" id="answer_d" class="form-control z-depth-1 mt-2" rows="3" value="{{ $latihanSoal->answer_d }}" placeholder="Input Jawaban D"> @if (old('answer_d')) {{ old('answer_d') }} @elseif(isset($latihanSoal)) {{ $latihanSoal->answer_d }} @endif </textarea>
+                            <textarea name="answer_d" id="answer_d" class="form-control z-depth-1 mt-2" rows="3"
+                                value="{{ $latihanSoal->answer_d }}" placeholder="Input Jawaban D"> @if (old('answer_d'))
+{{ old('answer_d') }}
+@elseif(isset($latihanSoal))
+{{ $latihanSoal->answer_d }}
+@endif </textarea>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 h-15 mt-2"
                                 name="answer_d_image" id="imageAnswerD" type="file" style="display: none;" />
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_image_answer_d"
                                 style="display: none;">PNG or JPG(MAX. 5MB).</p>
                             @if ($latihanSoal->answer_d_image)
-                                <img src="{{ asset('storage/jawaban_d/' . $latihanSoal->answer_d_image) }}" id="image-answer-d"
-                                    alt="Current Image" width="20%" height="20%">
+                                <img src="{{ asset('storage/jawaban_d/' . $latihanSoal->answer_d_image) }}"
+                                    id="image-answer-d" alt="Current Image" width="20%" height="20%">
                                 <a href="{{ route('admin.latihan-soal.delete_image', ['id' => $latihanSoal->id]) }}"
                                     id="delete-button-d" class="text-red-500">Hapus Gambar</a>
                             @else
@@ -186,12 +251,17 @@
                         </div>
                         <div class="col-lg">
                             <select name="correct_answer"
-                                class="form-select @error('correct_answer') is-invalid @enderror" data-control="select2" data-placeholder="Pilih Kunci Jawaban">
+                                class="form-select @error('correct_answer') is-invalid @enderror" data-control="select2"
+                                data-placeholder="Pilih Kunci Jawaban">
                                 <option value="" disabled selected>Pilih Kunci Jawaban</option>
-                                <option value="A" {{ $latihanSoal->correct_answer == 'A' ? 'selected' : '' }}>A</option>
-                                <option value="B" {{ $latihanSoal->correct_answer == 'B' ? 'selected' : '' }}>B</option>
-                                <option value="C" {{ $latihanSoal->correct_answer == 'C' ? 'selected' : '' }}>C</option>
-                                <option value="D" {{ $latihanSoal->correct_answer == 'D' ? 'selected' : '' }}>D</option>
+                                <option value="A" {{ $latihanSoal->correct_answer == 'A' ? 'selected' : '' }}>A
+                                </option>
+                                <option value="B" {{ $latihanSoal->correct_answer == 'B' ? 'selected' : '' }}>B
+                                </option>
+                                <option value="C" {{ $latihanSoal->correct_answer == 'C' ? 'selected' : '' }}>C
+                                </option>
+                                <option value="D" {{ $latihanSoal->correct_answer == 'D' ? 'selected' : '' }}>D
+                                </option>
                             </select>
                             @error('correct_answer')
                                 <div class="invalid-feedback">
@@ -224,7 +294,8 @@
                             <select name="kategori_id" id="kategori_id" class="form-select" data-control="select2">
                                 @foreach ($categorySoal as $category)
                                     <option value="{{ $category->id }}"
-                                        {{ $category->id == $latihanSoal->kategori_id ? 'selected' : '' }}>{{ $category->name }}
+                                        {{ $category->id == $latihanSoal->kategori_id ? 'selected' : '' }}>
+                                        {{ $category->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -241,7 +312,8 @@
                             <label for="paket_soal_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Paket Soal</label>
                         </div>
                         <div class="col-lg">
-                            <select name="paket_soal_latihan_soal_id" id="paket_soal_latihan_soal_id" class="form-select" data-control="select2">
+                            <select name="paket_soal_latihan_soal_id" id="paket_soal_latihan_soal_id" class="form-select"
+                                data-control="select2">
                                 @foreach ($paketSoal as $paket)
                                     <option value="{{ $paket->id }}"
                                         {{ $paket->id == $latihanSoal->paket_soal_latihan_soal_id ? 'selected' : '' }}>
@@ -257,7 +329,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-5">
+                    {{-- <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="reading_latihan_soal_id" class="fs-6 fw-bold mt-2 mb-3">Content Reading</label>
                         </div>
@@ -272,17 +344,19 @@
                                 <option value="null">Reset Default</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="row mb-5">
                         <div class="col-xl-3">
                             <label for="kategori_test_id" class="fs-6 fw-bold mt-2 mb-3">Kategori Test</label>
                         </div>
                         <div class="col-lg">
-                            <select name="kategori_test_id" id="kategori_test_id" class="form-select" data-control="select2">
+                            <select name="kategori_test_id" id="kategori_test_id" class="form-select"
+                                data-control="select2">
                                 @foreach ($kategoriTests as $kategoriTest)
                                     <option value="{{ $kategoriTest->id }}"
-                                        {{ $kategoriTest->id == $latihanSoal->kategori_test_id ? 'selected' : '' }}>{{ $kategoriTest->name }}
+                                        {{ $kategoriTest->id == $latihanSoal->kategori_test_id ? 'selected' : '' }}>
+                                        {{ $kategoriTest->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -318,6 +392,18 @@
         }
         initTinyMCE('textarea#question');
     </script>
+
+    <script>
+        function initTinyMCE(selector) {
+            tinymce.init({
+                selector: selector,
+                forced_root_block: 'p',
+                force_br_newlines: true,
+            });
+        }
+        initTinyMCE('textarea#text_content');
+    </script>
+
 
     <script>
         //answer_a
@@ -406,7 +492,7 @@
         });
     </script>
 
-<script>
+    {{-- <script>
     $(document).ready(function () {
 
         let initialPaketSoalId = '{{ $latihanSoal->paket_soal_id }}';
@@ -452,5 +538,5 @@
         $('#paket_soal_id').trigger('change');
         $('#reading_ujian_id').val(initialReadingTextsId).trigger('change.select2');
     });
-</script>
+</script> --}}
 @endpush
