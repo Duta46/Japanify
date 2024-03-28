@@ -22,14 +22,19 @@ class LatihanSoalController extends Controller
 
     private function fisherYatesShuffle($array)
     {
+        // Menghitung panjang array
         $count = count($array);
+
+        // Iterasi mundur untuk pengacakan
         for ($i = $count - 1; $i > 0; $i--) {
+            // Memilih indeks acak
             $j = rand(0, $i);
+             // Penukaran elemen jika indeks tidak sama
             if ($i != $j) {
                 list($array[$i], $array[$j]) = array($array[$j], $array[$i]);
             }
         }
-
+         // Mengembalikan array yang sudah teracak
         return $array;
     }
 
@@ -119,6 +124,9 @@ class LatihanSoalController extends Controller
 
         // Tentukan apakah soal yang sedang dikerjakan adalah yang terakhir dalam urutan soal
         $lastSoal = $currentSoalIndex === (count($shuffledSoalIds) - 1);
+
+         // Simpan status ragu-ragu pada session
+        $currentSoal->ragu_ragu = $request->session()->get('ragu_ragu_' . $currentSoal->id, false);
 
         // dd(session()->all());
 

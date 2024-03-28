@@ -15,7 +15,7 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-4 md:mb-0">
                         <div class="flex items-center justify-center mb-4 md:mb-0">
                             <div class="flex items-center justify-center text-2xl font-bold text-true-gray-800">
-                                <span class="me-2">Nomer</span><span>{{ $currentSoalIndex + 1 }}</span>
+                                <span class="me-2">Nomor</span><span>{{ $currentSoalIndex + 1 }}</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center md:justify-end space-x-4">
@@ -65,9 +65,10 @@
                                             @continue
                                         @endif
 
-                                        <button onclick="redirectToQuestion({{ $soal->id }})"
+                                        <button onclick="redirectToQuestion('{{ $soal->id }}')"
                                             class="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-1 rounded"
-                                            @if (!$SameCategory) disabled @endif>
+                                            @if (!$SameCategory) disabled @endif
+                                            id="questionButton_{{ $soal->id }}">
                                             {{ $index + 1 }}
                                         </button>
                                     @endforeach
@@ -255,6 +256,16 @@
     {{-- Navigasi daftar soal start --}}
     <script>
         function redirectToQuestion(soalId) {
+            const raguRagu = sessionStorage.getItem('ragu_ragu_' + soalId); // Periksa status ragu-ragu
+
+            // Perbarui warna tombol berdasarkan status ragu-ragu
+            const buttonElement = document.getElementById('questionButton_' + soalId);
+            if (raguRagu) {
+                buttonElement.classList.add('bg-yellow-500'); // Tambahkan warna kuning jika ragu-ragu
+            } else {
+                buttonElement.classList.remove('bg-yellow-500'); // Hapus warna kuning jika tidak ragu-ragu
+            }
+
             const url = '/exercise/{{ $currentSoal->paket_soal_id }}/' + soalId;
             window.location.href = url;
         }
@@ -392,5 +403,65 @@
         span.onclick = function() {
             modal.style.display = "none";
         }
+    </script>
+
+    <script>
+        // Fungsi untuk menandai atau menghapus tanda ragu-ragu
+        function tandaiRaguRagu() {
+            const checkbox = document.getElementById('ragu-ragu-checklist');
+            const checked = checkbox.checked;
+            const currentSoalId = '{{ $currentSoal->id }}';
+
+            if (checked) {
+                // Tandai ragu-ragu
+                sessionStorage.setItem('ragu_ragu_' + currentSoalId, true);
+                // Perbarui warna tombol pada modal
+                perbaruiWarnaTombol(currentSoalId, true);
+            } else {
+                // Hapus tanda ragu-ragu
+                sessionStorage.removeItem('ragu_ragu_' + currentSoalId);
+                // Perbarui warna tombol pada modal
+                perbaruiWarnaTombol(currentSoalId, false);
+            }
+        }
+
+        // Fungsi untuk memperbarui warna latar belakang tombol pada modal
+        function perbaruiWarnaTombol(soalId, raguRagu) {
+            // Periksa apakah tombol ada pada modal
+            const buttonElement = document.getElementById('questionButton_' + soalId);
+            if (buttonElement) {
+                // Perbarui warna tombol
+                if (raguRagu) {
+                    buttonElement.classList.add('bg-yellow-500');
+                } else {
+                    buttonElement.classList.remove('bg-yellow-500');
+                }
+            }
+        }
+
+        // Inisialisasi status checklist saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('ragu-ragu-checklist');
+            const currentSoalId = '{{ $currentSoal->id }}';
+            const raguRagu = sessionStorage.getItem('ragu_ragu_' + currentSoalId);
+
+            if (raguRagu) {
+                checkbox.checked = true;
+                // Perbarui warna tombol pada modal jika raguRagu dicentang saat halaman dimuat
+                perbaruiWarnaTombol(currentSoalId, true);
+            } else {
+                checkbox.checked = false;
+            }
+
+            // Memperbarui warna tombol pada modal ketika pengguna pindah ke soal selanjutnya
+            const buttons = document.querySelectorAll('.bg-blue-500, .bg-blue-700');
+            buttons.forEach(function(button) {
+                const soalId = button.id.replace('questionButton_', '');
+                const raguRagu = sessionStorage.getItem('ragu_ragu_' + soalId);
+                if (raguRagu) {
+                    button.classList.add('bg-yellow-500');
+                }
+            });
+        });
     </script>
 @endpush

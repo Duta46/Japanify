@@ -6,6 +6,17 @@
 </a>
 @endif
 
+<!-- Ragu-ragu button -->
+<button onclick="tandaiRaguRagu()"
+    class="w-full md:w-auto px-4 py-2 rounded-md bg-yellow-500 hover:bg-yellow-500 text-white font-bold text-center md:text-left flex items-center justify-between">
+    <div class="flex items-center">
+        <!-- Checklist -->
+        <input type="checkbox" id="ragu-ragu-checklist" class="mr-2">
+        {{ $currentSoal->ragu_ragu ? 'checked' : '' }}
+        <label for="ragu-ragu-checklist">Ragu-Ragu</label>
+    </div>
+</button>
+
 <!-- Next button -->
 @if ($nextSoal)
 @php

@@ -118,6 +118,9 @@ class UjianController extends Controller
         $lastSoalCategory = $soals->where('kategori_id', $currentCategory);
         $lastSoal = $lastSoalCategory->last() && $currentSoal->id === $lastSoalCategory->last()->id;
 
+         // Simpan status ragu-ragu pada session
+         $currentSoal->ragu_ragu = $request->session()->get('ragu_ragu_' . $currentSoal->id, false);
+
         // dd(session()->all());
 
         return view('user.ujian.exercise', [

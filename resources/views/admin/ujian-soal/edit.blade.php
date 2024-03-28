@@ -70,7 +70,7 @@
                                     <source src="{{ asset('storage/soal/' . $soalUjian->question_audio) }}"
                                         type="audio/mpeg">
                                 </audio>
-                                <a href="{{ route('admin.soal-ujian.delete_audio', ['id' => $soasoalUjianl->id]) }}"
+                                <a href="{{ route('admin.soal-ujian.delete_audio', ['id' => $soalUjian->id]) }}"
                                     class="text-red-500">Hapus Audio</a>
                             @else
                                 <p>No Audio Uploaded.</p>
