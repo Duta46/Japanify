@@ -104,7 +104,5 @@
 
         console.error("Invalid category or question index.");
     }
-
-
     </script>
 @endpush

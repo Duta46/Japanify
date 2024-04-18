@@ -34,7 +34,8 @@
         }
 
         .features-one {
-            background-color: var(--light-2);
+            /* background-color: var(--light-2); */
+            background-color: #3363e4;
             padding-top: 120px;
             padding-bottom: 120px;
         }
@@ -46,7 +47,8 @@
         .features-one .title {
             font-size: 44px;
             font-weight: 600;
-            color: var(--black);
+            /* color: var(--black); */
+            color: white;
             line-height: 55px;
         }
 

@@ -39,6 +39,12 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'index'])->name('user.login');
 Route::post('/login', [AuthController::class, 'auth'])->name('login.auth');
 
+Route::get('/lupa-password', [AuthController::class, 'forgot_password'])->name('forgot-password');
+Route::post('/lupa-password-act', [AuthController::class, 'forgot_password_act'])->name('forgot-password-act');
+
+Route::get('/validasi-lupa-password/{token}', [AuthController::class, 'validasi_forgot_password'])->name('validasi-forgot-password');
+Route::post('/validasi-lupa-password-act', [AuthController::class, 'validasi_forgot_password_act'])->name('validasi-forgot-password-act');
+
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('user.register.store');
 

@@ -418,12 +418,12 @@ class SoalUjianController extends Controller
         // }
 
         if ($request->has('text_content')) {
-            $validate['question'] = 'string';
-            $input = strip_tags($request->input('question'));
+            $validate['text_content'] = 'string';
+            $input = strip_tags($request->input('text_content'));
             $input = preg_replace('/&hellip;|&nbsp;/', '', $input);
             $input = preg_replace('/&rdquo;/', '"', $input);
-            $validate['question'] = 'nullable|string';
-            $data['question'] = $input;
+            $validate['text_content'] = 'nullable|string';
+            $data['text_content'] = $input;
         }
 
         if ($request->hasFile('image_content')) {

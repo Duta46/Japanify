@@ -1202,11 +1202,36 @@ p {
   transition-duration: 300ms;
 }
 
+  #loginButton span {
+    position: relative;
+    display: inline-block;
+    padding-right: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    --text-opacity: 1;
+    color: #fff;
+    color: rgba(255, 255, 255, var(--text-opacity));
+    text-transform: capitalize;
+    transition-duration: 300ms;
+  }
+
 .sticky .navbar-nav .nav-item a {
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
 }
+
+.sticky #loginButton span {
+    --text-opacity: 1;
+    color: #1a202c;
+    color: rgba(26, 32, 44, var(--text-opacity));
+  }
+
+  .show #loginButton span {
+    --text-opacity: 1;
+    color: #1a202c;
+    color: rgba(26, 32, 44, var(--text-opacity));
+  }
 
 .show .navbar-nav .nav-item a {
   --text-opacity: 1;

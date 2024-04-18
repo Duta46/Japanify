@@ -277,7 +277,7 @@
                         <div class="col-lg">
                             <input type="number" name="point_soal" class="form-control"
                                 value="{{ $soalUjian->point_soal }}" placeholder="Input Point Soal" />
-                            @error('answer_d')
+                            @error('point_soal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -397,6 +397,23 @@
         }
         initTinyMCE('textarea#question');
     </script>
+
+<script>
+    function initTinyMCE(selector) {
+        tinymce.init({
+            selector: selector,
+            forced_root_block: 'p',
+            force_br_newlines: true,
+            formats: {
+                underline: {
+                    inline: 'u'
+                } // Mengizinkan garis bawah
+            }
+        });
+    }
+    initTinyMCE('textarea#text_content');
+</script>
+
 
     <script>
         //answer_a

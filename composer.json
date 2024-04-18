@@ -6,12 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
+        "illuminate/mail": "^10.48",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.2",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "realrashid/sweet-alert": "^7.1",
         "spatie/laravel-permission": "^6.3",
         "yajra/laravel-datatables": "10.0"
     },

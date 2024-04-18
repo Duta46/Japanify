@@ -92,9 +92,6 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#about">About</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="page-scroll" href="#facts">Why</a>
-                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#team">Team</a>
                                     </li>
@@ -108,13 +105,13 @@
                                 id="loginButton">
                                 @auth
                                     @if (isset($username))
-                                        <span class="text-sm font-normal text-gray-800">Welcome, {{ $username }}</span>
+                                        <span class="text-sm font-normal">Welcome, {{ $username }}</span>
                                     @else
-                                        <span class="text-sm font-normal text-gray-800">Welcome,
+                                        <span class="text-sm font-normal">Welcome,
                                             {{ Auth::user()->username }}</span>
                                     @endif
                                     <a href="{{ route('user.logout') }}"
-                                        class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900">Logout</a>
+                                        class="text-sm font-normal"><span>Logout</span></a>
                                 @else
                                     <a class="main-btn gradient-btn" data-scroll-nav="0" href="{{ route('user.login') }}"
                                         rel="nofollow">Login</a>
